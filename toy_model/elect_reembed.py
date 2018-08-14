@@ -1,3 +1,7 @@
+'''
+Yunkai Zhang, 08/13/2018
+Model outputs a single y value and trains on MSE.
+'''
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -10,7 +14,7 @@ import tensorflow as tf
 from os import path
 
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('TkAgg') #change to Agg if on server
 import matplotlib.pyplot as plt
 from math import sqrt
 from pandas import read_csv, DataFrame
@@ -124,27 +128,12 @@ def train_model(window_size, LSTM_neurons):
     x1 = LSTM(LSTM_neurons, dropout=0.2, kernel_initializer = 'truncated_normal', return_sequences = True)(x)
     x2 = LSTM(LSTM_neurons, dropout=0.2, kernel_initializer = 'truncated_normal', return_sequences = True)(x1)
     x3 = LSTM(LSTM_neurons, dropout=0.2, kernel_initializer = 'truncated_normal', return_sequences = True)(x2)
-    '''
-    x1 = LSTM(LSTM_neurons, return_sequences = True)(x)
-    x2 = LSTM(LSTM_neurons, return_sequences = True)(x1)
-    x3 = LSTM(LSTM_neurons, return_sequences = True)(x2)
-    '''
     param1 = TimeDistributed(Dense(1))(x3)
     param2 = TimeDistributed(Dense(1,activation='softplus'))(x3)
-    print("param1:")
-    print(param1)
-    #print(param1.shape)
     scaled_param1 = Lambda(mult_scale)([param1, scale_input])
     scaled_param2 = Lambda(mult_sqrt_scale)([param2, scale_input])
-    print("scaled_param1:")
-    print(type(scaled_param1))
-    print(scaled_param1.shape)
     output_layer = Concatenate(axis = 2)([scaled_param1, scaled_param2])
-    print("out_layer:")
-    print(output_layer.shape)
-    #model = Model(inputs=[series_input, main_input, scale_input], outputs=[output_layer])
     model = Model(inputs=[series_input, main_input, scale_input], outputs=[param1])
-    print(model.summary())
     return model
 
 name = "electricity_hourly"
@@ -163,14 +152,6 @@ time_len = data_values.shape[0]
 scale_values = np.load(name+'_scale.npy')
 one_hot_labels = np.eye(num_series)
 train_number = int(data_values.shape[0]*0.9)
-print("one_hot_labels:")
-print(one_hot_labels.shape)
-print("data_values:")
-print(data_values.shape)
-print("scale_values:")
-print(scale_values.shape)
-
-print(data_values[:, :, 1])
 train_model = train_model(window_size, LSTM_neurons)
 adam = optimizers.Adam(lr=learning_rate)
 train_model.compile(loss='mse', optimizer=adam)
@@ -198,20 +179,11 @@ for i in range(tot_epoch):
         for k in range(window_size):
             predict_values[j,k] = predict_params[j,k]*scale_values[chosen_batch[j], 0]
 
-    '''
-    predict_values = np.zeros((1000, window_size))
-    for j in range(1000):
-        for k in range(window_size):
-            predict_values[j, k] = generate_gaussian(predict_params[j, k, 0], predict_params[j, k, 1])
-    ND = ND_metrics(data_values[chosen_batch,:,0], predict_values)
-    '''
     nd_values[i] = ND_metrics(data_values[chosen_batch,:,0], predict_values)
     print("ND: ", nd_values[i])
     rmse_values[i] = RMSE_metrics(data_values[chosen_batch,:,0], predict_values, window_size)
     print("RMSE: ", rmse_values[i])
 
-    print("predict_params", predict_values[0:20, 0:15])
-    print("data_values", data_values[chosen_batch, :, 0])
     x = np.arange(window_size)
     f = plt.figure()
     base = 8*100+10
