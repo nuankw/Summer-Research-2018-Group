@@ -1,3 +1,10 @@
+'''
+Yunkai Zhang, 08/13/2018
+Final model for electricity: outputs mu and sigma, selects by v,
+generates 200 samples from the distribution, runs prediction from
+time step 1 each time.
+'''
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
