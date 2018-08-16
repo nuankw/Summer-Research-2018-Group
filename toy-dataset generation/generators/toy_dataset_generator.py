@@ -40,12 +40,13 @@ class PatternGenerator:
         self.x = np.array(range(self.size))
         self.scale = np.ones(self.size)
         self.freq = np.ones(self.size)
-        self.func = np.sin # numpy.ufunc
+        self.func1 = np.sin # numpy.ufunc
+        self.func2 = np.cos
         self.y_center = np.zeros(self.size)
         self.calculate_y()
-        #plot('ko-')
         self.num_variations()
         self.allocate_variations()
+        
         
     def num_variations(self):
         # determine the ratio of where anomaly happens (large and small redidual)
@@ -69,7 +70,7 @@ class PatternGenerator:
         # allocate change (long and short span)
         self.ratio_change = self.ratio_large / 2
         self.n_change = int(self.size * self.ratio_change)
-        self.n_large_change = int(self.n_change * 0.1) + 1
+        self.n_large_change = int(self.n_change * 0.2) + 1
         self.n_small_change = self.n_change - self.n_large_change
         change_indexes = [random.randint(0, self.size-1) for _ in range(self.n_change)]
         self.large_change_indexes = change_indexes[:self.n_large_change]
@@ -84,15 +85,15 @@ class PatternGenerator:
         
         # large change
         large_portion_size = self.size // self.n_large_change
-        large_change_startpts = np.array( np.array(range(0, self.n_large_change)) * large_portion_size, dtype = 'int32')
-        large_change_period = np.array([ int(random.uniform(1,3) * large_portion_size) for _ in range(self.n_large_change)])
+        large_change_startpts = np.array( np.array(range(0, self.n_large_change)) * large_portion_size / 4, dtype = 'int32')
+        large_change_period = np.array([ int(random.uniform(0.5,0.6) * self.size) for _ in range(self.n_large_change)])
         offset = np.array([ int(random.uniform(0,1) * large_portion_size) for _ in range(self.n_large_change)])
         self.large_change_spans = [ (large_change_startpts[i]+offset[i], large_change_startpts[i]+offset[i]+large_change_period[i] ) for i in range(self.n_large_change)]
-        ### notice that the range, especially the end points is not guaranteed to fall within [0,size)
+        # notice that the range, especially the end points is not guaranteed to fall within [0,size)
         
                 
     def calculate_y(self):
-        self.y = self.func(self.t * self.freq) * self.scale + self.y_center
+        self.y = self.func1(self.t * self.freq) * self.scale + self.func1(self.t * self.freq) * self.scale + self.y_center
         
     def plot(self, formatStr):
         plt.plot(self.x, self.y, formatStr) 
@@ -145,32 +146,43 @@ class PatternGenerator:
         }
         return switcher[typeIndicator] # returns the functions
 
-    def add_change(self, span, typeIndicator, func):
+    def add_change(self, spanTuple, typeIndicator, func=None):
         # span: <--- a tuple of starting and ending points
         # typeIndictator: translated enum (int)
         # func: for func_type (typeIndicator == 0, NEW_FUNCTION_ONLY)
+        span = np.array(range(spanTuple[0],spanTuple[1]))
         change_type = self.generate_change_type(typeIndicator)
         if (typeIndicator != 0):
             change_type(span)
         else:
             change_type(span,func)
-        self.plot('r.')
         pass
     
     
     def allocate_variations(self):
-        # anomaly is randomly positioned
-        self.add_anomaly(self.large_anomaly_indexes, 3)
-        self.add_anomaly(self.small_anomaly_indexes, 1.5)
-        self.plot('b*')
-        
+
         # seperate data into portions and apply change
         # best not to overlap
         # random choose for eadh self.small_change_spans
         # random choose for eadh self.large_change_spans
-        # TODO
+        self.small_change_indicators = [ random.randint(1, 6) for _ in range(self.n_small_change)]
+        for i in range(len(self.small_change_indicators)):
+            self.add_change(self.small_change_spans[i], self.small_change_indicators[i])
+            
+        self.large_change_indicators = [ random.randint(1, 6) for _ in range(self.n_large_change)]
+        for i in range(len(self.large_change_indicators)):
+            self.add_change(self.large_change_spans[i], self.large_change_indicators[i])
+        #self.plot('r.-')
+        
+        # anomaly is randomly positioned
+        self.add_anomaly(self.large_anomaly_indexes, 3)
+        self.add_anomaly(self.small_anomaly_indexes, 1.5)
+        self.plot('bo-')
         
 p1 = PatternGenerator(50)
+#p2 = PatternGenerator(50)
+#p3 = PatternGenerator(50)
+
 # TODO 
 # p2 = 
 # combine them
