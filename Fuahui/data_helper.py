@@ -147,7 +147,7 @@ def prepare():
 		file_list.append("./data/processed/"+file)
 		print ("./data/processed/"+file)
 	os.chdir("../../")
-	file_list = file_list[0:100]
+	print (len(file_list))
 	data_cov_tuple_list = read(file_list)
 	for data_cov_tuple in data_cov_tuple_list:
 		data, day_of_the_week, hour_of_the_day = data_cov_tuple
@@ -160,6 +160,8 @@ def prepare():
 			#for i in range(1060,1060+num_window):  # loop through all windows in one time serie
 				#computing Vi for each window
 				vi = np.sum(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis = 0)  #data[i:i+window_size,serie] is a single window
+				if vi ==0:
+					break
 				vi = np.true_divide(vi, window_size)+1
 				#vi = vi.reshape([1, num_series]) #shape=[num_series, 1]
 				temp_shift_train_data = np.true_divide(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64),vi ).reshape([1,window_size])
@@ -198,6 +200,7 @@ def prepare():
 			try: indexs.remove(j)
 			except:	pass
 	'''
+	print ("indexs.length: ", len(indexs))
 	np.random.shuffle(indexs)
 	np.random.shuffle(indexs_pred)
 	num_row = (len(indexs))//batch_size
