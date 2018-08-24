@@ -1,5 +1,5 @@
 import tensorflow as tf 
-import data_helper
+import data_helper_chen
 import numpy as np
 import matplotlib.pyplot as plt
 import datetime
@@ -67,7 +67,7 @@ class DeepAR (object):
 			cell = tf.nn.rnn_cell.DropoutWrapper(cell, 
 												 output_keep_prob=0.7)
 			return cell
-		
+
 		#堆叠多层lstm，返回state=(c,h)
 		cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell(hidden_unit) for _ in range(num_layer)] , state_is_tuple=True) 
 		self.initial_state = cell.zero_state(self.batch_size, dtype = tf.float32) 
@@ -355,9 +355,6 @@ class DeepAR (object):
 			 			 										], 
 			 			 										feed_dict = feed_dict)
 			return ( neg_log_likelihood_pred, RMSE_pred, ND_pred, miu_pred)
-		
-		
-
 
 
 		with tf.Session() as sess:
@@ -365,34 +362,6 @@ class DeepAR (object):
 			sess.run(init)
 			#创建saver对象
 			saver = tf.train.Saver()
-			
-			
-
-			
-
-			#plot before training
-			'''
-			neg_log_likelihood_pred, RMSE_pred, ND_pred, miu_pred = pred_step(input_x_batch_pred, 
-																			 input_onehot_batch_pred,
-																			 input_y_batch_pred,
-																			 input_v_batch_pred,
-																			 batch_size_pred,)
-			feed_dict ={
-			self.input_x: input_x_batch_pred, 
-			self.input_x_onehot: input_onehot_batch_pred,
-			self.input_y: input_y_batch_pred,
-			self.v :input_v_batch_pred,
-			self.batch_size: batch_size_pred
-			}
-			neg_log_likelihood, prob_log, RMSE_train, miu_train = sess.run([
-														 self.neg_log_likelihood, 
-														 self.prob_log, 
-														 self.RMSE_train,
-														 self.miu_concat
-														 ],feed_dict = feed_dict)
-
-			plot(input_y_batch_pred, miu_pred, miu_train, 5)
-			'''
 
 
 			print ("###########     TIME     ##########")
@@ -505,7 +474,7 @@ class DeepAR (object):
  shift_train_label,
  param,
  index_list,
- indexs_pred_list) = data_helper.prepare()
+ indexs_pred_list) = data_helper_chen.prepare()
 
 (num_covar,
 encode_length,
