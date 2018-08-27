@@ -763,9 +763,14 @@ class LSTMCell(LayerRNNCell):
     if inputs_shape[1].value is None:
       raise ValueError("Expected inputs.shape[-1] to be known, saw shape: %s"
                        % inputs_shape)
-    input_depth = inputs_shape[1].value
-    ############################################################################
-    input_depth = 8
+
+    ####### ORIG ###############################################################
+    #input_depth = inputs_shape[1].value
+    ####### NEW ################################################################
+    if (input_shape[1].value != self._num_units): # first layer
+        input_depth = input_shape[1].value - self._num_units
+    else:
+        input_depth = inputs_shape[1].value
     ############################################################################
 
     h_depth = self._num_units if self._num_proj is None else self._num_proj
@@ -832,10 +837,12 @@ class LSTMCell(LayerRNNCell):
       ValueError: If input size cannot be inferred from inputs via
         static shape inference.
     """
+
     ################################################################
-    forget_gate_input = array_ops.slice(inputs, [0,0], [-1, 40])
-    inputs_temp = array_ops.slice(inputs, [0,40], [-1, -1])
-    inputs = inputs_temp
+    if (input_shape[1].value != self._num_units): # first layer
+        forget_gate_input = array_ops.slice(inputs, [0,0], [-1, 40])
+        inputs_temp = array_ops.slice(inputs, [0,40], [-1, -1])
+        inputs = inputs_temp
     ################################################################
 
     num_proj = self._num_units if self._num_proj is None else self._num_proj
@@ -856,9 +863,10 @@ class LSTMCell(LayerRNNCell):
         array_ops.concat([inputs, m_prev], 1), self._kernel)
 
     ##### new forget_gate #####
-    lstm_matrix_f = math_ops.matmul(
-        array_ops.concat([inputs, forget_gate_input * m_prev], 1), self._kernel[:, self._num_units*2:self._num_units*3])
-    lstm_matrix = array_ops.concat([lstm_matrix[:,:2*self._num_units], lstm_matrix_f, lstm_matrix[:,3*self._num_units:]], axis=1)
+    if (input_shape[1].value != self._num_units): # first layer
+        lstm_matrix_f = math_ops.matmul(
+            array_ops.concat([inputs, forget_gate_input * m_prev], 1), self._kernel[:, self._num_units*2:self._num_units*3])
+        lstm_matrix = array_ops.concat([lstm_matrix[:,:2*self._num_units], lstm_matrix_f, lstm_matrix[:,3*self._num_units:]], axis=1)
     ###########################
 
     lstm_matrix = nn_ops.bias_add(lstm_matrix, self._bias)
