@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 """Module implementing RNN Cells.
-
 This module provides a number of basic commonly used RNN cells, such as LSTM
 (Long Short Term Memory) or GRU (Gated Recurrent Unit), and a number of
 operators that allow adding dropouts, projections, or embeddings for inputs.
@@ -60,16 +59,13 @@ ASSERT_LIKE_RNNCELL_ERROR_REGEXP = "is not an RNNCell"
 
 def assert_like_rnncell(cell_name, cell):
   """Raises a TypeError if cell is not like an RNNCell.
-
   NOTE: Do not rely on the error message (in particular in tests) which can be
   subject to change to increase readability. Use
   ASSERT_LIKE_RNNCELL_ERROR_REGEXP.
-
   Args:
     cell_name: A string to give a meaningful error referencing to the name
       of the functionargument.
     cell: The object which should behave like an RNNCell.
-
   Raises:
     TypeError: A human-friendly exception.
   """
@@ -95,21 +91,17 @@ def assert_like_rnncell(cell_name, cell):
 
 def _concat(prefix, suffix, static=False):
   """Concat that enables int, Tensor, or TensorShape values.
-
   This function takes a size specification, which can be an integer, a
   TensorShape, or a Tensor, and converts it into a concatenated Tensor
   (if static = False) or a list of integers (if static = True).
-
   Args:
     prefix: The prefix; usually the batch size (and/or time step size).
       (TensorShape, int, or Tensor.)
     suffix: TensorShape, int, or Tensor.
     static: If `True`, return a python list with possibly unknown dimensions.
       Otherwise return a `Tensor`.
-
   Returns:
     shape: the concatenation of prefix and suffix.
-
   Raises:
     ValueError: if `suffix` is not a scalar or vector (or TensorShape).
     ValueError: if prefix or suffix was `None` and asked for dynamic
@@ -169,16 +161,13 @@ def _zero_state_tensors(state_size, batch_size, dtype):
 @tf_export("nn.rnn_cell.RNNCell")
 class RNNCell(base_layer.Layer):
   """Abstract object representing an RNN cell.
-
   Every `RNNCell` must have the properties below and implement `call` with
   the signature `(output, next_state) = call(input, state)`.  The optional
   third input argument, `scope`, is allowed for backwards compatibility
   purposes; but should be left off for new subclasses.
-
   This definition of cell differs from the definition used in the literature.
   In the literature, 'cell' refers to an object with a single scalar output.
   This definition refers to a horizontal array of such units.
-
   An RNN cell, in the most abstract setting, is anything that has
   a state and performs some operation that takes a matrix of inputs.
   This operation results in an output matrix with `self.output_size` columns.
@@ -191,7 +180,6 @@ class RNNCell(base_layer.Layer):
 
   def __call__(self, inputs, state, scope=None):
     """Run this RNN cell on inputs, starting from the given state.
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: if `self.state_size` is an integer, this should be a `2-D Tensor`
@@ -199,10 +187,8 @@ class RNNCell(base_layer.Layer):
         `self.state_size` is a tuple of integers, this should be a tuple
         with shapes `[batch_size, s] for s in self.state_size`.
       scope: VariableScope for the created subgraph; defaults to class name.
-
     Returns:
       A pair containing:
-
       - Output: A `2-D` tensor with shape `[batch_size, self.output_size]`.
       - New state: Either a single `2-D` tensor, or a tuple of tensors matching
         the arity and shapes of `state`.
@@ -239,7 +225,6 @@ class RNNCell(base_layer.Layer):
   @property
   def state_size(self):
     """size(s) of state(s) used by this cell.
-
     It can be represented by an Integer, a TensorShape or a tuple of Integers
     or TensorShapes.
     """
@@ -257,15 +242,12 @@ class RNNCell(base_layer.Layer):
 
   def zero_state(self, batch_size, dtype):
     """Return zero-filled state tensor(s).
-
     Args:
       batch_size: int, float, or unit Tensor representing the batch size.
       dtype: the data type to use for the state.
-
     Returns:
       If `state_size` is an int or TensorShape, then the return value is a
       `N-D` tensor of shape `[batch_size, state_size]` filled with zeros.
-
       If `state_size` is a nested list or tuple, then the return value is
       a nested list or tuple (of the same structure) of `2-D` tensors with
       the shapes `[batch_size, s]` for each s in `state_size`.
@@ -290,13 +272,11 @@ class RNNCell(base_layer.Layer):
 
 class LayerRNNCell(RNNCell):
   """Subclass of RNNCells that act like proper `tf.Layer` objects.
-
   For backwards compatibility purposes, most `RNNCell` instances allow their
   `call` methods to instantiate variables via `tf.get_variable`.  The underlying
   variable scope thus keeps track of any variables, and returning cached
   versions.  This is atypical of `tf.layer` objects, which separate this
   part of layer building into a `build` method that is only called once.
-
   Here we provide a subclass for `RNNCell` objects that act exactly as
   `Layer` objects do.  They must provide a `build` method and their
   `call` methods do not access Variables `tf.get_variable`.
@@ -304,7 +284,6 @@ class LayerRNNCell(RNNCell):
 
   def __call__(self, inputs, state, scope=None, *args, **kwargs):
     """Run this RNN cell on inputs, starting from the given state.
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: if `self.state_size` is an integer, this should be a `2-D Tensor`
@@ -314,10 +293,8 @@ class LayerRNNCell(RNNCell):
       scope: optional cell scope.
       *args: Additional positional arguments.
       **kwargs: Additional keyword arguments.
-
     Returns:
       A pair containing:
-
       - Output: A `2-D` tensor with shape `[batch_size, self.output_size]`.
       - New state: Either a single `2-D` tensor, or a tuple of tensors matching
         the arity and shapes of `state`.
@@ -332,7 +309,6 @@ class LayerRNNCell(RNNCell):
 @tf_export("nn.rnn_cell.BasicRNNCell")
 class BasicRNNCell(LayerRNNCell):
   """The most basic RNN cell.
-
   Args:
     num_units: int, The number of units in the RNN cell.
     activation: Nonlinearity to use.  Default: `tanh`.
@@ -397,7 +373,6 @@ class BasicRNNCell(LayerRNNCell):
 @tf_export("nn.rnn_cell.GRUCell")
 class GRUCell(LayerRNNCell):
   """Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078).
-
   Args:
     num_units: int, The number of units in the GRU cell.
     activation: Nonlinearity to use.  Default: `tanh`.
@@ -498,10 +473,8 @@ _LSTMStateTuple = collections.namedtuple("LSTMStateTuple", ("c", "h"))
 @tf_export("nn.rnn_cell.LSTMStateTuple")
 class LSTMStateTuple(_LSTMStateTuple):
   """Tuple used by LSTM Cells for `state_size`, `zero_state`, and output state.
-
   Stores two elements: `(c, h)`, in that order. Where `c` is the hidden state
   and `h` is the output.
-
   Only used when `state_is_tuple=True`.
   """
   __slots__ = ()
@@ -518,15 +491,11 @@ class LSTMStateTuple(_LSTMStateTuple):
 @tf_export("nn.rnn_cell.BasicLSTMCell")
 class BasicLSTMCell(LayerRNNCell):
   """Basic LSTM recurrent network cell.
-
   The implementation is based on: http://arxiv.org/abs/1409.2329.
-
   We add forget_bias (default: 1) to the biases of the forget gate in order to
   reduce the scale of forgetting in the beginning of the training.
-
   It does not allow cell clipping, a projection layer, and does not
   use peep-hole connections: it is the basic baseline.
-
   For advanced models, please use the full @{tf.nn.rnn_cell.LSTMCell}
   that follows.
   """
@@ -540,7 +509,6 @@ class BasicLSTMCell(LayerRNNCell):
                name=None,
                dtype=None):
     """Initialize the basic LSTM cell.
-
     Args:
       num_units: int, The number of units in the LSTM cell.
       forget_bias: float, The bias added to forget gates (see above).
@@ -558,7 +526,6 @@ class BasicLSTMCell(LayerRNNCell):
         cases.
       dtype: Default dtype of the layer (default of `None` means use the type
         of the first input). Required when `build` is called before `call`.
-
       When restoring from CudnnLSTM-trained checkpoints, must use
       `CudnnCompatibleLSTMCell` instead.
     """
@@ -603,14 +570,12 @@ class BasicLSTMCell(LayerRNNCell):
 
   def call(self, inputs, state):
     """Long short-term memory cell (LSTM).
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: An `LSTMStateTuple` of state tensors, each shaped
         `[batch_size, num_units]`, if `state_is_tuple` has been set to
         `True`.  Otherwise, a `Tensor` shaped
         `[batch_size, 2 * num_units]`.
-
     Returns:
       A pair containing the new hidden state, and the new state (either a
         `LSTMStateTuple` or a concatenated state, depending on
@@ -651,22 +616,15 @@ class BasicLSTMCell(LayerRNNCell):
 @tf_export("nn.rnn_cell.LSTMCell")
 class LSTMCell(LayerRNNCell):
   """Long short-term memory unit (LSTM) recurrent network cell.
-
   The default non-peephole implementation is based on:
-
     http://www.bioinf.jku.at/publications/older/2604.pdf
-
   S. Hochreiter and J. Schmidhuber.
   "Long Short-Term Memory". Neural Computation, 9(8):1735-1780, 1997.
-
   The peephole implementation is based on:
-
     https://research.google.com/pubs/archive/43905.pdf
-
   Hasim Sak, Andrew Senior, and Francoise Beaufays.
   "Long short-term memory recurrent neural network architectures for
    large scale acoustic modeling." INTERSPEECH, 2014.
-
   The class uses optional peep-hole connections, optional cell clipping, and
   an optional projection layer.
   """
@@ -678,7 +636,6 @@ class LSTMCell(LayerRNNCell):
                forget_bias=1.0, state_is_tuple=True,
                activation=None, reuse=None, name=None, dtype=None):
     """Initialize the parameters for an LSTM cell.
-
     Args:
       num_units: int, The number of units in the LSTM cell.
       use_peepholes: bool, set True to enable diagonal/peephole connections.
@@ -711,7 +668,6 @@ class LSTMCell(LayerRNNCell):
         cases.
       dtype: Default dtype of the layer (default of `None` means use the type
         of the first input). Required when `build` is called before `call`.
-
       When restoring from CudnnLSTM-trained checkpoints, use
       `CudnnCompatibleLSTMCell` instead.
     """
@@ -767,8 +723,9 @@ class LSTMCell(LayerRNNCell):
     ####### ORIG ###############################################################
     #input_depth = inputs_shape[1].value
     ####### NEW ################################################################
-    if (input_shape[1].value != self._num_units): # first layer
-        input_depth = input_shape[1].value - self._num_units
+    print ("inputs_shape[1].value: ", inputs_shape[1].value)
+    if (inputs_shape[1].value != self._num_units): # first layer
+        input_depth = inputs_shape[1].value - self._num_units
     else:
         input_depth = inputs_shape[1].value
     ############################################################################
@@ -814,17 +771,14 @@ class LSTMCell(LayerRNNCell):
 
   def call(self, inputs, state):
     """Run one step of LSTM.
-
     Args:
       inputs: input Tensor, 2D, `[batch, num_units].
       state: if `state_is_tuple` is False, this must be a state Tensor,
         `2-D, [batch, state_size]`.  If `state_is_tuple` is True, this must be a
         tuple of state Tensors, both `2-D`, with column sizes `c_state` and
         `m_state`.
-
     Returns:
       A tuple containing:
-
       - A `2-D, [batch, output_dim]`, Tensor representing the output of the
         LSTM after reading `inputs` when previous state was `state`.
         Here output_dim is:
@@ -832,14 +786,13 @@ class LSTMCell(LayerRNNCell):
            num_units otherwise.
       - Tensor(s) representing the new state of LSTM after reading `inputs` when
         the previous state was `state`.  Same type and shape(s) as `state`.
-
     Raises:
       ValueError: If input size cannot be inferred from inputs via
         static shape inference.
     """
 
     ################################################################
-    if (input_shape[1].value != self._num_units): # first layer
+    if (inputs.shape[1] != self._num_units): # first layer
         forget_gate_input = array_ops.slice(inputs, [0,0], [-1, 40])
         inputs_temp = array_ops.slice(inputs, [0,40], [-1, -1])
         inputs = inputs_temp
@@ -863,7 +816,7 @@ class LSTMCell(LayerRNNCell):
         array_ops.concat([inputs, m_prev], 1), self._kernel)
 
     ##### new forget_gate #####
-    if (input_shape[1].value != self._num_units): # first layer
+    if (inputs.shape[1] != self._num_units): # first layer
         lstm_matrix_f = math_ops.matmul(
             array_ops.concat([inputs, forget_gate_input * m_prev], 1), self._kernel[:, self._num_units*2:self._num_units*3])
         lstm_matrix = array_ops.concat([lstm_matrix[:,:2*self._num_units], lstm_matrix_f, lstm_matrix[:,3*self._num_units:]], axis=1)
@@ -931,20 +884,15 @@ class DropoutWrapper(RNNCell):
                input_size=None, dtype=None, seed=None,
                dropout_state_filter_visitor=None):
     """Create a cell with added input, state, and/or output dropout.
-
     If `variational_recurrent` is set to `True` (**NOT** the default behavior),
     then the same dropout mask is applied at every step, as described in:
-
     Y. Gal, Z Ghahramani.  "A Theoretically Grounded Application of Dropout in
     Recurrent Neural Networks".  https://arxiv.org/abs/1512.05287
-
     Otherwise a different dropout mask is applied at every time step.
-
     Note, by default (unless a custom `dropout_state_filter` is provided),
     the memory state (`c` component of any `LSTMStateTuple`) passing through
     a `DropoutWrapper` is never modified.  This behavior is described in the
     above article.
-
     Args:
       cell: an RNNCell, a projection to output_size is added to it.
       input_keep_prob: unit Tensor or float between 0 and 1, input keep
@@ -987,7 +935,6 @@ class DropoutWrapper(RNNCell):
             return False
           return True
         ```
-
     Raises:
       TypeError: if `cell` is not an `RNNCell`, or `keep_state_fn` is provided
         but not `callable`.
@@ -1160,7 +1107,6 @@ class ResidualWrapper(RNNCell):
 
   def __init__(self, cell, residual_fn=None):
     """Constructs a `ResidualWrapper` for `cell`.
-
     Args:
       cell: An instance of `RNNCell`.
       residual_fn: (Optional) The function to map raw cell inputs and raw cell
@@ -1188,15 +1134,12 @@ class ResidualWrapper(RNNCell):
 
   def __call__(self, inputs, state, scope=None):
     """Run the cell and then apply the residual_fn on its inputs to its outputs.
-
     Args:
       inputs: cell inputs.
       state: cell state.
       scope: optional cell scope.
-
     Returns:
       Tuple of cell outputs and new state.
-
     Raises:
       TypeError: If cell inputs and outputs have different structure (type).
       ValueError: If cell inputs and outputs have different structure (value).
@@ -1219,9 +1162,7 @@ class DeviceWrapper(RNNCell):
 
   def __init__(self, cell, device):
     """Construct a `DeviceWrapper` for `cell` with device `device`.
-
     Ensures the wrapped `cell` is called with `tf.device(device)`.
-
     Args:
       cell: An instance of `RNNCell`.
       device: A device string or function, for passing to `tf.device`.
@@ -1254,9 +1195,7 @@ class DeviceWrapper(RNNCell):
 @tf_export("nn.rnn_cell.MultiRNNCell")
 class MultiRNNCell(RNNCell):
   """RNN cell composed sequentially of multiple simple cells.
-
   Example:
-
   ```python
   num_units = [128, 64]
   cells = [BasicLSTMCell(num_units=n) for n in num_units]
@@ -1266,14 +1205,12 @@ class MultiRNNCell(RNNCell):
 
   def __init__(self, cells, state_is_tuple=True):
     """Create a RNN cell composed sequentially of a number of RNNCells.
-
     Args:
       cells: list of RNNCells that will be composed in this order.
       state_is_tuple: If True, accepted and returned states are n-tuples, where
         `n = len(cells)`.  If False, the states are all
         concatenated along the column axis.  This latter behavior will soon be
         deprecated.
-
     Raises:
       ValueError: if cells is empty (not allowed), or at least one of the cells
         returns a state tuple but the flag `state_is_tuple` is `False`.
