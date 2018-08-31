@@ -1,17 +1,9 @@
 # %%
-'''
-git clone https://github.com/TimeSynth/TimeSynth.git
-For Nuan's Windows system:
-run anaconda prompt as administrator
-cd C:\Users\Nuan Wen\Desktop\Summer\Research\TimeSynth-master
-python setup.py install
-'''
+
 # %%
 %matplotlib inline
 import timesynth as ts
-import matplotlib
 import numpy as np
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 def sinusoid_pattern(length, ftype, period, amplitude, std):
