@@ -34,7 +34,7 @@ class Pattern_generator:
     def __init__(self, stop_time, period, amplitude, std, ftype = np.sin, signal_type = ts.signals.Sinusoidal):
         # initialize time steps
         self.stop_time = stop_time
-        self.series_length = self.stop_time - 1
+        self.series_length = self.stop_time
         self.time_sampler = ts.TimeSampler(stop_time=self.stop_time)
         self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.series_length,keep_percentage=100)
 
