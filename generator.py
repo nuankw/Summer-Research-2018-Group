@@ -123,16 +123,18 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
 
     return orig_data
 
-def get_pulse_list(num, length_mean, length_std, amplitude):
+def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True):
     len_ndarray = np.random.normal(loc=length_mean, scale=length_std, size=num)
     len_ndarray = len_ndarray.astype(int)
+    if verbose:
+        print("len_ndarray: ",len_ndarray)
     pattern_list = []
     for i in range(n):
         len = len_ndarray[i]
-        # print(m_l)
         scale = 0.8 # for amplitude, according to observations
         pattern = Pattern_generator(stop_time=len+1, period=(len+1)*2, amplitude=amplitude*scale, std=std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
         pattern.bump_to_above_zero()
         pattern_list.append(pattern)
-        #pattern_list[i].plot(False)
+        if verbose:
+            pattern_list[i].plot(False)
     return pattern_list
