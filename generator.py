@@ -72,9 +72,11 @@ class Pattern_generator:
 
     def bump_to_above_zero(self):
         smooth_value_min = min(self.get_smooth_values())
-        self.set_smooth_values(self.get_smooth_values() - smooth_value_min)
+        if (smooth_value_min < 0):
+            self.set_smooth_values(self.get_smooth_values() - smooth_value_min)
         bumpy_value_min = min(self.get_bumpy_values())
-        self.set_bumpy_values(self.get_bumpy_values() - bumpy_value_min)
+        if (bumpy_value_min < 0):
+            self.set_bumpy_values(self.get_bumpy_values() - bumpy_value_min)
 
 
 
