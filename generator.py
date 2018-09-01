@@ -123,7 +123,7 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
 
     return orig_data
 
-def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True):
+def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False):
     len_ndarray = np.random.normal(loc=length_mean, scale=length_std, size=num)
     len_ndarray = len_ndarray.astype(int)
     if verbose:
@@ -136,5 +136,5 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True):
         pattern.bump_to_above_zero()
         pattern_list.append(pattern)
         if verbose:
-            pattern_list[i].plot(False)
+            pattern_list[i].plot(plot_the_smoother_line)
     return pattern_list
