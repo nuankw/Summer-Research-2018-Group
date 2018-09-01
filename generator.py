@@ -34,7 +34,7 @@ class Pattern_generator:
     def __init__(self, stop_time, period, amplitude, std, ftype = np.sin, signal_type = ts.signals.Sinusoidal):
         # initialize time steps
         self.stop_time = stop_time
-        self.series_length = self.stop_time
+        self.series_length = self.stop_time - 1
         self.time_sampler = ts.TimeSampler(stop_time=self.stop_time)
         self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.series_length,keep_percentage=100)
 
@@ -103,7 +103,7 @@ class Pattern_generator:
 
 ''' comment this line for test
 # simple test
-PG1 = Pattern_generator(series_length=10000, period=24, amplitude=1, std=0.1, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
+PG1 = Pattern_generator(stop_time=10000+1, period=24, amplitude=1, std=0.1, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
 ptl = [(2000,4000)]
 ml = [3]
 PG1.set_smooth_values(bump(PG1, position_tuple_list = ptl, magnitude_list = ml, bump_the_smoother_line = True))
@@ -118,9 +118,17 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
         orig_data = pattern_generator_1.get_bumpy_values()
         repeat_data = pattern_generator_2.get_bumpy_values()
 
-    for i in range(len(position_tuple_list)):
-        orig_data[position_tuple_list[i][0]:position_tuple_list[i][1]] += repeat_data
+    pattern2_length = pattern_generator_2.series_length
 
+    for i in range(len(position_tuple_list)):
+        # now can handle situations that position_tuple_list is larger than pattern_generator_2's span
+        range = position_tuple_list[i][1] - position_tuple_list[i][0]
+        assert(range >= pattern2_length)
+        diff = range - pattern2_length
+        real_starting_point = position_tuple_list[i][0] + np.random.randint(diff)
+        real_ending_point = real_starting_point + pattern2_length
+
+        orig_data[real_starting_point:real_ending_point] += repeat_data
     return orig_data
 
 def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False):
