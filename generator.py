@@ -132,7 +132,7 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True):
     for i in range(num):
         len = len_ndarray[i]
         scale = 0.8 # for amplitude, according to observations
-        pattern = Pattern_generator(stop_time=len+1, period=(len+1)*2, amplitude=amplitude*scale, std=std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
+        pattern = Pattern_generator(stop_time=len+1, period=(len+1)*2, amplitude=amplitude*scale, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
         pattern.bump_to_above_zero()
         pattern_list.append(pattern)
         if verbose:
