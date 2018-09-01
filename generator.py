@@ -70,6 +70,14 @@ class Pattern_generator:
         f = plt.figure()
         plt.plot(np.arange(self.series_length), y)
 
+    def bump_to_above_zero(self):
+        smooth_value_min = min(self.get_smooth_values())
+        self.set_smooth_values(self.get_smooth_values() - smooth_value_min)
+        bumpy_value_min = min(self.get_bumpy_values())
+        self.set_bumpy_values(self.get_bumpy_values() - bumpy_value_min)
+
+
+
     def bump(self, position_tuple_list, magnitude_list, bump_the_smoother_line = True, ramp_it = False):
         # position_tuple_list take a list of (starting, ending points)
         assert (len(position_tuple_list) == len(magnitude_list))
