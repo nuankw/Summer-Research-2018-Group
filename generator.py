@@ -37,7 +37,7 @@ class Pattern_generator:
         self.series_length = self.stop_time # this is correct! since starting point range from zero to stop_time  e.g. 0__1__2
         # when plotting, stop_time will not be shown.
         self.time_sampler = ts.TimeSampler(stop_time=self.stop_time)
-        self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.series_length,keep_percentage=100)
+        self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.stop_time + 1,keep_percentage=100) # + 1 here to fix the bug
 
         # initialize time series pattern
         self.period = period
@@ -69,7 +69,7 @@ class Pattern_generator:
         else:
             y = self.get_bumpy_values()
         f = plt.figure()
-        plt.plot(np.arange(self.series_length), y)
+        plt.plot(np.arange(self.series_length+1), y) # to fix the same bug
 
     def bump_to_above_zero(self):
         smooth_value_min = min(self.get_smooth_values())
