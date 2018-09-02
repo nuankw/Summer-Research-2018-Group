@@ -100,7 +100,10 @@ class Pattern_generator:
 
         if (ramp_it):
             self.ramp(position_tuple_list, magnitude_list)
-
+    
+# TODO
+    def ramp(self):
+        pass
 
 ''' comment this line for test
 # simple test
@@ -112,24 +115,32 @@ PG1.plot()
 # '''
 
 def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list, mix_the_smoother_lines = True ):
+    #### CAUTION: ONLY DO MIXER AT THE END OF PATTERN GENERATION ####
+    #### attributes for each pattern_generator would NOT change except y values (smooth and bumpy) ####
+    #### BETTER CALL pattern_mixer twice each time, let mix_the_smoother_lines = True, and False ####
     if (mix_the_smoother_lines):
         orig_data = pattern_generator_1.get_smooth_values()
-        repeat_data = pattern_generator_2.get_smooth_values()
+        repeat_data = pattern_generator_2.get_smooth_values()[:-1] # use [:-1] to resolve the problem, will look deeper into it
+        set_values = pattern_generator_1.set_smooth_values
     else:
         orig_data = pattern_generator_1.get_bumpy_values()
-        repeat_data = pattern_generator_2.get_bumpy_values()
+        repeat_data = pattern_generator_2.get_bumpy_values()[:-1]
+        set_values = pattern_generator_1.set_bumpy_values
 
     pattern2_length = pattern_generator_2.series_length
 
     for i in range(len(position_tuple_list)):
         # now can handle situations that position_tuple_list is larger than pattern_generator_2's span
-        range = position_tuple_list[i][1] - position_tuple_list[i][0]
-        assert(range >= pattern2_length)
-        diff = range - pattern2_length
+        span = position_tuple_list[i][1] - position_tuple_list[i][0]
+        assert(span >= pattern2_length)
+        diff = span - pattern2_length
         real_starting_point = position_tuple_list[i][0] + np.random.randint(diff)
         real_ending_point = real_starting_point + pattern2_length
-
+        #print('\norig_data:\n', orig_data[real_starting_point:real_ending_point])
+        #print('will be changed into:\n', repeat_data)
         orig_data[real_starting_point:real_ending_point] += repeat_data
+    
+    set_values(orig_data)
     return orig_data
 
 def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False):
