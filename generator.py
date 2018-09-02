@@ -34,7 +34,8 @@ class Pattern_generator:
     def __init__(self, stop_time, period, amplitude, std, ftype = np.sin, signal_type = ts.signals.Sinusoidal):
         # initialize time steps
         self.stop_time = stop_time
-        self.series_length = self.stop_time - 1
+        self.series_length = self.stop_time # this is correct! since starting point range from zero to stop_time  e.g. 0__1__2
+        # when plotting, stop_time will not be shown.
         self.time_sampler = ts.TimeSampler(stop_time=self.stop_time)
         self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.series_length,keep_percentage=100)
 
@@ -140,7 +141,7 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_t
     for i in range(num):
         len = len_ndarray[i]
         scale = 0.8 # for amplitude, according to observations
-        pattern = Pattern_generator(stop_time=len+1, period=(len+1)*2, amplitude=amplitude*scale, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
+        pattern = Pattern_generator(stop_time=len, period=(len)*2, amplitude=amplitude*scale, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
         pattern.bump_to_above_zero()
         pattern_list.append(pattern)
         if verbose:
