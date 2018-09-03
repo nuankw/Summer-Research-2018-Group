@@ -177,3 +177,4 @@ def day_list_2_end_start_tuple_list(day_list, morning_start_at = 0, night_end_at
         start = i * 24 + morning_start_at
         end = i * 24 + night_end_at
         start_end_tuple_list.append((start,end))
+    return start_end_tuple_list
