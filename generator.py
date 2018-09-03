@@ -63,15 +63,18 @@ class Pattern_generator:
     def set_bumpy_values(self, new_samples):  # more like real-life data
         self.samples = new_samples
 
-    def plot(self, plot_the_smoother_line = True):
+    def plot(self,plot_the_smoother_line = True, plot_till=None):
         if (plot_the_smoother_line):
             y = self.get_smooth_values()
         else:
             y = self.get_bumpy_values()
         f = plt.figure()
-        plt.plot(np.arange(self.series_length+1), y) # to fix the same bug
+        if (plot_till==None):
+            plt.plot(np.arange(self.series_length+1), y) # to fix the same bug <-- no longer bug
+        else:
+            plt.plot(np.arange(plot_till), y[:plot_till])
 
-    def bump_to_above_zero(self):
+    def move_to_above_zero(self):
         smooth_value_min = min(self.get_smooth_values())
         if (smooth_value_min < 0):
             self.set_smooth_values(self.get_smooth_values() - smooth_value_min)
@@ -79,9 +82,11 @@ class Pattern_generator:
         if (bumpy_value_min < 0):
             self.set_bumpy_values(self.get_bumpy_values() - bumpy_value_min)
 
+    def move_all(self, bump_extent):
+        self.set_smooth_values(self.get_smooth_values() + bump_extent)
+        self.set_bumpy_values(self.get_bumpy_values() + bump_extent)
 
-
-    def bump(self, position_tuple_list, magnitude_list, bump_the_smoother_line = True, ramp_it = False):
+    def move(self, position_tuple_list, magnitude_list, bump_the_smoother_line = True, ramp_it = False):
         # position_tuple_list take a list of (starting, ending points)
         assert (len(position_tuple_list) == len(magnitude_list))
         if (bump_the_smoother_line):
@@ -120,7 +125,8 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
     #### BETTER CALL pattern_mixer twice each time, let mix_the_smoother_lines = True, and False ####
     if (mix_the_smoother_lines):
         orig_data = pattern_generator_1.get_smooth_values()
-        repeat_data = pattern_generator_2.get_smooth_values()[:-1] # use [:-1] to resolve the problem, will look deeper into it
+        repeat_data = pattern_generator_2.get_smooth_values()[:-1] 
+        # use [:-1] to resolve the problem, will look deeper into it [solved] 0--1--2, length = 2, num_values = 3
         set_values = pattern_generator_1.set_smooth_values
     else:
         orig_data = pattern_generator_1.get_bumpy_values()
@@ -134,7 +140,11 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
         span = position_tuple_list[i][1] - position_tuple_list[i][0]
         assert(span >= pattern2_length)
         diff = span - pattern2_length
-        real_starting_point = position_tuple_list[i][0] + np.random.randint(diff)
+        if (diff == 0):
+            varied = 0
+        else:
+            varied = np.random.randint(diff)
+        real_starting_point = position_tuple_list[i][0] + varied
         real_ending_point = real_starting_point + pattern2_length
         #print('\norig_data:\n', orig_data[real_starting_point:real_ending_point])
         #print('will be changed into:\n', repeat_data)
@@ -143,7 +153,7 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
     set_values(orig_data)
     return orig_data
 
-def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False):
+def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False,):
     len_ndarray = np.random.normal(loc=length_mean, scale=length_std, size=num)
     len_ndarray = len_ndarray.astype(int)
     if verbose:
@@ -153,7 +163,7 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_t
         len = len_ndarray[i]
         scale = 0.8 # for amplitude, according to observations
         pattern = Pattern_generator(stop_time=len, period=(len)*2, amplitude=amplitude*scale, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
-        pattern.bump_to_above_zero()
+        pattern.move_to_above_zero()
         pattern_list.append(pattern)
         if verbose:
             pattern_list[i].plot(plot_the_smoother_line)
