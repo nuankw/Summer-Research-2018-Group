@@ -105,7 +105,7 @@ class Pattern_generator:
 
         if (ramp_it):
             self.ramp(position_tuple_list, magnitude_list)
-    
+
 # TODO
     def ramp(self):
         pass
@@ -125,7 +125,7 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
     #### BETTER CALL pattern_mixer twice each time, let mix_the_smoother_lines = True, and False ####
     if (mix_the_smoother_lines):
         orig_data = pattern_generator_1.get_smooth_values()
-        repeat_data = pattern_generator_2.get_smooth_values()[:-1] 
+        repeat_data = pattern_generator_2.get_smooth_values()[:-1]
         # use [:-1] to resolve the problem, will look deeper into it [solved] 0--1--2, length = 2, num_values = 3
         set_values = pattern_generator_1.set_smooth_values
     else:
@@ -149,7 +149,7 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
         #print('\norig_data:\n', orig_data[real_starting_point:real_ending_point])
         #print('will be changed into:\n', repeat_data)
         orig_data[real_starting_point:real_ending_point] += repeat_data
-    
+
     set_values(orig_data)
     return orig_data
 
@@ -168,3 +168,12 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_t
         if verbose:
             pattern_list[i].plot(plot_the_smoother_line)
     return pattern_list
+
+def day_list_2_end_start_tuple_list(day_list, morning_start_at = 0, night_end_at = 23 ):
+    # note that morning_start_at and night_end_at can be greater than 24 or less then 0,
+    # however need to take care of index bound via choise of days in the day_list
+    start_end_tuple_list = []
+    for i in day_list:
+        start = i * 24 + morning_start_at
+        end = i * 24 + night_end_at
+        start_end_tuple_list.append((start,end))
