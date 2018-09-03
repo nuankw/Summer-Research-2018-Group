@@ -106,6 +106,26 @@ class Pattern_generator:
         if (ramp_it):
             self.ramp(position_tuple_list, magnitude_list)
 
+    def multiply(self, position_tuple_list, magnitude_list, bump_the_smoother_line = True, ramp_it = False):
+        # position_tuple_list take a list of (starting, ending points)
+        assert (len(position_tuple_list) == len(magnitude_list))
+        if (bump_the_smoother_line):
+            orig_data = self.get_smooth_values()
+            setFunc = self.set_smooth_values
+        else:
+            orig_data = self.get_bumpy_values()
+            setFunc = self.set_bumpy_values
+
+
+        for i in range(len(position_tuple_list)):
+            assert(len(position_tuple_list[i]) == 2)
+            orig_data[position_tuple_list[i][0]: position_tuple_list[i][1]] *= magnitude_list[i] # the only difference from move
+
+        setFunc(orig_data)
+
+        if (ramp_it):
+            self.ramp(position_tuple_list, magnitude_list)
+
 # TODO
     def ramp(self):
         pass
