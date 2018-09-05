@@ -1,0 +1,3527 @@
+2018-09-03 03:01:32.474648: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-09-03 03:01:32.589203: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:897] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2018-09-03 03:01:32.589728: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 major: 6 minor: 1 memoryClockRate(GHz): 1.7335
+pciBusID: 0000:01:00.0
+totalMemory: 7.93GiB freeMemory: 7.75GiB
+2018-09-03 03:01:32.589741: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-09-03 03:01:33.308333: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-09-03 03:01:33.308365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-09-03 03:01:33.308370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-09-03 03:01:33.308757: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2703 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:01:00.0, compute capability: 6.1)
+cnn_input.shape:  (?, 192, 1, 1)
+cnn_output.shape:  (?, 169, 40)
+cnn_output_padding.shape:  (?, 23, 40)
+self.cnn_output.shape:  (?, 192, 40)
+cnn_output_pad.shape:  (?, 24, 40)
+inputs_shape[1].value:  64
+inputs_shape[1].value:  40
+inputs_shape[1].value:  40
+hidden_states_all.shape:  (3, 2, ?, 192, 40)
+###########     TIME     ##########
+2018-09-03 03:01:35.572536
+###########  TRAIN START ############
+prediction
+step: 500
+neg_log_likelihood_train:  15.6816
+neg_log_likelihood_prediction:  14.096178661693227
+RMSE_train:  0.93627715
+RMSE_prediction:  0.7697389342568137
+ND_train:  0.32860455
+ND_pred:  0.26149099658836017
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 1000
+neg_log_likelihood_train:  30.954493
+neg_log_likelihood_prediction:  11.326153841885654
+RMSE_train:  1.5647327
+RMSE_prediction:  0.7632484869523481
+ND_train:  0.28370178
+ND_pred:  0.26278873736208136
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 1500
+neg_log_likelihood_train:  8.480081
+neg_log_likelihood_prediction:  9.659278306094082
+RMSE_train:  0.7816624
+RMSE_prediction:  0.7648879831487482
+ND_train:  0.31328464
+ND_pred:  0.26237891749902204
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 2000
+neg_log_likelihood_train:  41.423748
+neg_log_likelihood_prediction:  8.689728129993785
+RMSE_train:  4.204445
+RMSE_prediction:  0.7650487152012911
+ND_train:  0.57102525
+ND_pred:  0.2623366401954131
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 2500
+neg_log_likelihood_train:  9.648591
+neg_log_likelihood_prediction:  8.087553934617477
+RMSE_train:  1.9161136
+RMSE_prediction:  0.7622128779237921
+ND_train:  0.29255092
+ND_pred:  0.2630571289495988
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 3000
+neg_log_likelihood_train:  6.3785596
+neg_log_likelihood_prediction:  7.689903389323842
+RMSE_train:  0.81848645
+RMSE_prediction:  0.766269093210047
+ND_train:  0.30206186
+ND_pred:  0.2621000097556548
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 3500
+neg_log_likelihood_train:  18.925669
+neg_log_likelihood_prediction:  7.410161755301735
+RMSE_train:  2.454798
+RMSE_prediction:  0.7652876864780079
+ND_train:  0.43435445
+ND_pred:  0.26228615777059033
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 4000
+neg_log_likelihood_train:  27.333563
+neg_log_likelihood_prediction:  7.154925693165172
+RMSE_train:  3.822705
+RMSE_prediction:  0.7627397775650024
+ND_train:  0.49458352
+ND_pred:  0.2628937851298939
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 4500
+neg_log_likelihood_train:  9.329696
+neg_log_likelihood_prediction:  7.003990996967662
+RMSE_train:  1.3211919
+RMSE_prediction:  0.7637481689453125
+ND_train:  0.2808577
+ND_pred:  0.26263248243115167
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 5000
+neg_log_likelihood_train:  22.032541
+neg_log_likelihood_prediction:  6.89703893661499
+RMSE_train:  2.8810866
+RMSE_prediction:  0.7644291140816428
+ND_train:  0.44395667
+ND_pred:  0.2624697427858006
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 5500
+neg_log_likelihood_train:  5.951738
+neg_log_likelihood_prediction:  6.835833332755349
+RMSE_train:  0.5131502
+RMSE_prediction:  0.7662437558174133
+ND_train:  0.25533578
+ND_pred:  0.2620781551707875
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 6000
+neg_log_likelihood_train:  8.104632
+neg_log_likelihood_prediction:  6.78417799689553
+RMSE_train:  1.2089381
+RMSE_prediction:  0.7647616917436774
+ND_train:  0.2828306
+ND_pred:  0.26239233396270056
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 6500
+neg_log_likelihood_train:  8.529908
+neg_log_likelihood_prediction:  6.7538110559636895
+RMSE_train:  1.2152396
+RMSE_prediction:  0.7658438357439908
+ND_train:  0.30869403
+ND_pred:  0.26215900209817017
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 7000
+neg_log_likelihood_train:  6.7118096
+neg_log_likelihood_prediction:  6.734145381233909
+RMSE_train:  0.58918077
+RMSE_prediction:  0.7643225572325967
+ND_train:  0.2442824
+ND_pred:  0.26249246434731915
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 7500
+neg_log_likelihood_train:  7.2822146
+neg_log_likelihood_prediction:  6.723741834813898
+RMSE_train:  1.4056327
+RMSE_prediction:  0.7651030908931385
+ND_train:  0.26100588
+ND_pred:  0.2623153342442079
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 8000
+neg_log_likelihood_train:  6.827109
+neg_log_likelihood_prediction:  6.721118840304288
+RMSE_train:  0.8429243
+RMSE_prediction:  0.7633430361747742
+ND_train:  0.334707
+ND_pred:  0.26273083822293714
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 03:29:22.051322
+###########   0 Finish  #########
+prediction
+step: 8500
+neg_log_likelihood_train:  6.9832797
+neg_log_likelihood_prediction:  6.721114548769864
+RMSE_train:  1.3129101
+RMSE_prediction:  0.7622664624994452
+ND_train:  0.27726543
+ND_pred:  0.26302110336043616
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 9000
+neg_log_likelihood_train:  6.9582367
+neg_log_likelihood_prediction:  6.7259555729952725
+RMSE_train:  0.89159554
+RMSE_prediction:  0.765284229408611
+ND_train:  0.27829054
+ND_pred:  0.26227444952184503
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 9500
+neg_log_likelihood_train:  6.2149234
+neg_log_likelihood_prediction:  6.726799834858287
+RMSE_train:  0.6536437
+RMSE_prediction:  0.7636482823978771
+ND_train:  0.27619553
+ND_pred:  0.2626523714173924
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 10000
+neg_log_likelihood_train:  8.029502
+neg_log_likelihood_prediction:  6.727777481079102
+RMSE_train:  2.3161857
+RMSE_prediction:  0.7638985623012889
+ND_train:  0.35774767
+ND_pred:  0.26259057359261945
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 10500
+neg_log_likelihood_train:  6.3373923
+neg_log_likelihood_prediction:  6.728447307239879
+RMSE_train:  0.5626941
+RMSE_prediction:  0.7620916854251515
+ND_train:  0.24653457
+ND_pred:  0.2630718675526706
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 11000
+neg_log_likelihood_train:  6.941424
+neg_log_likelihood_prediction:  6.73701117255471
+RMSE_train:  0.82880044
+RMSE_prediction:  0.7737479968504473
+ND_train:  0.24434629
+ND_pred:  0.260840661146424
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 11500
+neg_log_likelihood_train:  6.580584
+neg_log_likelihood_prediction:  6.736037080938166
+RMSE_train:  1.4933345
+RMSE_prediction:  0.763463399626992
+ND_train:  0.41016343
+ND_pred:  0.26267643543806946
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 12000
+neg_log_likelihood_train:  6.94372
+neg_log_likelihood_prediction:  6.7418319095264785
+RMSE_train:  0.9572402
+RMSE_prediction:  0.7692632458426736
+ND_train:  0.32269427
+ND_pred:  0.2607139525088397
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 12500
+neg_log_likelihood_train:  6.7754645
+neg_log_likelihood_prediction:  6.369685173034668
+RMSE_train:  0.656043
+RMSE_prediction:  0.3726183528249914
+ND_train:  0.22235917
+ND_pred:  0.135634991932999
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 13000
+neg_log_likelihood_train:  5.611679
+neg_log_likelihood_prediction:  6.2569192106073555
+RMSE_train:  0.43264526
+RMSE_prediction:  0.3814019682732495
+ND_train:  0.18570247
+ND_pred:  0.13193269886753775
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 13500
+neg_log_likelihood_train:  5.837954
+neg_log_likelihood_prediction:  6.212932976809415
+RMSE_train:  0.35554314
+RMSE_prediction:  0.3350827246904373
+ND_train:  0.15751041
+ND_pred:  0.12474476952444423
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 14000
+neg_log_likelihood_train:  5.674312
+neg_log_likelihood_prediction:  5.721433942968195
+RMSE_train:  0.29292333
+RMSE_prediction:  0.3739135739478198
+ND_train:  0.1528844
+ND_pred:  0.1251081959767775
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 14500
+neg_log_likelihood_train:  5.985495
+neg_log_likelihood_prediction:  6.1552817604758525
+RMSE_train:  0.3427975
+RMSE_prediction:  0.3992259475317868
+ND_train:  0.15174544
+ND_pred:  0.12964817001061005
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 15000
+neg_log_likelihood_train:  6.5646625
+neg_log_likelihood_prediction:  6.122366905212402
+RMSE_train:  1.5276184
+RMSE_prediction:  0.30647234889593994
+ND_train:  0.18372203
+ND_pred:  0.11507095261053606
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 15500
+neg_log_likelihood_train:  5.964662
+neg_log_likelihood_prediction:  5.75053106654774
+RMSE_train:  0.36706567
+RMSE_prediction:  0.38300488889217377
+ND_train:  0.12572986
+ND_pred:  0.12453244897452267
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 16000
+neg_log_likelihood_train:  6.0333047
+neg_log_likelihood_prediction:  5.817840576171875
+RMSE_train:  0.3788368
+RMSE_prediction:  0.5047630071640015
+ND_train:  0.16443665
+ND_pred:  0.1725605143742128
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 16500
+neg_log_likelihood_train:  5.2194486
+neg_log_likelihood_prediction:  5.5039075071161445
+RMSE_train:  0.48310792
+RMSE_prediction:  0.3216567093675787
+ND_train:  0.14154613
+ND_pred:  0.11083550480279056
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 03:56:05.495421
+###########   1 Finish  #########
+prediction
+step: 17000
+neg_log_likelihood_train:  5.7359605
+neg_log_likelihood_prediction:  5.447315606203946
+RMSE_train:  0.4027091
+RMSE_prediction:  0.29722337966615503
+ND_train:  0.109068245
+ND_pred:  0.10423278199000792
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 17500
+neg_log_likelihood_train:  5.66009
+neg_log_likelihood_prediction:  5.475107626481489
+RMSE_train:  0.51664454
+RMSE_prediction:  0.30997908115386963
+ND_train:  0.11803242
+ND_pred:  0.10833993350917642
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 18000
+neg_log_likelihood_train:  5.993261
+neg_log_likelihood_prediction:  6.242600831118497
+RMSE_train:  0.52398676
+RMSE_prediction:  0.3603981299833818
+ND_train:  0.1415081
+ND_pred:  0.1406621208245104
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 18500
+neg_log_likelihood_train:  5.9163423
+neg_log_likelihood_prediction:  5.481974385001442
+RMSE_train:  0.537379
+RMSE_prediction:  0.3103746351870624
+ND_train:  0.16147456
+ND_pred:  0.11112672971053557
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 19000
+neg_log_likelihood_train:  5.241589
+neg_log_likelihood_prediction:  5.444333596663042
+RMSE_train:  0.39525753
+RMSE_prediction:  0.3075137287378311
+ND_train:  0.15117559
+ND_pred:  0.10764216631650925
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 19500
+neg_log_likelihood_train:  5.341394
+neg_log_likelihood_prediction:  5.37173115123402
+RMSE_train:  0.3580147
+RMSE_prediction:  0.28569079122760077
+ND_train:  0.13370985
+ND_pred:  0.1000034057281234
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 20000
+neg_log_likelihood_train:  5.781626
+neg_log_likelihood_prediction:  5.352266311645508
+RMSE_train:  1.346591
+RMSE_prediction:  0.280419723554091
+ND_train:  0.19077188
+ND_pred:  0.098449591208588
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 20500
+neg_log_likelihood_train:  5.699061
+neg_log_likelihood_prediction:  5.350609215823087
+RMSE_train:  1.0276328
+RMSE_prediction:  0.3044269613244317
+ND_train:  0.15461048
+ND_pred:  0.10429515215483579
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 21000
+neg_log_likelihood_train:  4.8780828
+neg_log_likelihood_prediction:  5.3323955969377
+RMSE_train:  0.4552029
+RMSE_prediction:  0.2880482470447367
+ND_train:  0.10676507
+ND_pred:  0.09967761012640866
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 21500
+neg_log_likelihood_train:  8.818786
+neg_log_likelihood_prediction:  5.285574609583074
+RMSE_train:  0.4259168
+RMSE_prediction:  0.2750465287403627
+ND_train:  0.14084879
+ND_pred:  0.09646647355773232
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 22000
+neg_log_likelihood_train:  5.2295327
+neg_log_likelihood_prediction:  5.283217646858909
+RMSE_train:  0.35686824
+RMSE_prediction:  0.2940076657316901
+ND_train:  0.13350523
+ND_pred:  0.10026629607785832
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 22500
+neg_log_likelihood_train:  5.785565
+neg_log_likelihood_prediction:  5.240555026314476
+RMSE_train:  0.83675367
+RMSE_prediction:  0.2934164215217937
+ND_train:  0.11103682
+ND_pred:  0.10023530437187715
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 23000
+neg_log_likelihood_train:  4.5608144
+neg_log_likelihood_prediction:  5.231520305980336
+RMSE_train:  0.36087075
+RMSE_prediction:  0.3061556721275503
+ND_train:  0.11549568
+ND_pred:  0.10099588537758047
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 23500
+neg_log_likelihood_train:  5.6095543
+neg_log_likelihood_prediction:  5.227774013172496
+RMSE_train:  0.29928318
+RMSE_prediction:  0.2896471321582794
+ND_train:  0.0898872
+ND_pred:  0.09752767329866235
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 24000
+neg_log_likelihood_train:  4.9990325
+neg_log_likelihood_prediction:  5.184947447343306
+RMSE_train:  1.1757615
+RMSE_prediction:  0.27371411567384546
+ND_train:  0.15117456
+ND_pred:  0.09459671513600783
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 24500
+neg_log_likelihood_train:  4.48399
+neg_log_likelihood_prediction:  5.210121068087491
+RMSE_train:  0.7520687
+RMSE_prediction:  0.288088169964877
+ND_train:  0.11753201
+ND_pred:  0.09703942252831026
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 25000
+neg_log_likelihood_train:  4.906559
+neg_log_likelihood_prediction:  5.220758438110352
+RMSE_train:  0.61505955
+RMSE_prediction:  0.29770573702725495
+ND_train:  0.10372053
+ND_pred:  0.09773618118329482
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 04:22:52.961925
+###########   2 Finish  #########
+prediction
+step: 25500
+neg_log_likelihood_train:  5.5113997
+neg_log_likelihood_prediction:  5.3449952819130635
+RMSE_train:  0.57653034
+RMSE_prediction:  0.41595434736121784
+ND_train:  0.11947941
+ND_pred:  0.12771116400306876
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 26000
+neg_log_likelihood_train:  5.6069508
+neg_log_likelihood_prediction:  5.1527746373956855
+RMSE_train:  1.0055457
+RMSE_prediction:  0.2910656536167318
+ND_train:  0.15219931
+ND_pred:  0.09536256708882072
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 26500
+neg_log_likelihood_train:  5.177908
+neg_log_likelihood_prediction:  5.1567213752053
+RMSE_train:  0.41171974
+RMSE_prediction:  0.2937802645293149
+ND_train:  0.11519568
+ND_pred:  0.09593152458017523
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 27000
+neg_log_likelihood_train:  4.8562627
+neg_log_likelihood_prediction:  5.1178485696966
+RMSE_train:  0.27135476
+RMSE_prediction:  0.2881098118695346
+ND_train:  0.11162337
+ND_pred:  0.09255848283117468
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 27500
+neg_log_likelihood_train:  4.262977
+neg_log_likelihood_prediction:  5.140480214899236
+RMSE_train:  0.3736265
+RMSE_prediction:  0.30046271871436725
+ND_train:  0.111931756
+ND_pred:  0.09514433551918376
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 28000
+neg_log_likelihood_train:  5.320856
+neg_log_likelihood_prediction:  5.102658401836049
+RMSE_train:  0.24387074
+RMSE_prediction:  0.2844255878166719
+ND_train:  0.101202816
+ND_pred:  0.0914557704871351
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 28500
+neg_log_likelihood_train:  4.9428287
+neg_log_likelihood_prediction:  5.3230813633311875
+RMSE_train:  0.46846145
+RMSE_prediction:  0.3603367575190284
+ND_train:  0.10496126
+ND_pred:  0.11434733935377815
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 29000
+neg_log_likelihood_train:  4.655268
+neg_log_likelihood_prediction:  5.185293197631836
+RMSE_train:  0.36652672
+RMSE_prediction:  0.2844430871985175
+ND_train:  0.11389796
+ND_pred:  0.09414547952738675
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 29500
+neg_log_likelihood_train:  4.811917
+neg_log_likelihood_prediction:  5.119798053394664
+RMSE_train:  0.40936258
+RMSE_prediction:  0.2767969762737101
+ND_train:  0.12880334
+ND_pred:  0.09293219243938272
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 30000
+neg_log_likelihood_train:  4.817349
+neg_log_likelihood_prediction:  5.097675756974653
+RMSE_train:  0.4696996
+RMSE_prediction:  0.26601851121945813
+ND_train:  0.09398825
+ND_pred:  0.09005779231136496
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 30500
+neg_log_likelihood_train:  5.379604
+neg_log_likelihood_prediction:  5.099647695367986
+RMSE_train:  0.25547597
+RMSE_prediction:  0.2703391503203999
+ND_train:  0.09462273
+ND_pred:  0.09011220186948776
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 31000
+neg_log_likelihood_train:  4.7289596
+neg_log_likelihood_prediction:  5.060210704803467
+RMSE_train:  0.4306808
+RMSE_prediction:  0.2640764239159497
+ND_train:  0.111537606
+ND_pred:  0.08865246786312624
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 31500
+neg_log_likelihood_train:  5.339334
+neg_log_likelihood_prediction:  5.050343080000444
+RMSE_train:  0.8138524
+RMSE_prediction:  0.2630428278988058
+ND_train:  0.11546459
+ND_pred:  0.0881461270830848
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 32000
+neg_log_likelihood_train:  5.028378
+neg_log_likelihood_prediction:  5.060251799496737
+RMSE_train:  0.28363955
+RMSE_prediction:  0.2638536502014507
+ND_train:  0.0944268
+ND_pred:  0.08731649748303673
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 32500
+neg_log_likelihood_train:  6.299441
+neg_log_likelihood_prediction:  5.118332689458674
+RMSE_train:  1.8399543
+RMSE_prediction:  0.4978053339503028
+ND_train:  0.20567483
+ND_pred:  0.13366203890605408
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 33000
+neg_log_likelihood_train:  4.7261615
+neg_log_likelihood_prediction:  5.0336480140686035
+RMSE_train:  0.22083297
+RMSE_prediction:  0.25991581786762585
+ND_train:  0.0875578
+ND_pred:  0.08630417626012456
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 33500
+neg_log_likelihood_train:  4.7200456
+neg_log_likelihood_prediction:  5.048890590667725
+RMSE_train:  0.2132562
+RMSE_prediction:  0.26929390159520233
+ND_train:  0.09174786
+ND_pred:  0.08879861032420938
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 04:53:22.558216
+###########   3 Finish  #########
+prediction
+step: 34000
+neg_log_likelihood_train:  5.213769
+neg_log_likelihood_prediction:  5.0728159817782315
+RMSE_train:  0.5690545
+RMSE_prediction:  0.2944768138907172
+ND_train:  0.09394802
+ND_pred:  0.09097778390754353
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 34500
+neg_log_likelihood_train:  4.4711223
+neg_log_likelihood_prediction:  5.051217686046254
+RMSE_train:  0.39371425
+RMSE_prediction:  0.2740777676755732
+ND_train:  0.10478277
+ND_pred:  0.08815395696596666
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 35000
+neg_log_likelihood_train:  4.7025867
+neg_log_likelihood_prediction:  5.075719876722856
+RMSE_train:  0.563135
+RMSE_prediction:  0.2705298648639159
+ND_train:  0.110995844
+ND_pred:  0.0870784731073813
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 35500
+neg_log_likelihood_train:  4.704301
+neg_log_likelihood_prediction:  5.075672626495361
+RMSE_train:  0.17080642
+RMSE_prediction:  0.26667890359054913
+ND_train:  0.08107533
+ND_pred:  0.08682030981237238
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 36000
+neg_log_likelihood_train:  4.477403
+neg_log_likelihood_prediction:  5.049893639304421
+RMSE_train:  0.2125089
+RMSE_prediction:  0.264463183554736
+ND_train:  0.09832627
+ND_pred:  0.08643551712686365
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 36500
+neg_log_likelihood_train:  5.063486
+neg_log_likelihood_prediction:  5.021504618904808
+RMSE_train:  0.1675406
+RMSE_prediction:  0.2726192095062949
+ND_train:  0.07819148
+ND_pred:  0.08868244764479724
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 37000
+neg_log_likelihood_train:  4.9091125
+neg_log_likelihood_prediction:  5.026995485479182
+RMSE_train:  0.2208661
+RMSE_prediction:  0.2622049423781308
+ND_train:  0.08333022
+ND_pred:  0.08485711501403288
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 37500
+neg_log_likelihood_train:  4.785232
+neg_log_likelihood_prediction:  5.029290589419278
+RMSE_train:  0.2828764
+RMSE_prediction:  0.2690583508123051
+ND_train:  0.06758895
+ND_pred:  0.08755986798893321
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 38000
+neg_log_likelihood_train:  4.8016243
+neg_log_likelihood_prediction:  5.031165643171831
+RMSE_train:  0.5173488
+RMSE_prediction:  0.2632301950996572
+ND_train:  0.08978446
+ND_pred:  0.08504679663614793
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 38500
+neg_log_likelihood_train:  4.678188
+neg_log_likelihood_prediction:  5.0225629373030225
+RMSE_train:  0.36008868
+RMSE_prediction:  0.29759031534194946
+ND_train:  0.09831415
+ND_pred:  0.09111948649991643
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 39000
+neg_log_likelihood_train:  4.9287667
+neg_log_likelihood_prediction:  5.032621643759987
+RMSE_train:  0.39990717
+RMSE_prediction:  0.2684203779155558
+ND_train:  0.08435796
+ND_pred:  0.08612121844833548
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 39500
+neg_log_likelihood_train:  4.611979
+neg_log_likelihood_prediction:  4.9907895001498135
+RMSE_train:  0.24199164
+RMSE_prediction:  0.2773159566250714
+ND_train:  0.07666617
+ND_pred:  0.08752216534181075
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 40000
+neg_log_likelihood_train:  5.0064225
+neg_log_likelihood_prediction:  5.047448548403653
+RMSE_train:  0.40381616
+RMSE_prediction:  0.27153654396533966
+ND_train:  0.08004561
+ND_pred:  0.08686227215961977
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 40500
+neg_log_likelihood_train:  4.2944155
+neg_log_likelihood_prediction:  4.998836864124645
+RMSE_train:  0.25125456
+RMSE_prediction:  0.262676323002035
+ND_train:  0.090595186
+ND_pred:  0.08492107486182993
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 41000
+neg_log_likelihood_train:  4.960763
+neg_log_likelihood_prediction:  5.230784762989391
+RMSE_train:  0.8744222
+RMSE_prediction:  0.38094704259525647
+ND_train:  0.11486227
+ND_pred:  0.11158230223438957
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 41500
+neg_log_likelihood_train:  4.949084
+neg_log_likelihood_prediction:  5.048136494376442
+RMSE_train:  0.7616622
+RMSE_prediction:  0.26280533048239624
+ND_train:  0.113653466
+ND_pred:  0.08863702077757228
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 42000
+neg_log_likelihood_train:  4.816872
+neg_log_likelihood_prediction:  5.015660415996205
+RMSE_train:  0.19041437
+RMSE_prediction:  0.2777873155745593
+ND_train:  0.08496727
+ND_pred:  0.09013976834037087
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 05:25:11.193500
+###########   4 Finish  #########
+prediction
+step: 42500
+neg_log_likelihood_train:  4.7433925
+neg_log_likelihood_prediction:  5.020092443986372
+RMSE_train:  0.26179662
+RMSE_prediction:  0.24901927330277182
+ND_train:  0.086332776
+ND_pred:  0.08233523233370348
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 43000
+neg_log_likelihood_train:  5.1329703
+neg_log_likelihood_prediction:  5.010426131161776
+RMSE_train:  0.48646048
+RMSE_prediction:  0.26687416569753125
+ND_train:  0.0839862
+ND_pred:  0.08522645248608156
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 43500
+neg_log_likelihood_train:  4.520926
+neg_log_likelihood_prediction:  5.0088652263988145
+RMSE_train:  0.25978774
+RMSE_prediction:  0.2510359395634044
+ND_train:  0.094068475
+ND_pred:  0.08400175043127754
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 44000
+neg_log_likelihood_train:  5.042281
+neg_log_likelihood_prediction:  4.995176748795942
+RMSE_train:  1.4462839
+RMSE_prediction:  0.27306770330125635
+ND_train:  0.15447834
+ND_pred:  0.08696776086633856
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 44500
+neg_log_likelihood_train:  4.802423
+neg_log_likelihood_prediction:  5.156007246537642
+RMSE_train:  0.712773
+RMSE_prediction:  0.30731885406104004
+ND_train:  0.09785816
+ND_pred:  0.09591862762516196
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 45000
+neg_log_likelihood_train:  4.405247
+neg_log_likelihood_prediction:  5.02428674697876
+RMSE_train:  0.2420495
+RMSE_prediction:  0.2525336877866225
+ND_train:  0.085635595
+ND_pred:  0.08263705670833588
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 45500
+neg_log_likelihood_train:  4.6162515
+neg_log_likelihood_prediction:  4.991778287020597
+RMSE_train:  0.60887665
+RMSE_prediction:  0.24602507596666162
+ND_train:  0.0965861
+ND_pred:  0.0807087550109083
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 46000
+neg_log_likelihood_train:  4.7556796
+neg_log_likelihood_prediction:  4.999777750535444
+RMSE_train:  0.7799478
+RMSE_prediction:  0.25039421834728937
+ND_train:  0.100019105
+ND_pred:  0.08181097223000093
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 46500
+neg_log_likelihood_train:  5.067049
+neg_log_likelihood_prediction:  5.0013510530645195
+RMSE_train:  0.42833996
+RMSE_prediction:  0.24638105116107248
+ND_train:  0.090130545
+ND_pred:  0.08146676014770161
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 47000
+neg_log_likelihood_train:  4.881507
+neg_log_likelihood_prediction:  5.0082315531643955
+RMSE_train:  0.651187
+RMSE_prediction:  0.24633654003793543
+ND_train:  0.09881751
+ND_pred:  0.0833103981885043
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 47500
+neg_log_likelihood_train:  4.3453903
+neg_log_likelihood_prediction:  4.983538584275679
+RMSE_train:  0.15982808
+RMSE_prediction:  0.24961043081500314
+ND_train:  0.072220735
+ND_pred:  0.0829290510578589
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 48000
+neg_log_likelihood_train:  4.68928
+neg_log_likelihood_prediction:  4.988525347276167
+RMSE_train:  0.36299434
+RMSE_prediction:  0.2646673863584345
+ND_train:  0.07980079
+ND_pred:  0.08560071614655582
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 48500
+neg_log_likelihood_train:  5.3983502
+neg_log_likelihood_prediction:  4.969264593991366
+RMSE_train:  0.32265618
+RMSE_prediction:  0.2607367688959295
+ND_train:  0.078675784
+ND_pred:  0.08396765792911703
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 49000
+neg_log_likelihood_train:  4.953043
+neg_log_likelihood_prediction:  4.969511118802157
+RMSE_train:  0.15438576
+RMSE_prediction:  0.2594425908543847
+ND_train:  0.062710896
+ND_pred:  0.08338353308764371
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 49500
+neg_log_likelihood_train:  4.2180014
+neg_log_likelihood_prediction:  5.006591146642512
+RMSE_train:  0.38426265
+RMSE_prediction:  0.25052227757193823
+ND_train:  0.07016345
+ND_pred:  0.08185351639986038
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 50000
+neg_log_likelihood_train:  4.8357253
+neg_log_likelihood_prediction:  4.986426570198753
+RMSE_train:  0.23075067
+RMSE_prediction:  0.24735432050444864
+ND_train:  0.08368819
+ND_pred:  0.0814268094572154
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 05:53:17.465505
+###########   5 Finish  #########
+prediction
+step: 50500
+neg_log_likelihood_train:  4.823567
+neg_log_likelihood_prediction:  4.985107378526167
+RMSE_train:  0.29377627
+RMSE_prediction:  0.24759220670570026
+ND_train:  0.065707184
+ND_pred:  0.08224302225492218
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 51000
+neg_log_likelihood_train:  5.1074347
+neg_log_likelihood_prediction:  4.972793102264404
+RMSE_train:  0.30941838
+RMSE_prediction:  0.265258251266046
+ND_train:  0.07797474
+ND_pred:  0.0848501358519901
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 51500
+neg_log_likelihood_train:  4.4795637
+neg_log_likelihood_prediction:  4.9473817998712715
+RMSE_train:  0.18972062
+RMSE_prediction:  0.2587102529677478
+ND_train:  0.0744393
+ND_pred:  0.0835077938708392
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 52000
+neg_log_likelihood_train:  4.8113112
+neg_log_likelihood_prediction:  4.98017727244984
+RMSE_train:  0.5104848
+RMSE_prediction:  0.2643877633593299
+ND_train:  0.07509382
+ND_pred:  0.0855387496677312
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 52500
+neg_log_likelihood_train:  4.8942018
+neg_log_likelihood_prediction:  4.987466161901301
+RMSE_train:  0.19376302
+RMSE_prediction:  0.28861819072203204
+ND_train:  0.08044169
+ND_pred:  0.08986902914263985
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 53000
+neg_log_likelihood_train:  5.1311746
+neg_log_likelihood_prediction:  4.987319382754239
+RMSE_train:  0.2804111
+RMSE_prediction:  0.26820574836297467
+ND_train:  0.07295125
+ND_pred:  0.08534746346148578
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 53500
+neg_log_likelihood_train:  4.5526056
+neg_log_likelihood_prediction:  4.966417962854559
+RMSE_train:  0.45712817
+RMSE_prediction:  0.2592783367091959
+ND_train:  0.10582153
+ND_pred:  0.08481478826566176
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 54000
+neg_log_likelihood_train:  5.3342557
+neg_log_likelihood_prediction:  4.967116702686656
+RMSE_train:  0.4199823
+RMSE_prediction:  0.2590616995638067
+ND_train:  0.1012936
+ND_pred:  0.08415970748121088
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 54500
+neg_log_likelihood_train:  5.343245
+neg_log_likelihood_prediction:  4.932031718167392
+RMSE_train:  0.26883104
+RMSE_prediction:  0.2636777121912349
+ND_train:  0.0869084
+ND_pred:  0.08426808701320128
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 55000
+neg_log_likelihood_train:  4.3684363
+neg_log_likelihood_prediction:  4.940192959525368
+RMSE_train:  0.20215955
+RMSE_prediction:  0.2691116278821772
+ND_train:  0.08071438
+ND_pred:  0.08763401684435931
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 55500
+neg_log_likelihood_train:  4.7817645
+neg_log_likelihood_prediction:  4.956897475502708
+RMSE_train:  0.20291382
+RMSE_prediction:  0.25976283848285675
+ND_train:  0.07434052
+ND_pred:  0.08446742323311893
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 56000
+neg_log_likelihood_train:  5.004974
+neg_log_likelihood_prediction:  4.930775338953191
+RMSE_train:  0.14512394
+RMSE_prediction:  0.2948450581593947
+ND_train:  0.070464276
+ND_pred:  0.08799528601494702
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 56500
+neg_log_likelihood_train:  4.8334284
+neg_log_likelihood_prediction:  4.961197202855891
+RMSE_train:  0.23527832
+RMSE_prediction:  0.311666032130068
+ND_train:  0.09118174
+ND_pred:  0.09441007741472938
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 57000
+neg_log_likelihood_train:  4.7505956
+neg_log_likelihood_prediction:  4.949572909962047
+RMSE_train:  0.7575373
+RMSE_prediction:  0.2608175264163451
+ND_train:  0.08480917
+ND_pred:  0.08324076506224545
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 57500
+neg_log_likelihood_train:  5.1782784
+neg_log_likelihood_prediction:  4.912108291279186
+RMSE_train:  0.19894156
+RMSE_prediction:  0.2656753239306537
+ND_train:  0.06645174
+ND_pred:  0.08479903164235028
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 58000
+neg_log_likelihood_train:  6.2456665
+neg_log_likelihood_prediction:  4.938226786526767
+RMSE_train:  0.24087434
+RMSE_prediction:  0.2763157812031833
+ND_train:  0.08900807
+ND_pred:  0.0864423384720629
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 58500
+neg_log_likelihood_train:  4.5939455
+neg_log_likelihood_prediction:  4.9584950533780185
+RMSE_train:  0.27009165
+RMSE_prediction:  0.297865935347297
+ND_train:  0.08204665
+ND_pred:  0.09111434559930455
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 06:20:13.097488
+###########   6 Finish  #########
+prediction
+step: 59000
+neg_log_likelihood_train:  5.14908
+neg_log_likelihood_prediction:  4.924390055916526
+RMSE_train:  0.25237957
+RMSE_prediction:  0.2612342712554065
+ND_train:  0.06640349
+ND_pred:  0.08532655916430733
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 59500
+neg_log_likelihood_train:  5.0199647
+neg_log_likelihood_prediction:  4.960632844404741
+RMSE_train:  0.37300995
+RMSE_prediction:  0.30473557114601135
+ND_train:  0.08247472
+ND_pred:  0.09386224841529672
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 60000
+neg_log_likelihood_train:  4.781702
+neg_log_likelihood_prediction:  4.9162373109297315
+RMSE_train:  0.34549934
+RMSE_prediction:  0.26613816212524066
+ND_train:  0.076828346
+ND_pred:  0.0856730348684571
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 60500
+neg_log_likelihood_train:  5.219329
+neg_log_likelihood_prediction:  4.97326001253995
+RMSE_train:  0.26905683
+RMSE_prediction:  0.2857850966128436
+ND_train:  0.09022874
+ND_pred:  0.08902623639865355
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 61000
+neg_log_likelihood_train:  4.498118
+neg_log_likelihood_prediction:  4.930181156505238
+RMSE_train:  0.2220249
+RMSE_prediction:  0.2796496545726603
+ND_train:  0.07796949
+ND_pred:  0.08843998136845502
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 61500
+neg_log_likelihood_train:  4.8334203
+neg_log_likelihood_prediction:  4.920167922973633
+RMSE_train:  0.19935946
+RMSE_prediction:  0.26911510120738635
+ND_train:  0.07380921
+ND_pred:  0.08730117299339989
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 62000
+neg_log_likelihood_train:  5.1464267
+neg_log_likelihood_prediction:  4.950622125105425
+RMSE_train:  0.8108637
+RMSE_prediction:  0.27810967104001477
+ND_train:  0.12313301
+ND_pred:  0.08724604208361018
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 62500
+neg_log_likelihood_train:  5.1587768
+neg_log_likelihood_prediction:  5.058158961209384
+RMSE_train:  0.7787288
+RMSE_prediction:  0.2953240790150382
+ND_train:  0.10761633
+ND_pred:  0.09158288822932677
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 63000
+neg_log_likelihood_train:  4.5497074
+neg_log_likelihood_prediction:  4.997884793715044
+RMSE_train:  0.37867177
+RMSE_prediction:  0.28513081778179517
+ND_train:  0.081907906
+ND_pred:  0.09057048775933006
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 63500
+neg_log_likelihood_train:  5.8162055
+neg_log_likelihood_prediction:  4.9583259062333545
+RMSE_train:  0.29019132
+RMSE_prediction:  0.28016806732524524
+ND_train:  0.080432594
+ND_pred:  0.08915343609723178
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 64000
+neg_log_likelihood_train:  4.8227506
+neg_log_likelihood_prediction:  4.939405744726008
+RMSE_train:  0.2520181
+RMSE_prediction:  0.27082987129688263
+ND_train:  0.088160455
+ND_pred:  0.08669518340717662
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 64500
+neg_log_likelihood_train:  5.0892925
+neg_log_likelihood_prediction:  4.9314820983193135
+RMSE_train:  0.74154735
+RMSE_prediction:  0.26807268912141974
+ND_train:  0.09731935
+ND_pred:  0.08697410266507756
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 65000
+neg_log_likelihood_train:  4.205614
+neg_log_likelihood_prediction:  4.9181577075611465
+RMSE_train:  0.24088858
+RMSE_prediction:  0.2692551734772595
+ND_train:  0.07676007
+ND_pred:  0.0867400352250446
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 65500
+neg_log_likelihood_train:  5.1756167
+neg_log_likelihood_prediction:  4.920783866535533
+RMSE_train:  0.22401896
+RMSE_prediction:  0.2728728245605122
+ND_train:  0.06291299
+ND_pred:  0.08621181073513898
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 66000
+neg_log_likelihood_train:  4.5683885
+neg_log_likelihood_prediction:  4.92873308875344
+RMSE_train:  0.7515268
+RMSE_prediction:  0.2907209586013447
+ND_train:  0.096298635
+ND_pred:  0.09053893184120004
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 66500
+neg_log_likelihood_train:  4.0703235
+neg_log_likelihood_prediction:  4.917281194166704
+RMSE_train:  0.42258036
+RMSE_prediction:  0.2730698748068376
+ND_train:  0.073663376
+ND_pred:  0.08594196289777756
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 67000
+neg_log_likelihood_train:  4.445299
+neg_log_likelihood_prediction:  4.917885606939143
+RMSE_train:  0.39182192
+RMSE_prediction:  0.2637774334712462
+ND_train:  0.072930396
+ND_pred:  0.08501231873577292
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 06:47:09.050419
+###########   7 Finish  #########
+prediction
+step: 67500
+neg_log_likelihood_train:  4.925918
+neg_log_likelihood_prediction:  4.921929922970858
+RMSE_train:  0.35845464
+RMSE_prediction:  0.38382301411845465
+ND_train:  0.0709477
+ND_pred:  0.10150689631700516
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 68000
+neg_log_likelihood_train:  5.116717
+neg_log_likelihood_prediction:  4.907589522275058
+RMSE_train:  0.47064066
+RMSE_prediction:  0.2794349098747427
+ND_train:  0.07547145
+ND_pred:  0.08647321909666061
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 68500
+neg_log_likelihood_train:  4.8526173
+neg_log_likelihood_prediction:  4.930241844870827
+RMSE_train:  0.3149052
+RMSE_prediction:  0.30995013361627405
+ND_train:  0.0806624
+ND_pred:  0.09242797846143896
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 69000
+neg_log_likelihood_train:  4.591543
+neg_log_likelihood_prediction:  4.888788396661932
+RMSE_train:  0.23060675
+RMSE_prediction:  0.28728974000974133
+ND_train:  0.08708166
+ND_pred:  0.08899760178544304
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 69500
+neg_log_likelihood_train:  4.034691
+neg_log_likelihood_prediction:  4.915195681832054
+RMSE_train:  0.2413103
+RMSE_prediction:  0.30288076400756836
+ND_train:  0.07241813
+ND_pred:  0.08802808888933876
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 70000
+neg_log_likelihood_train:  5.031905
+neg_log_likelihood_prediction:  4.888202277096835
+RMSE_train:  0.18901019
+RMSE_prediction:  0.2781296887181022
+ND_train:  0.0794852
+ND_pred:  0.0871508162130009
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 70500
+neg_log_likelihood_train:  4.46993
+neg_log_likelihood_prediction:  4.912955934351141
+RMSE_train:  0.26960847
+RMSE_prediction:  0.27743147584525024
+ND_train:  0.06650279
+ND_pred:  0.08695117926055734
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 71000
+neg_log_likelihood_train:  4.133528
+neg_log_likelihood_prediction:  4.89114371213046
+RMSE_train:  0.28254905
+RMSE_prediction:  0.2905172908847982
+ND_train:  0.0872825
+ND_pred:  0.08986398103562268
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 71500
+neg_log_likelihood_train:  4.5080056
+neg_log_likelihood_prediction:  4.9013496312228115
+RMSE_train:  0.27360412
+RMSE_prediction:  0.30857211486859754
+ND_train:  0.09289762
+ND_pred:  0.09187637540427121
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 72000
+neg_log_likelihood_train:  4.5839305
+neg_log_likelihood_prediction:  4.889136010950262
+RMSE_train:  0.24567698
+RMSE_prediction:  0.28096524151888763
+ND_train:  0.057769455
+ND_pred:  0.08654159713875163
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 72500
+neg_log_likelihood_train:  5.144194
+neg_log_likelihood_prediction:  4.919140512293035
+RMSE_train:  0.19210318
+RMSE_prediction:  0.2947963137518276
+ND_train:  0.07364929
+ND_pred:  0.08809336681257594
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 73000
+neg_log_likelihood_train:  4.4869356
+neg_log_likelihood_prediction:  4.929795438593084
+RMSE_train:  0.29507837
+RMSE_prediction:  0.27698417007923126
+ND_train:  0.08221715
+ND_pred:  0.08535207808017731
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 73500
+neg_log_likelihood_train:  5.0577135
+neg_log_likelihood_prediction:  4.961933179335161
+RMSE_train:  0.5343667
+RMSE_prediction:  0.2718240523880178
+ND_train:  0.08136579
+ND_pred:  0.08544244075363333
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 74000
+neg_log_likelihood_train:  4.8787084
+neg_log_likelihood_prediction:  4.937049475583163
+RMSE_train:  0.26438934
+RMSE_prediction:  0.27739061415195465
+ND_train:  0.08485715
+ND_pred:  0.08655918525023894
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 74500
+neg_log_likelihood_train:  5.4695373
+neg_log_likelihood_prediction:  4.923353628678755
+RMSE_train:  1.080344
+RMSE_prediction:  0.3433161703023044
+ND_train:  0.12570511
+ND_pred:  0.10414352471178229
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 75000
+neg_log_likelihood_train:  4.530925
+neg_log_likelihood_prediction:  4.906818216497248
+RMSE_train:  0.15241241
+RMSE_prediction:  0.2654193206266923
+ND_train:  0.06343452
+ND_pred:  0.08520577915690163
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 75500
+neg_log_likelihood_train:  4.504211
+neg_log_likelihood_prediction:  4.902244351126931
+RMSE_train:  0.16898365
+RMSE_prediction:  0.2897562709721652
+ND_train:  0.075690344
+ND_pred:  0.0888299210505052
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 07:14:05.778586
+###########   8 Finish  #########
+prediction
+step: 76000
+neg_log_likelihood_train:  4.970422
+neg_log_likelihood_prediction:  4.913049654527144
+RMSE_train:  0.5003662
+RMSE_prediction:  0.2639883119951595
+ND_train:  0.08037247
+ND_pred:  0.0870442884889516
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 76500
+neg_log_likelihood_train:  4.3224535
+neg_log_likelihood_prediction:  4.911794185638428
+RMSE_train:  0.30966932
+RMSE_prediction:  0.25850332054224884
+ND_train:  0.08004208
+ND_pred:  0.0826051804152402
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 77000
+neg_log_likelihood_train:  4.4696836
+neg_log_likelihood_prediction:  4.911148808219216
+RMSE_train:  0.43340406
+RMSE_prediction:  0.2901811789382588
+ND_train:  0.08526475
+ND_pred:  0.09020284766500647
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 77500
+neg_log_likelihood_train:  4.5280437
+neg_log_likelihood_prediction:  4.917005408893932
+RMSE_train:  0.14234167
+RMSE_prediction:  0.27147800543091516
+ND_train:  0.06623231
+ND_pred:  0.0843017114834352
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 78000
+neg_log_likelihood_train:  4.269124
+neg_log_likelihood_prediction:  4.945257620377974
+RMSE_train:  0.18163696
+RMSE_prediction:  0.26835825361988763
+ND_train:  0.07935434
+ND_pred:  0.08421178974888542
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 78500
+neg_log_likelihood_train:  4.869408
+neg_log_likelihood_prediction:  4.894478147680109
+RMSE_train:  0.15029027
+RMSE_prediction:  0.2779718718745492
+ND_train:  0.06932049
+ND_pred:  0.08666240356185219
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 79000
+neg_log_likelihood_train:  4.790279
+neg_log_likelihood_prediction:  4.9263270118019795
+RMSE_train:  0.20613003
+RMSE_prediction:  0.2747217660600489
+ND_train:  0.07123044
+ND_pred:  0.08776210113005205
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 79500
+neg_log_likelihood_train:  4.649428
+neg_log_likelihood_prediction:  4.914572889154607
+RMSE_train:  0.27162626
+RMSE_prediction:  0.3123700496825305
+ND_train:  0.06168844
+ND_pred:  0.09538946910337968
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 80000
+neg_log_likelihood_train:  4.6329455
+neg_log_likelihood_prediction:  4.9363343065435235
+RMSE_train:  0.33512825
+RMSE_prediction:  0.2729462263259021
+ND_train:  0.06692059
+ND_pred:  0.08648074215108698
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 80500
+neg_log_likelihood_train:  4.5385475
+neg_log_likelihood_prediction:  4.920973734422163
+RMSE_train:  0.2523532
+RMSE_prediction:  0.27963141961531207
+ND_train:  0.07822484
+ND_pred:  0.08846982297572223
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 81000
+neg_log_likelihood_train:  4.7526016
+neg_log_likelihood_prediction:  4.846797292882746
+RMSE_train:  0.2318409
+RMSE_prediction:  0.27060252157124604
+ND_train:  0.057308882
+ND_pred:  0.08462340046059001
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 81500
+neg_log_likelihood_train:  4.4794602
+neg_log_likelihood_prediction:  4.924056616696444
+RMSE_train:  0.24297589
+RMSE_prediction:  0.2827337817712264
+ND_train:  0.072173774
+ND_pred:  0.0854688124223189
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 82000
+neg_log_likelihood_train:  4.785376
+neg_log_likelihood_prediction:  4.870644482699308
+RMSE_train:  0.36119443
+RMSE_prediction:  0.2681157047098333
+ND_train:  0.074719526
+ND_pred:  0.08433580330827019
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 82500
+neg_log_likelihood_train:  4.168333
+neg_log_likelihood_prediction:  4.869244835593483
+RMSE_train:  0.1957585
+RMSE_prediction:  0.28655257550152863
+ND_train:  0.075993024
+ND_pred:  0.08567227084528316
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 83000
+neg_log_likelihood_train:  4.5240636
+neg_log_likelihood_prediction:  4.903700741854581
+RMSE_train:  0.5863607
+RMSE_prediction:  0.29337852651422675
+ND_train:  0.07615505
+ND_pred:  0.08860187435692007
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 83500
+neg_log_likelihood_train:  4.7053523
+neg_log_likelihood_prediction:  4.9142960201610215
+RMSE_train:  0.64798915
+RMSE_prediction:  0.26460340348157013
+ND_train:  0.09279226
+ND_pred:  0.08399463851343501
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 84000
+neg_log_likelihood_train:  4.6394973
+neg_log_likelihood_prediction:  4.902503447099165
+RMSE_train:  0.18703571
+RMSE_prediction:  0.272447405890985
+ND_train:  0.07737294
+ND_pred:  0.08557098358869553
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 07:41:01.749811
+###########   9 Finish  #########
+prediction
+step: 84500
+neg_log_likelihood_train:  4.6277137
+neg_log_likelihood_prediction:  4.909262830560857
+RMSE_train:  0.19143505
+RMSE_prediction:  0.2737497931176966
+ND_train:  0.067301385
+ND_pred:  0.08513881875710054
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 85000
+neg_log_likelihood_train:  4.9294543
+neg_log_likelihood_prediction:  4.866195375269109
+RMSE_train:  0.42722657
+RMSE_prediction:  0.27492861449718475
+ND_train:  0.07285896
+ND_pred:  0.08553751761263068
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 85500
+neg_log_likelihood_train:  4.3684464
+neg_log_likelihood_prediction:  4.926121711730957
+RMSE_train:  0.22740541
+RMSE_prediction:  0.29296408729119733
+ND_train:  0.08206906
+ND_pred:  0.09183372083035382
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 86000
+neg_log_likelihood_train:  4.7817297
+neg_log_likelihood_prediction:  4.916438492861661
+RMSE_train:  0.8657584
+RMSE_prediction:  0.2780630886554718
+ND_train:  0.105681986
+ND_pred:  0.08750887011939829
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 86500
+neg_log_likelihood_train:  4.2376857
+neg_log_likelihood_prediction:  4.914240143515847
+RMSE_train:  0.3974843
+RMSE_prediction:  0.27060588652437384
+ND_train:  0.065787554
+ND_pred:  0.08771617710590363
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 87000
+neg_log_likelihood_train:  4.2683887
+neg_log_likelihood_prediction:  4.9012204950506035
+RMSE_train:  0.16762047
+RMSE_prediction:  0.26816053011200647
+ND_train:  0.06727736
+ND_pred:  0.08623603731393814
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 87500
+neg_log_likelihood_train:  4.4428973
+neg_log_likelihood_prediction:  4.907327651977539
+RMSE_train:  0.5875975
+RMSE_prediction:  0.26623639735308563
+ND_train:  0.09524065
+ND_pred:  0.08519577776843851
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 88000
+neg_log_likelihood_train:  4.6197324
+neg_log_likelihood_prediction:  4.9151600924405185
+RMSE_train:  0.95734525
+RMSE_prediction:  0.2791626737876372
+ND_train:  0.11613191
+ND_pred:  0.08871036293831738
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 88500
+neg_log_likelihood_train:  4.840763
+neg_log_likelihood_prediction:  4.932870561426336
+RMSE_train:  0.34396422
+RMSE_prediction:  0.280416032130068
+ND_train:  0.073231734
+ND_pred:  0.08700412715023215
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 89000
+neg_log_likelihood_train:  4.6351104
+neg_log_likelihood_prediction:  4.926521431316029
+RMSE_train:  0.6343112
+RMSE_prediction:  0.2765355787493966
+ND_train:  0.092258744
+ND_pred:  0.08534117178483443
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 89500
+neg_log_likelihood_train:  4.2219005
+neg_log_likelihood_prediction:  4.875506964596835
+RMSE_train:  0.12953158
+RMSE_prediction:  0.27559511634436523
+ND_train:  0.06301695
+ND_pred:  0.08547002415765416
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 90000
+neg_log_likelihood_train:  4.5781503
+neg_log_likelihood_prediction:  4.893908934159712
+RMSE_train:  0.32085827
+RMSE_prediction:  0.27243115414272656
+ND_train:  0.078685425
+ND_pred:  0.08573090081865137
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 90500
+neg_log_likelihood_train:  5.254578
+neg_log_likelihood_prediction:  4.872521703893488
+RMSE_train:  0.32198757
+RMSE_prediction:  0.2948702045462348
+ND_train:  0.074326575
+ND_pred:  0.08916824649680745
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 91000
+neg_log_likelihood_train:  4.8604736
+neg_log_likelihood_prediction:  4.912885449149392
+RMSE_train:  0.14213444
+RMSE_prediction:  0.2657990916208787
+ND_train:  0.058314696
+ND_pred:  0.08523613824085756
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 91500
+neg_log_likelihood_train:  4.0846095
+neg_log_likelihood_prediction:  4.897205482829701
+RMSE_train:  0.3560505
+RMSE_prediction:  0.2781682759523392
+ND_train:  0.06702872
+ND_pred:  0.0854842567985708
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 92000
+neg_log_likelihood_train:  4.7040277
+neg_log_likelihood_prediction:  4.9051408767700195
+RMSE_train:  0.19018045
+RMSE_prediction:  0.26960679617795075
+ND_train:  0.07079064
+ND_pred:  0.08393315090374513
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 08:07:50.818500
+###########   10 Finish  #########
+prediction
+step: 92500
+neg_log_likelihood_train:  4.712452
+neg_log_likelihood_prediction:  4.883297703482888
+RMSE_train:  0.36464003
+RMSE_prediction:  0.2932515090162104
+ND_train:  0.07154986
+ND_pred:  0.08777136965231462
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 93000
+neg_log_likelihood_train:  4.9563966
+neg_log_likelihood_prediction:  4.916135874661532
+RMSE_train:  0.22268483
+RMSE_prediction:  0.27023713290691376
+ND_train:  0.06291622
+ND_pred:  0.08517188307913867
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 93500
+neg_log_likelihood_train:  4.3745337
+neg_log_likelihood_prediction:  4.897739757191051
+RMSE_train:  0.19102041
+RMSE_prediction:  0.27669512683695013
+ND_train:  0.070065826
+ND_pred:  0.08924699236046184
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 94000
+neg_log_likelihood_train:  4.741216
+neg_log_likelihood_prediction:  4.884754180908203
+RMSE_train:  0.537008
+RMSE_prediction:  0.2826560261574658
+ND_train:  0.0757628
+ND_pred:  0.08897126601500945
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 94500
+neg_log_likelihood_train:  4.6525974
+neg_log_likelihood_prediction:  4.917557152834806
+RMSE_train:  0.16987231
+RMSE_prediction:  0.26732399653304706
+ND_train:  0.06702374
+ND_pred:  0.08390191671523181
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 95000
+neg_log_likelihood_train:  4.9525886
+neg_log_likelihood_prediction:  4.8690454309636895
+RMSE_train:  0.2228403
+RMSE_prediction:  0.28569202396002685
+ND_train:  0.059918214
+ND_pred:  0.08722065050493587
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 95500
+neg_log_likelihood_train:  4.380076
+neg_log_likelihood_prediction:  4.918081196871671
+RMSE_train:  0.2878135
+RMSE_prediction:  0.27550707486542786
+ND_train:  0.080295786
+ND_pred:  0.08681899105960672
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 96000
+neg_log_likelihood_train:  5.1952367
+neg_log_likelihood_prediction:  4.889416954734108
+RMSE_train:  0.35618606
+RMSE_prediction:  0.28277889029546216
+ND_train:  0.088526145
+ND_pred:  0.08724330839785663
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 96500
+neg_log_likelihood_train:  5.248217
+neg_log_likelihood_prediction:  4.903641353953969
+RMSE_train:  0.23365912
+RMSE_prediction:  0.27040433341806586
+ND_train:  0.07604095
+ND_pred:  0.08379468321800232
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 97000
+neg_log_likelihood_train:  4.2968426
+neg_log_likelihood_prediction:  4.909007982774214
+RMSE_train:  0.18797848
+RMSE_prediction:  0.2699741883711381
+ND_train:  0.075352594
+ND_pred:  0.08412726833061739
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 97500
+neg_log_likelihood_train:  4.644273
+neg_log_likelihood_prediction:  4.899252718145197
+RMSE_train:  0.1978855
+RMSE_prediction:  0.2663665847344832
+ND_train:  0.06964368
+ND_pred:  0.0835091072050008
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 98000
+neg_log_likelihood_train:  4.8268914
+neg_log_likelihood_prediction:  4.89195593920621
+RMSE_train:  0.12548874
+RMSE_prediction:  0.2669517533345656
+ND_train:  0.06365225
+ND_pred:  0.08525479043071921
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 98500
+neg_log_likelihood_train:  4.706221
+neg_log_likelihood_prediction:  4.903343634171919
+RMSE_train:  0.19330646
+RMSE_prediction:  0.2692003385587172
+ND_train:  0.07614638
+ND_pred:  0.0835323306647214
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 99000
+neg_log_likelihood_train:  4.624677
+neg_log_likelihood_prediction:  4.887511513449929
+RMSE_train:  0.711804
+RMSE_prediction:  0.2675482535904104
+ND_train:  0.08281849
+ND_pred:  0.08223336054520174
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 99500
+neg_log_likelihood_train:  5.095921
+neg_log_likelihood_prediction:  4.8495894778858535
+RMSE_train:  0.1630952
+RMSE_prediction:  0.27218699726191437
+ND_train:  0.06098685
+ND_pred:  0.08414642106403004
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 100000
+neg_log_likelihood_train:  5.02012
+neg_log_likelihood_prediction:  4.865529147061435
+RMSE_train:  0.23873293
+RMSE_prediction:  0.26082358441569586
+ND_train:  0.08230595
+ND_pred:  0.08384615792469545
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 100500
+neg_log_likelihood_train:  4.496886
+neg_log_likelihood_prediction:  4.897332408211448
+RMSE_train:  0.27820638
+RMSE_prediction:  0.286612176082351
+ND_train:  0.080097966
+ND_pred:  0.08574303713711826
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 08:34:45.198736
+###########   11 Finish  #########
+prediction
+step: 101000
+neg_log_likelihood_train:  5.0767503
+neg_log_likelihood_prediction:  4.8649679964238945
+RMSE_train:  0.19119073
+RMSE_prediction:  0.27528421445326373
+ND_train:  0.053780075
+ND_pred:  0.08738769590854645
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 101500
+neg_log_likelihood_train:  4.8770843
+neg_log_likelihood_prediction:  4.867916800759056
+RMSE_train:  0.37284768
+RMSE_prediction:  0.2935848141258413
+ND_train:  0.07537769
+ND_pred:  0.09441996772180904
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 102000
+neg_log_likelihood_train:  4.693008
+neg_log_likelihood_prediction:  4.83937371860851
+RMSE_train:  0.23941176
+RMSE_prediction:  0.27227271415970544
+ND_train:  0.0607999
+ND_pred:  0.0843043787912889
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 102500
+neg_log_likelihood_train:  5.1511655
+neg_log_likelihood_prediction:  4.853373007340864
+RMSE_train:  0.2911681
+RMSE_prediction:  0.26965599845756183
+ND_train:  0.09183892
+ND_pred:  0.08301270346749913
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 103000
+neg_log_likelihood_train:  4.4703507
+neg_log_likelihood_prediction:  4.89162709496238
+RMSE_train:  0.22194585
+RMSE_prediction:  0.27067322351715783
+ND_train:  0.07518897
+ND_pred:  0.08498714796521446
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 103500
+neg_log_likelihood_train:  4.7558208
+neg_log_likelihood_prediction:  4.868910312652588
+RMSE_train:  0.19706123
+RMSE_prediction:  0.26643629372119904
+ND_train:  0.06899863
+ND_pred:  0.08393969657746228
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 104000
+neg_log_likelihood_train:  4.9296017
+neg_log_likelihood_prediction:  4.851368557323109
+RMSE_train:  0.6941621
+RMSE_prediction:  0.2760875739834525
+ND_train:  0.09183144
+ND_pred:  0.08421666310592131
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 104500
+neg_log_likelihood_train:  4.9436855
+neg_log_likelihood_prediction:  4.849551677703857
+RMSE_train:  0.62796336
+RMSE_prediction:  0.2781956426121972
+ND_train:  0.08253076
+ND_pred:  0.08625429462302815
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 105000
+neg_log_likelihood_train:  4.4089
+neg_log_likelihood_prediction:  4.856251673264937
+RMSE_train:  0.36868334
+RMSE_prediction:  0.2662528685548089
+ND_train:  0.07729342
+ND_pred:  0.08506212857636539
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 105500
+neg_log_likelihood_train:  5.246479
+neg_log_likelihood_prediction:  4.916615702889183
+RMSE_train:  0.26909572
+RMSE_prediction:  0.2681398405270143
+ND_train:  0.0748022
+ND_pred:  0.08499303934249011
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 106000
+neg_log_likelihood_train:  4.708574
+neg_log_likelihood_prediction:  4.901781125502153
+RMSE_train:  0.22748788
+RMSE_prediction:  0.28022556142373517
+ND_train:  0.082433626
+ND_pred:  0.08707564120942896
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 106500
+neg_log_likelihood_train:  4.960503
+neg_log_likelihood_prediction:  4.853345003995028
+RMSE_train:  0.62816817
+RMSE_prediction:  0.26455186171965167
+ND_train:  0.08406263
+ND_pred:  0.08419648761099036
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 107000
+neg_log_likelihood_train:  4.1671157
+neg_log_likelihood_prediction:  4.858731790022417
+RMSE_train:  0.20599104
+RMSE_prediction:  0.27369932423938403
+ND_train:  0.07065895
+ND_pred:  0.08438993042165582
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 107500
+neg_log_likelihood_train:  5.122498
+neg_log_likelihood_prediction:  4.856227614662864
+RMSE_train:  0.17513537
+RMSE_prediction:  0.2756478082049977
+ND_train:  0.049982082
+ND_pred:  0.08773552558638832
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 108000
+neg_log_likelihood_train:  4.4708343
+neg_log_likelihood_prediction:  4.8378376960754395
+RMSE_train:  0.56081444
+RMSE_prediction:  0.2689815854484385
+ND_train:  0.07872758
+ND_pred:  0.08339131691239098
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 108500
+neg_log_likelihood_train:  3.9138527
+neg_log_likelihood_prediction:  4.834252270785245
+RMSE_train:  0.39212966
+RMSE_prediction:  0.28178504786708136
+ND_train:  0.06369548
+ND_pred:  0.08530124886469408
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 109000
+neg_log_likelihood_train:  4.367719
+neg_log_likelihood_prediction:  4.875863031907515
+RMSE_train:  0.3735069
+RMSE_prediction:  0.28065108169208874
+ND_train:  0.0664126
+ND_pred:  0.08552931181409142
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 09:01:40.694542
+###########   12 Finish  #########
+prediction
+step: 109500
+neg_log_likelihood_train:  5.127098
+neg_log_likelihood_prediction:  5.08765814521096
+RMSE_train:  0.34498394
+RMSE_prediction:  0.3091527101668445
+ND_train:  0.07181598
+ND_pred:  0.10002243722026999
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 110000
+neg_log_likelihood_train:  4.909008
+neg_log_likelihood_prediction:  4.842201623049649
+RMSE_train:  0.5273046
+RMSE_prediction:  0.2745956507596103
+ND_train:  0.08328518
+ND_pred:  0.08459112048149109
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 110500
+neg_log_likelihood_train:  4.7672105
+neg_log_likelihood_prediction:  4.824704083529386
+RMSE_train:  0.28053823
+RMSE_prediction:  0.26919341629201715
+ND_train:  0.07388343
+ND_pred:  0.08280171521685341
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 111000
+neg_log_likelihood_train:  4.540607
+neg_log_likelihood_prediction:  4.822153438221324
+RMSE_train:  0.16872697
+RMSE_prediction:  0.276316680691459
+ND_train:  0.07449565
+ND_pred:  0.08528633280233903
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 111500
+neg_log_likelihood_train:  3.9751892
+neg_log_likelihood_prediction:  4.83896220814098
+RMSE_train:  0.2347227
+RMSE_prediction:  0.26572132246060803
+ND_train:  0.07023157
+ND_pred:  0.08716032383116809
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 112000
+neg_log_likelihood_train:  4.997764
+neg_log_likelihood_prediction:  4.822432864796031
+RMSE_train:  0.17064969
+RMSE_prediction:  0.26824873143976385
+ND_train:  0.06963427
+ND_pred:  0.08463866534558209
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 112500
+neg_log_likelihood_train:  4.4082813
+neg_log_likelihood_prediction:  4.811337167566473
+RMSE_train:  0.26037353
+RMSE_prediction:  0.27486107566139917
+ND_train:  0.06587392
+ND_pred:  0.08397547697479074
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 113000
+neg_log_likelihood_train:  4.1016154
+neg_log_likelihood_prediction:  4.831807830116966
+RMSE_train:  0.25720474
+RMSE_prediction:  0.2680318450385874
+ND_train:  0.07896875
+ND_pred:  0.084720140831037
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 113500
+neg_log_likelihood_train:  4.438033
+neg_log_likelihood_prediction:  4.831651774319735
+RMSE_train:  0.30557573
+RMSE_prediction:  0.28621778975833545
+ND_train:  0.09412293
+ND_pred:  0.08397157219323245
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 114000
+neg_log_likelihood_train:  4.5530286
+neg_log_likelihood_prediction:  4.866253289309415
+RMSE_train:  0.2195855
+RMSE_prediction:  0.2715323987332257
+ND_train:  0.05474547
+ND_pred:  0.08359812674197284
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 114500
+neg_log_likelihood_train:  5.0875463
+neg_log_likelihood_prediction:  4.826587200164795
+RMSE_train:  0.19138467
+RMSE_prediction:  0.2774456725879149
+ND_train:  0.069819815
+ND_pred:  0.08387930623509667
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 115000
+neg_log_likelihood_train:  4.4360247
+neg_log_likelihood_prediction:  4.823946302587336
+RMSE_train:  0.28376403
+RMSE_prediction:  0.26733365113084967
+ND_train:  0.079416156
+ND_pred:  0.08357827704061162
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 115500
+neg_log_likelihood_train:  5.005258
+neg_log_likelihood_prediction:  4.8201471675526015
+RMSE_train:  0.526736
+RMSE_prediction:  0.26576582951979205
+ND_train:  0.07797192
+ND_pred:  0.0833852846514095
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 116000
+neg_log_likelihood_train:  4.7766824
+neg_log_likelihood_prediction:  4.841653520410711
+RMSE_train:  0.2853628
+RMSE_prediction:  0.2651464329524474
+ND_train:  0.08107602
+ND_pred:  0.08462639694864099
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 116500
+neg_log_likelihood_train:  5.2637553
+neg_log_likelihood_prediction:  4.8730409362099385
+RMSE_train:  1.0114102
+RMSE_prediction:  0.2943105806003917
+ND_train:  0.12122074
+ND_pred:  0.08942496912045912
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 117000
+neg_log_likelihood_train:  4.471901
+neg_log_likelihood_prediction:  4.871607260270552
+RMSE_train:  0.15274435
+RMSE_prediction:  0.27273195575584064
+ND_train:  0.062006347
+ND_pred:  0.08644619651816109
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 117500
+neg_log_likelihood_train:  4.417063
+neg_log_likelihood_prediction:  4.839498303153298
+RMSE_train:  0.16262269
+RMSE_prediction:  0.26816459677436133
+ND_train:  0.070396505
+ND_pred:  0.08448660576885397
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 09:28:34.996677
+###########   13 Finish  #########
+prediction
+step: 118000
+neg_log_likelihood_train:  4.935241
+neg_log_likelihood_prediction:  4.9166316552595655
+RMSE_train:  0.46160224
+RMSE_prediction:  0.2632380019534718
+ND_train:  0.072353914
+ND_pred:  0.08394020321694287
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 118500
+neg_log_likelihood_train:  4.2992487
+neg_log_likelihood_prediction:  4.880849968303334
+RMSE_train:  0.2605324
+RMSE_prediction:  0.26486446776173334
+ND_train:  0.072388574
+ND_pred:  0.08573965254155072
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 119000
+neg_log_likelihood_train:  4.423702
+neg_log_likelihood_prediction:  4.872562885284424
+RMSE_train:  0.34846294
+RMSE_prediction:  0.2671778147870844
+ND_train:  0.07697254
+ND_pred:  0.08559661358594894
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 119500
+neg_log_likelihood_train:  4.4793496
+neg_log_likelihood_prediction:  4.858073061162775
+RMSE_train:  0.14419936
+RMSE_prediction:  0.26477041163227777
+ND_train:  0.06382606
+ND_pred:  0.084324718198993
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 120000
+neg_log_likelihood_train:  4.2397256
+neg_log_likelihood_prediction:  4.83692607012662
+RMSE_train:  0.17379533
+RMSE_prediction:  0.26306611028584564
+ND_train:  0.075538814
+ND_pred:  0.08349351381713693
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 120500
+neg_log_likelihood_train:  4.805378
+neg_log_likelihood_prediction:  4.840737256136808
+RMSE_train:  0.14595233
+RMSE_prediction:  0.26957272670485755
+ND_train:  0.06563351
+ND_pred:  0.08393638106909665
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 121000
+neg_log_likelihood_train:  5.0798783
+neg_log_likelihood_prediction:  5.140281417153099
+RMSE_train:  0.2427403
+RMSE_prediction:  0.42657907036217774
+ND_train:  0.08172417
+ND_pred:  0.11391077055172487
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 121500
+neg_log_likelihood_train:  4.7148833
+neg_log_likelihood_prediction:  4.980866128748113
+RMSE_train:  0.40947726
+RMSE_prediction:  0.3084045391191136
+ND_train:  0.086595915
+ND_pred:  0.09326516498218883
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 122000
+neg_log_likelihood_train:  4.7000527
+neg_log_likelihood_prediction:  4.982461799274791
+RMSE_train:  0.5453356
+RMSE_prediction:  0.34183186292648315
+ND_train:  0.092095084
+ND_pred:  0.09568860110911456
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 122500
+neg_log_likelihood_train:  4.6328874
+neg_log_likelihood_prediction:  4.9565205140547315
+RMSE_train:  0.24266392
+RMSE_prediction:  0.2806199965151874
+ND_train:  0.07329528
+ND_pred:  0.08829609711061824
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 123000
+neg_log_likelihood_train:  4.8299875
+neg_log_likelihood_prediction:  4.933927796103737
+RMSE_train:  0.28119144
+RMSE_prediction:  0.27940936522050336
+ND_train:  0.060773324
+ND_pred:  0.08784728835929524
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 123500
+neg_log_likelihood_train:  4.452935
+neg_log_likelihood_prediction:  4.922901500355113
+RMSE_train:  0.2425529
+RMSE_prediction:  0.2730647772550583
+ND_train:  0.0733411
+ND_pred:  0.08623077517206018
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 124000
+neg_log_likelihood_train:  4.8545814
+neg_log_likelihood_prediction:  4.918275009502064
+RMSE_train:  0.29675186
+RMSE_prediction:  0.26688320257446985
+ND_train:  0.064572625
+ND_pred:  0.08535669879479842
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 124500
+neg_log_likelihood_train:  4.16507
+neg_log_likelihood_prediction:  4.91328915682706
+RMSE_train:  0.1954906
+RMSE_prediction:  0.2733160162513906
+ND_train:  0.07510223
+ND_pred:  0.08609578961675818
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 125000
+neg_log_likelihood_train:  4.4803395
+neg_log_likelihood_prediction:  4.9090352925387295
+RMSE_train:  0.6729168
+RMSE_prediction:  0.2646312686530026
+ND_train:  0.0883535
+ND_pred:  0.08482691781087355
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 125500
+neg_log_likelihood_train:  4.708969
+neg_log_likelihood_prediction:  4.897756533189253
+RMSE_train:  0.6160658
+RMSE_prediction:  0.26666454022580927
+ND_train:  0.08655013
+ND_pred:  0.08509896898811514
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 126000
+neg_log_likelihood_train:  4.699762
+neg_log_likelihood_prediction:  4.895379760048606
+RMSE_train:  0.17155932
+RMSE_prediction:  0.27637696943499823
+ND_train:  0.07689406
+ND_pred:  0.08574610677632419
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 09:55:30.069137
+###########   14 Finish  #########
+prediction
+step: 126500
+neg_log_likelihood_train:  4.6541934
+neg_log_likelihood_prediction:  4.8914735533974385
+RMSE_train:  0.18528625
+RMSE_prediction:  0.2708710581064224
+ND_train:  0.06553155
+ND_pred:  0.08565787835554643
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 127000
+neg_log_likelihood_train:  4.90378
+neg_log_likelihood_prediction:  4.882908561012962
+RMSE_train:  0.34101018
+RMSE_prediction:  0.275896354155107
+ND_train:  0.06067318
+ND_pred:  0.08649083497849377
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 127500
+neg_log_likelihood_train:  4.3574204
+neg_log_likelihood_prediction:  4.878849679773504
+RMSE_train:  0.21564145
+RMSE_prediction:  0.274626452814449
+ND_train:  0.08215838
+ND_pred:  0.086447651413354
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 128000
+neg_log_likelihood_train:  4.74165
+neg_log_likelihood_prediction:  4.876456304029985
+RMSE_train:  1.0812818
+RMSE_prediction:  0.2719253924759952
+ND_train:  0.12652268
+ND_pred:  0.08541505241935904
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 128500
+neg_log_likelihood_train:  4.2255936
+neg_log_likelihood_prediction:  4.8897272456776015
+RMSE_train:  0.37085423
+RMSE_prediction:  0.2697093717076562
+ND_train:  0.06283057
+ND_pred:  0.0859316736459732
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 129000
+neg_log_likelihood_train:  4.228192
+neg_log_likelihood_prediction:  4.885910944505171
+RMSE_train:  0.18948151
+RMSE_prediction:  0.27105712890625
+ND_train:  0.07217206
+ND_pred:  0.08470802212303336
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 129500
+neg_log_likelihood_train:  4.432297
+neg_log_likelihood_prediction:  4.868741945786909
+RMSE_train:  0.46814328
+RMSE_prediction:  0.2721554664048282
+ND_train:  0.08652913
+ND_pred:  0.08510620282454924
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 130000
+neg_log_likelihood_train:  4.533612
+neg_log_likelihood_prediction:  4.90188065442172
+RMSE_train:  0.9112782
+RMSE_prediction:  0.27555501596494153
+ND_train:  0.107312076
+ND_pred:  0.08559423143213446
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 130500
+neg_log_likelihood_train:  4.844236
+neg_log_likelihood_prediction:  4.866053667935458
+RMSE_train:  0.3871317
+RMSE_prediction:  0.2783571874553507
+ND_train:  0.07236523
+ND_pred:  0.08609759401191365
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 131000
+neg_log_likelihood_train:  4.634758
+neg_log_likelihood_prediction:  4.859062975103205
+RMSE_train:  0.6801962
+RMSE_prediction:  0.2777955342422832
+ND_train:  0.09594092
+ND_pred:  0.08519843220710754
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 131500
+neg_log_likelihood_train:  4.199968
+neg_log_likelihood_prediction:  4.898545611988414
+RMSE_train:  0.13524185
+RMSE_prediction:  0.27870741892944684
+ND_train:  0.062373247
+ND_pred:  0.08473306826569817
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 132000
+neg_log_likelihood_train:  4.5281215
+neg_log_likelihood_prediction:  4.882438486272639
+RMSE_train:  0.39938256
+RMSE_prediction:  0.2645173953338103
+ND_train:  0.08387544
+ND_pred:  0.08303442055528815
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 132500
+neg_log_likelihood_train:  5.2252955
+neg_log_likelihood_prediction:  4.8467982032082295
+RMSE_train:  0.23835947
+RMSE_prediction:  0.2684633880853653
+ND_train:  0.063774936
+ND_pred:  0.08439182422377846
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 133000
+neg_log_likelihood_train:  4.8306284
+neg_log_likelihood_prediction:  4.846117323095148
+RMSE_train:  0.14111055
+RMSE_prediction:  0.2663598263805563
+ND_train:  0.057446804
+ND_pred:  0.08363831246441061
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 133500
+neg_log_likelihood_train:  4.084995
+neg_log_likelihood_prediction:  4.863881067796187
+RMSE_train:  0.39050066
+RMSE_prediction:  0.2736968709663911
+ND_train:  0.06901774
+ND_pred:  0.08562031930143182
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 134000
+neg_log_likelihood_train:  4.6761885
+neg_log_likelihood_prediction:  4.890742692080411
+RMSE_train:  0.20347945
+RMSE_prediction:  0.272391213612123
+ND_train:  0.07284973
+ND_pred:  0.08491036702286113
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 10:22:20.251510
+###########   15 Finish  #########
+prediction
+step: 134500
+neg_log_likelihood_train:  4.7811956
+neg_log_likelihood_prediction:  4.905922889709473
+RMSE_train:  0.30644342
+RMSE_prediction:  0.2834146253087304
+ND_train:  0.06616831
+ND_pred:  0.08649781684983861
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 135000
+neg_log_likelihood_train:  4.9545302
+neg_log_likelihood_prediction:  4.860779675570401
+RMSE_train:  0.22967955
+RMSE_prediction:  0.2690230106765574
+ND_train:  0.064525545
+ND_pred:  0.0847014608708295
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 135500
+neg_log_likelihood_train:  4.3572803
+neg_log_likelihood_prediction:  4.865962895480069
+RMSE_train:  0.16496524
+RMSE_prediction:  0.27188205312598834
+ND_train:  0.06753894
+ND_pred:  0.08817663450132716
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 136000
+neg_log_likelihood_train:  4.67221
+neg_log_likelihood_prediction:  4.844440763646906
+RMSE_train:  0.48258984
+RMSE_prediction:  0.27142236720431934
+ND_train:  0.07361646
+ND_pred:  0.08436231856996362
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 136500
+neg_log_likelihood_train:  4.646359
+neg_log_likelihood_prediction:  4.834288987246427
+RMSE_train:  0.1834713
+RMSE_prediction:  0.2672587578946894
+ND_train:  0.070005834
+ND_pred:  0.0841825773770159
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 137000
+neg_log_likelihood_train:  4.9642215
+neg_log_likelihood_prediction:  4.828265363519842
+RMSE_train:  0.24626465
+RMSE_prediction:  0.2793773941018365
+ND_train:  0.06433446
+ND_pred:  0.0856296264312484
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 137500
+neg_log_likelihood_train:  4.3754807
+neg_log_likelihood_prediction:  4.851834643970836
+RMSE_train:  0.34204715
+RMSE_prediction:  0.28251855075359344
+ND_train:  0.084795564
+ND_pred:  0.08557291261174461
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 138000
+neg_log_likelihood_train:  5.1435122
+neg_log_likelihood_prediction:  4.827728141437877
+RMSE_train:  0.2919625
+RMSE_prediction:  0.26973605291409924
+ND_train:  0.079518825
+ND_pred:  0.08284880220890045
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 138500
+neg_log_likelihood_train:  5.2972746
+neg_log_likelihood_prediction:  4.91418981552124
+RMSE_train:  0.2568959
+RMSE_prediction:  0.2836079787124287
+ND_train:  0.08169225
+ND_pred:  0.08617110821333798
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 139000
+neg_log_likelihood_train:  4.3304067
+neg_log_likelihood_prediction:  4.880926695736972
+RMSE_train:  0.19156879
+RMSE_prediction:  0.27662580528042535
+ND_train:  0.0758596
+ND_pred:  0.08446427908810702
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 139500
+neg_log_likelihood_train:  4.670011
+neg_log_likelihood_prediction:  4.8791493502530185
+RMSE_train:  0.17600723
+RMSE_prediction:  0.27127120982516895
+ND_train:  0.06762022
+ND_pred:  0.08516260304234245
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 140000
+neg_log_likelihood_train:  4.873302
+neg_log_likelihood_prediction:  4.85661151192405
+RMSE_train:  0.14105974
+RMSE_prediction:  0.2711144265803424
+ND_train:  0.06277278
+ND_pred:  0.08321823111989281
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 140500
+neg_log_likelihood_train:  4.7102065
+neg_log_likelihood_prediction:  4.864841027693315
+RMSE_train:  0.20093545
+RMSE_prediction:  0.26646173135800794
+ND_train:  0.078609005
+ND_pred:  0.08327153799208728
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 141000
+neg_log_likelihood_train:  4.628821
+neg_log_likelihood_prediction:  4.853674845262007
+RMSE_train:  0.8027522
+RMSE_prediction:  0.2694905156439001
+ND_train:  0.095630735
+ND_pred:  0.0831087895415046
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 141500
+neg_log_likelihood_train:  5.075722
+neg_log_likelihood_prediction:  4.8612236976623535
+RMSE_train:  0.18476218
+RMSE_prediction:  0.2655527022751895
+ND_train:  0.05978113
+ND_pred:  0.08382722464474765
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 142000
+neg_log_likelihood_train:  5.011993
+neg_log_likelihood_prediction:  4.841273697939786
+RMSE_train:  0.22505042
+RMSE_prediction:  0.2672759782184254
+ND_train:  0.08272645
+ND_pred:  0.08362823589281602
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 142500
+neg_log_likelihood_train:  4.504313
+neg_log_likelihood_prediction:  4.876231670379639
+RMSE_train:  0.26517802
+RMSE_prediction:  0.27822339128364215
+ND_train:  0.07868957
+ND_pred:  0.08600458028641614
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 10:50:58.225965
+###########   16 Finish  #########
+prediction
+step: 143000
+neg_log_likelihood_train:  5.1376185
+neg_log_likelihood_prediction:  4.961962309750644
+RMSE_train:  0.209285
+RMSE_prediction:  0.3002861643379385
+ND_train:  0.053053167
+ND_pred:  0.08891203051263635
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 143500
+neg_log_likelihood_train:  4.9327
+neg_log_likelihood_prediction:  4.870182947678999
+RMSE_train:  0.42683008
+RMSE_prediction:  0.2735258557579734
+ND_train:  0.07770264
+ND_pred:  0.0858825072646141
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 144000
+neg_log_likelihood_train:  4.688607
+neg_log_likelihood_prediction:  4.858154773712158
+RMSE_train:  0.25019568
+RMSE_prediction:  0.27382599901069293
+ND_train:  0.05961013
+ND_pred:  0.08536755767735568
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 144500
+neg_log_likelihood_train:  5.1490693
+neg_log_likelihood_prediction:  4.892154780301181
+RMSE_train:  0.25684965
+RMSE_prediction:  0.26884323764931073
+ND_train:  0.0824854
+ND_pred:  0.08329195055094632
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 145000
+neg_log_likelihood_train:  4.4466567
+neg_log_likelihood_prediction:  4.845630038868297
+RMSE_train:  0.21042396
+RMSE_prediction:  0.26609863476319745
+ND_train:  0.07457662
+ND_pred:  0.08478413657708601
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 145500
+neg_log_likelihood_train:  4.7005606
+neg_log_likelihood_prediction:  4.827336571433327
+RMSE_train:  0.23754598
+RMSE_prediction:  0.2636685479771007
+ND_train:  0.075565666
+ND_pred:  0.08360790461301804
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 146000
+neg_log_likelihood_train:  4.9097753
+neg_log_likelihood_prediction:  4.828190239993009
+RMSE_train:  0.78119314
+RMSE_prediction:  0.2695516591722315
+ND_train:  0.09675148
+ND_pred:  0.083226893435825
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 146500
+neg_log_likelihood_train:  4.9375205
+neg_log_likelihood_prediction:  4.835168361663818
+RMSE_train:  0.71403015
+RMSE_prediction:  0.26696710830385034
+ND_train:  0.08577297
+ND_pred:  0.08451757105914029
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 147000
+neg_log_likelihood_train:  4.3963714
+neg_log_likelihood_prediction:  4.842827016657049
+RMSE_train:  0.37109923
+RMSE_prediction:  0.2623572918501767
+ND_train:  0.07736236
+ND_pred:  0.08507133410735564
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 147500
+neg_log_likelihood_train:  5.2430344
+neg_log_likelihood_prediction:  4.884261044588956
+RMSE_train:  0.31790695
+RMSE_prediction:  0.27874033559452405
+ND_train:  0.07970507
+ND_pred:  0.08591096170923927
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 148000
+neg_log_likelihood_train:  4.680214
+neg_log_likelihood_prediction:  4.862696040760387
+RMSE_train:  0.22151412
+RMSE_prediction:  0.2854577763514085
+ND_train:  0.08158964
+ND_pred:  0.08775231919505379
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 148500
+neg_log_likelihood_train:  4.9698167
+neg_log_likelihood_prediction:  4.866667183962735
+RMSE_train:  0.76333183
+RMSE_prediction:  0.27503299577669665
+ND_train:  0.09063438
+ND_pred:  0.0851811637932604
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 149000
+neg_log_likelihood_train:  4.1383553
+neg_log_likelihood_prediction:  4.8265534314242275
+RMSE_train:  0.22668438
+RMSE_prediction:  0.2615908817811446
+ND_train:  0.07436666
+ND_pred:  0.08348082209175284
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 149500
+neg_log_likelihood_train:  5.1228957
+neg_log_likelihood_prediction:  4.851076256145131
+RMSE_train:  0.19597073
+RMSE_prediction:  0.26323866031386634
+ND_train:  0.056846008
+ND_pred:  0.08423115922646089
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 150000
+neg_log_likelihood_train:  4.5121636
+neg_log_likelihood_prediction:  4.841398065740412
+RMSE_train:  0.609476
+RMSE_prediction:  0.26128912107511
+ND_train:  0.08272524
+ND_pred:  0.0829858502203768
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 150500
+neg_log_likelihood_train:  3.9231932
+neg_log_likelihood_prediction:  4.841282497752797
+RMSE_train:  0.41214386
+RMSE_prediction:  0.2583904645659707
+ND_train:  0.06929325
+ND_pred:  0.08157409253445538
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 151000
+neg_log_likelihood_train:  4.427384
+neg_log_likelihood_prediction:  4.893594481728294
+RMSE_train:  0.49845847
+RMSE_prediction:  0.3055240742184899
+ND_train:  0.074757986
+ND_pred:  0.08885474638505415
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 11:19:47.964544
+###########   17 Finish  #########
+prediction
+step: 151500
+neg_log_likelihood_train:  4.884396
+neg_log_likelihood_prediction:  4.873027628118342
+RMSE_train:  0.29041457
+RMSE_prediction:  0.31038387526165356
+ND_train:  0.060151972
+ND_pred:  0.09029016643762589
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 152000
+neg_log_likelihood_train:  4.8697314
+neg_log_likelihood_prediction:  4.84735107421875
+RMSE_train:  0.5550633
+RMSE_prediction:  0.2741983343254436
+ND_train:  0.07740978
+ND_pred:  0.08394911207936027
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 152500
+neg_log_likelihood_train:  4.772631
+neg_log_likelihood_prediction:  4.834110996939919
+RMSE_train:  0.2586358
+RMSE_prediction:  0.2579259479587728
+ND_train:  0.06937214
+ND_pred:  0.08143611794168298
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 153000
+neg_log_likelihood_train:  4.537542
+neg_log_likelihood_prediction:  4.855946237390691
+RMSE_train:  0.18087575
+RMSE_prediction:  0.2697832218625329
+ND_train:  0.07466917
+ND_pred:  0.08319183980876749
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 153500
+neg_log_likelihood_train:  3.9793339
+neg_log_likelihood_prediction:  4.875267202203924
+RMSE_train:  0.23381437
+RMSE_prediction:  0.25959631394256244
+ND_train:  0.06734698
+ND_pred:  0.0831964523954825
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 154000
+neg_log_likelihood_train:  4.9977508
+neg_log_likelihood_prediction:  4.859596035697243
+RMSE_train:  0.16685952
+RMSE_prediction:  0.27238012037493964
+ND_train:  0.071474575
+ND_pred:  0.0867943215099248
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 154500
+neg_log_likelihood_train:  4.419574
+neg_log_likelihood_prediction:  4.857102654196999
+RMSE_train:  0.2512366
+RMSE_prediction:  0.29171209037303925
+ND_train:  0.0620339
+ND_pred:  0.08707495101473549
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 155000
+neg_log_likelihood_train:  4.2063327
+neg_log_likelihood_prediction:  4.864584879441694
+RMSE_train:  0.25283143
+RMSE_prediction:  0.25709918954155664
+ND_train:  0.077246614
+ND_pred:  0.08198604597286745
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 155500
+neg_log_likelihood_train:  4.4874663
+neg_log_likelihood_prediction:  4.845470601862127
+RMSE_train:  0.28695396
+RMSE_prediction:  0.2721415148539977
+ND_train:  0.08763589
+ND_pred:  0.08332734622738579
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 156000
+neg_log_likelihood_train:  4.491844
+neg_log_likelihood_prediction:  4.844869310205633
+RMSE_train:  0.22253616
+RMSE_prediction:  0.2870300669561733
+ND_train:  0.053055063
+ND_pred:  0.08671470325101506
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 156500
+neg_log_likelihood_train:  5.051274
+neg_log_likelihood_prediction:  4.877029072154652
+RMSE_train:  0.15859441
+RMSE_prediction:  0.27355550635944714
+ND_train:  0.06266113
+ND_pred:  0.08283919637853449
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 157000
+neg_log_likelihood_train:  4.435301
+neg_log_likelihood_prediction:  4.8726374019276015
+RMSE_train:  0.32065433
+RMSE_prediction:  0.26108707216652954
+ND_train:  0.078959405
+ND_pred:  0.08144882863218134
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 157500
+neg_log_likelihood_train:  4.994278
+neg_log_likelihood_prediction:  4.852949185804888
+RMSE_train:  0.4838583
+RMSE_prediction:  0.26482040909203614
+ND_train:  0.07360456
+ND_pred:  0.08268726684830406
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 158000
+neg_log_likelihood_train:  4.77218
+neg_log_likelihood_prediction:  4.837060234763405
+RMSE_train:  0.2154168
+RMSE_prediction:  0.2638341798023744
+ND_train:  0.070707135
+ND_pred:  0.08366855369372801
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 158500
+neg_log_likelihood_train:  5.3562074
+neg_log_likelihood_prediction:  4.929212353446267
+RMSE_train:  1.0912136
+RMSE_prediction:  0.3325657830996947
+ND_train:  0.1288655
+ND_pred:  0.09689379551193932
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 159000
+neg_log_likelihood_train:  4.464435
+neg_log_likelihood_prediction:  4.8546482866460625
+RMSE_train:  0.15045838
+RMSE_prediction:  0.26720973578366364
+ND_train:  0.061554864
+ND_pred:  0.0830807692625306
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 159500
+neg_log_likelihood_train:  4.3985515
+neg_log_likelihood_prediction:  4.822403777729381
+RMSE_train:  0.15303005
+RMSE_prediction:  0.2662502608516
+ND_train:  0.06789104
+ND_pred:  0.08259153704751622
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+###########  TIME  ##########
+2018-09-03 11:49:24.570689
+###########   18 Finish  #########
+prediction
+step: 160000
+neg_log_likelihood_train:  5.1087813
+neg_log_likelihood_prediction:  5.087945374575528
+RMSE_train:  0.7472357
+RMSE_prediction:  0.49694273282181134
+ND_train:  0.1080142
+ND_pred:  0.12152665650302713
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 160500
+neg_log_likelihood_train:  4.392902
+neg_log_likelihood_prediction:  4.928966262123802
+RMSE_train:  0.30128178
+RMSE_prediction:  0.29597125812010333
+ND_train:  0.07734984
+ND_pred:  0.08880785175345161
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 161000
+neg_log_likelihood_train:  4.505587
+neg_log_likelihood_prediction:  4.892728155309504
+RMSE_train:  0.3345514
+RMSE_prediction:  0.2808132361282002
+ND_train:  0.06844472
+ND_pred:  0.08590587634931911
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 161500
+neg_log_likelihood_train:  4.5142045
+neg_log_likelihood_prediction:  4.877507773312655
+RMSE_train:  0.1404502
+RMSE_prediction:  0.2785376581278714
+ND_train:  0.06272032
+ND_pred:  0.08541403168981726
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 162000
+neg_log_likelihood_train:  4.2801175
+neg_log_likelihood_prediction:  4.867702267386696
+RMSE_train:  0.16534138
+RMSE_prediction:  0.27156065133484925
+ND_train:  0.07652768
+ND_pred:  0.08341856029900638
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 162500
+neg_log_likelihood_train:  4.8255277
+neg_log_likelihood_prediction:  4.870126854289662
+RMSE_train:  0.1521776
+RMSE_prediction:  0.28849108110774646
+ND_train:  0.06926015
+ND_pred:  0.08730521256273444
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 163000
+neg_log_likelihood_train:  4.774154
+neg_log_likelihood_prediction:  4.8690642877058545
+RMSE_train:  0.19088194
+RMSE_prediction:  0.28246463293379004
+ND_train:  0.06790836
+ND_pred:  0.08567495982755315
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 163500
+neg_log_likelihood_train:  4.700752
+neg_log_likelihood_prediction:  4.881286187605425
+RMSE_train:  0.26326343
+RMSE_prediction:  0.3324503167109056
+ND_train:  0.0617149
+ND_pred:  0.0988849706270478
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 164000
+neg_log_likelihood_train:  4.5816283
+neg_log_likelihood_prediction:  4.844070607965643
+RMSE_train:  0.41386297
+RMSE_prediction:  0.26757634634321387
+ND_train:  0.080238104
+ND_pred:  0.08337603373961015
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 164500
+neg_log_likelihood_train:  4.6385956
+neg_log_likelihood_prediction:  4.922266006469727
+RMSE_train:  0.22882286
+RMSE_prediction:  0.2796595028855584
+ND_train:  0.070978224
+ND_pred:  0.08733476562933488
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 165000
+neg_log_likelihood_train:  4.8015037
+neg_log_likelihood_prediction:  4.882594932209361
+RMSE_train:  0.27618423
+RMSE_prediction:  0.29049676114862616
+ND_train:  0.057467498
+ND_pred:  0.08750480752099644
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 165500
+neg_log_likelihood_train:  4.465149
+neg_log_likelihood_prediction:  4.874621998180043
+RMSE_train:  0.18779832
+RMSE_prediction:  0.26120211454955017
+ND_train:  0.062516995
+ND_pred:  0.08312394199046222
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 166000
+neg_log_likelihood_train:  4.7923837
+neg_log_likelihood_prediction:  4.8820648626847705
+RMSE_train:  0.33513868
+RMSE_prediction:  0.2778411697257649
+ND_train:  0.06609399
+ND_pred:  0.08523689142682335
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+prediction
+step: 166500
+neg_log_likelihood_train:  4.177017
+neg_log_likelihood_prediction:  4.868282924998891
+RMSE_train:  0.18108748
+RMSE_prediction:  0.27457037432627246
+ND_train:  0.06909617
+ND_pred:  0.08463325757871974
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 167000
+neg_log_likelihood_train:  4.4353166
+neg_log_likelihood_prediction:  4.876993829553777
+RMSE_train:  0.44505575
+RMSE_prediction:  0.2731975249268792
+ND_train:  0.05785319
+ND_pred:  0.08452170206741853
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 167500
+neg_log_likelihood_train:  4.6478143
+neg_log_likelihood_prediction:  4.891330068761652
+RMSE_train:  0.56230164
+RMSE_prediction:  0.2743251689455726
+ND_train:  0.08111096
+ND_pred:  0.08560204099525105
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+prediction
+step: 168000
+neg_log_likelihood_train:  4.6059594
+neg_log_likelihood_prediction:  4.86028545553034
+RMSE_train:  0.16990478
+RMSE_prediction:  0.2895281965082342
+ND_train:  0.073748015
+ND_pred:  0.08660007335922935
+input_y_batch_pred.shape (64, 192)
+miu_pred.shape (64, 192)
+Update 1.png
+###########  TIME  ##########
+2018-09-03 12:20:10.054762
+###########   19 Finish  #########
