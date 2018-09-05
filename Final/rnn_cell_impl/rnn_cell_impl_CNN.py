@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 """Module implementing RNN Cells.
-
 This module provides a number of basic commonly used RNN cells, such as LSTM
 (Long Short Term Memory) or GRU (Gated Recurrent Unit), and a number of
 operators that allow adding dropouts, projections, or embeddings for inputs.
@@ -54,32 +53,19 @@ from tensorflow.python.util.tf_export import tf_export
 _BIAS_VARIABLE_NAME = "bias"
 _WEIGHTS_VARIABLE_NAME = "kernel"
 
-
-# TODO(jblespiau): Remove this function when we are sure there are no longer
-# any usage (even if protected, it is being used). Prefer assert_like_rnncell.
-def _like_rnncell(cell):
-  """Checks that a given object is an RNNCell by using duck typing."""
-  conditions = [hasattr(cell, "output_size"), hasattr(cell, "state_size"),
-                hasattr(cell, "zero_state"), callable(cell)]
-  return all(conditions)
-
-
 # This can be used with self.assertRaisesRegexp for assert_like_rnncell.
 ASSERT_LIKE_RNNCELL_ERROR_REGEXP = "is not an RNNCell"
 
 
 def assert_like_rnncell(cell_name, cell):
   """Raises a TypeError if cell is not like an RNNCell.
-
   NOTE: Do not rely on the error message (in particular in tests) which can be
   subject to change to increase readability. Use
   ASSERT_LIKE_RNNCELL_ERROR_REGEXP.
-
   Args:
     cell_name: A string to give a meaningful error referencing to the name
       of the functionargument.
     cell: The object which should behave like an RNNCell.
-
   Raises:
     TypeError: A human-friendly exception.
   """
@@ -105,21 +91,17 @@ def assert_like_rnncell(cell_name, cell):
 
 def _concat(prefix, suffix, static=False):
   """Concat that enables int, Tensor, or TensorShape values.
-
   This function takes a size specification, which can be an integer, a
   TensorShape, or a Tensor, and converts it into a concatenated Tensor
   (if static = False) or a list of integers (if static = True).
-
   Args:
     prefix: The prefix; usually the batch size (and/or time step size).
       (TensorShape, int, or Tensor.)
     suffix: TensorShape, int, or Tensor.
     static: If `True`, return a python list with possibly unknown dimensions.
       Otherwise return a `Tensor`.
-
   Returns:
     shape: the concatenation of prefix and suffix.
-
   Raises:
     ValueError: if `suffix` is not a scalar or vector (or TensorShape).
     ValueError: if prefix or suffix was `None` and asked for dynamic
@@ -179,16 +161,13 @@ def _zero_state_tensors(state_size, batch_size, dtype):
 @tf_export("nn.rnn_cell.RNNCell")
 class RNNCell(base_layer.Layer):
   """Abstract object representing an RNN cell.
-
   Every `RNNCell` must have the properties below and implement `call` with
   the signature `(output, next_state) = call(input, state)`.  The optional
   third input argument, `scope`, is allowed for backwards compatibility
   purposes; but should be left off for new subclasses.
-
   This definition of cell differs from the definition used in the literature.
   In the literature, 'cell' refers to an object with a single scalar output.
   This definition refers to a horizontal array of such units.
-
   An RNN cell, in the most abstract setting, is anything that has
   a state and performs some operation that takes a matrix of inputs.
   This operation results in an output matrix with `self.output_size` columns.
@@ -199,9 +178,8 @@ class RNNCell(base_layer.Layer):
   for each `s` in `self.batch_size`.
   """
 
-  def __call__(self, inputs, state, scope=None, ):
+  def __call__(self, inputs, state, scope=None):
     """Run this RNN cell on inputs, starting from the given state.
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: if `self.state_size` is an integer, this should be a `2-D Tensor`
@@ -209,10 +187,8 @@ class RNNCell(base_layer.Layer):
         `self.state_size` is a tuple of integers, this should be a tuple
         with shapes `[batch_size, s] for s in self.state_size`.
       scope: VariableScope for the created subgraph; defaults to class name.
-
     Returns:
       A pair containing:
-
       - Output: A `2-D` tensor with shape `[batch_size, self.output_size]`.
       - New state: Either a single `2-D` tensor, or a tuple of tensors matching
         the arity and shapes of `state`.
@@ -229,7 +205,7 @@ class RNNCell(base_layer.Layer):
                                   custom_getter=self._rnn_get_variable)
         setattr(self, scope_attrname, scope)
       with scope:
-        return super(RNNCell, self).__call__(inputs, state, )
+        return super(RNNCell, self).__call__(inputs, state)
 
   def _rnn_get_variable(self, getter, *args, **kwargs):
     variable = getter(*args, **kwargs)
@@ -249,7 +225,6 @@ class RNNCell(base_layer.Layer):
   @property
   def state_size(self):
     """size(s) of state(s) used by this cell.
-
     It can be represented by an Integer, a TensorShape or a tuple of Integers
     or TensorShapes.
     """
@@ -267,15 +242,12 @@ class RNNCell(base_layer.Layer):
 
   def zero_state(self, batch_size, dtype):
     """Return zero-filled state tensor(s).
-
     Args:
       batch_size: int, float, or unit Tensor representing the batch size.
       dtype: the data type to use for the state.
-
     Returns:
       If `state_size` is an int or TensorShape, then the return value is a
       `N-D` tensor of shape `[batch_size, state_size]` filled with zeros.
-
       If `state_size` is a nested list or tuple, then the return value is
       a nested list or tuple (of the same structure) of `2-D` tensors with
       the shapes `[batch_size, s]` for each s in `state_size`.
@@ -300,13 +272,11 @@ class RNNCell(base_layer.Layer):
 
 class LayerRNNCell(RNNCell):
   """Subclass of RNNCells that act like proper `tf.Layer` objects.
-
   For backwards compatibility purposes, most `RNNCell` instances allow their
   `call` methods to instantiate variables via `tf.get_variable`.  The underlying
   variable scope thus keeps track of any variables, and returning cached
   versions.  This is atypical of `tf.layer` objects, which separate this
   part of layer building into a `build` method that is only called once.
-
   Here we provide a subclass for `RNNCell` objects that act exactly as
   `Layer` objects do.  They must provide a `build` method and their
   `call` methods do not access Variables `tf.get_variable`.
@@ -314,7 +284,6 @@ class LayerRNNCell(RNNCell):
 
   def __call__(self, inputs, state, scope=None, *args, **kwargs):
     """Run this RNN cell on inputs, starting from the given state.
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: if `self.state_size` is an integer, this should be a `2-D Tensor`
@@ -324,10 +293,8 @@ class LayerRNNCell(RNNCell):
       scope: optional cell scope.
       *args: Additional positional arguments.
       **kwargs: Additional keyword arguments.
-
     Returns:
       A pair containing:
-
       - Output: A `2-D` tensor with shape `[batch_size, self.output_size]`.
       - New state: Either a single `2-D` tensor, or a tuple of tensors matching
         the arity and shapes of `state`.
@@ -342,7 +309,6 @@ class LayerRNNCell(RNNCell):
 @tf_export("nn.rnn_cell.BasicRNNCell")
 class BasicRNNCell(LayerRNNCell):
   """The most basic RNN cell.
-
   Args:
     num_units: int, The number of units in the RNN cell.
     activation: Nonlinearity to use.  Default: `tanh`.
@@ -407,7 +373,6 @@ class BasicRNNCell(LayerRNNCell):
 @tf_export("nn.rnn_cell.GRUCell")
 class GRUCell(LayerRNNCell):
   """Gated Recurrent Unit cell (cf. http://arxiv.org/abs/1406.1078).
-
   Args:
     num_units: int, The number of units in the GRU cell.
     activation: Nonlinearity to use.  Default: `tanh`.
@@ -508,10 +473,8 @@ _LSTMStateTuple = collections.namedtuple("LSTMStateTuple", ("c", "h"))
 @tf_export("nn.rnn_cell.LSTMStateTuple")
 class LSTMStateTuple(_LSTMStateTuple):
   """Tuple used by LSTM Cells for `state_size`, `zero_state`, and output state.
-
   Stores two elements: `(c, h)`, in that order. Where `c` is the hidden state
   and `h` is the output.
-
   Only used when `state_is_tuple=True`.
   """
   __slots__ = ()
@@ -528,15 +491,11 @@ class LSTMStateTuple(_LSTMStateTuple):
 @tf_export("nn.rnn_cell.BasicLSTMCell")
 class BasicLSTMCell(LayerRNNCell):
   """Basic LSTM recurrent network cell.
-
   The implementation is based on: http://arxiv.org/abs/1409.2329.
-
   We add forget_bias (default: 1) to the biases of the forget gate in order to
   reduce the scale of forgetting in the beginning of the training.
-
   It does not allow cell clipping, a projection layer, and does not
   use peep-hole connections: it is the basic baseline.
-
   For advanced models, please use the full @{tf.nn.rnn_cell.LSTMCell}
   that follows.
   """
@@ -550,7 +509,6 @@ class BasicLSTMCell(LayerRNNCell):
                name=None,
                dtype=None):
     """Initialize the basic LSTM cell.
-
     Args:
       num_units: int, The number of units in the LSTM cell.
       forget_bias: float, The bias added to forget gates (see above).
@@ -568,7 +526,6 @@ class BasicLSTMCell(LayerRNNCell):
         cases.
       dtype: Default dtype of the layer (default of `None` means use the type
         of the first input). Required when `build` is called before `call`.
-
       When restoring from CudnnLSTM-trained checkpoints, must use
       `CudnnCompatibleLSTMCell` instead.
     """
@@ -613,14 +570,12 @@ class BasicLSTMCell(LayerRNNCell):
 
   def call(self, inputs, state):
     """Long short-term memory cell (LSTM).
-
     Args:
       inputs: `2-D` tensor with shape `[batch_size, input_size]`.
       state: An `LSTMStateTuple` of state tensors, each shaped
         `[batch_size, num_units]`, if `state_is_tuple` has been set to
         `True`.  Otherwise, a `Tensor` shaped
         `[batch_size, 2 * num_units]`.
-
     Returns:
       A pair containing the new hidden state, and the new state (either a
         `LSTMStateTuple` or a concatenated state, depending on
@@ -639,11 +594,9 @@ class BasicLSTMCell(LayerRNNCell):
     gate_inputs = nn_ops.bias_add(gate_inputs, self._bias)
 
     # i = input_gate, j = new_input, f = forget_gate, o = output_gate
-
     i, j, f, o = array_ops.split(
         value=gate_inputs, num_or_size_splits=4, axis=one)
-    #print ("forget_gate.shape: ", f.shape)
-    #print ("forget_gate: ", f)
+
     forget_bias_tensor = constant_op.constant(self._forget_bias, dtype=f.dtype)
     # Note that using `add` and `multiply` instead of `+` and `*` gives a
     # performance improvement. So using those at the cost of readability.
@@ -663,22 +616,15 @@ class BasicLSTMCell(LayerRNNCell):
 @tf_export("nn.rnn_cell.LSTMCell")
 class LSTMCell(LayerRNNCell):
   """Long short-term memory unit (LSTM) recurrent network cell.
-
   The default non-peephole implementation is based on:
-
     http://www.bioinf.jku.at/publications/older/2604.pdf
-
   S. Hochreiter and J. Schmidhuber.
   "Long Short-Term Memory". Neural Computation, 9(8):1735-1780, 1997.
-
   The peephole implementation is based on:
-
     https://research.google.com/pubs/archive/43905.pdf
-
   Hasim Sak, Andrew Senior, and Francoise Beaufays.
   "Long short-term memory recurrent neural network architectures for
    large scale acoustic modeling." INTERSPEECH, 2014.
-
   The class uses optional peep-hole connections, optional cell clipping, and
   an optional projection layer.
   """
@@ -689,9 +635,7 @@ class LSTMCell(LayerRNNCell):
                num_unit_shards=None, num_proj_shards=None,
                forget_bias=1.0, state_is_tuple=True,
                activation=None, reuse=None, name=None, dtype=None):
-    #print ("Build a LSTMCell")
     """Initialize the parameters for an LSTM cell.
-
     Args:
       num_units: int, The number of units in the LSTM cell.
       use_peepholes: bool, set True to enable diagonal/peephole connections.
@@ -724,7 +668,6 @@ class LSTMCell(LayerRNNCell):
         cases.
       dtype: Default dtype of the layer (default of `None` means use the type
         of the first input). Required when `build` is called before `call`.
-
       When restoring from CudnnLSTM-trained checkpoints, use
       `CudnnCompatibleLSTMCell` instead.
     """
@@ -773,16 +716,20 @@ class LSTMCell(LayerRNNCell):
     return self._output_size
 
   def build(self, inputs_shape):
-    print ("run build function")
-    print ("inputs_shape: ", inputs_shape)
     if inputs_shape[1].value is None:
       raise ValueError("Expected inputs.shape[-1] to be known, saw shape: %s"
                        % inputs_shape)
 
-    input_depth = inputs_shape[1].value
-    #######################################################################################################################################
-    input_depth = input_depth - self._num_units
-    ############################################################################################################################################
+    ####### ORIG ###############################################################
+    #input_depth = inputs_shape[1].value
+    ####### NEW ################################################################
+    print ("inputs_shape[1].value: ", inputs_shape[1].value)
+    if (inputs_shape[1].value != self._num_units): # first layer
+        input_depth = inputs_shape[1].value - self._num_units
+    else:
+        input_depth = inputs_shape[1].value
+    ############################################################################
+
     h_depth = self._num_units if self._num_proj is None else self._num_proj
     maybe_partitioner = (
         partitioned_variables.fixed_size_partitioner(self._num_unit_shards)
@@ -822,19 +769,16 @@ class LSTMCell(LayerRNNCell):
 
     self.built = True
 
-  def call(self, inputs, state): #forget_gate_mask.shape = [batch_size, hidden_unit], from 0~1 element-wise
+  def call(self, inputs, state):
     """Run one step of LSTM.
-
     Args:
       inputs: input Tensor, 2D, `[batch, num_units].
       state: if `state_is_tuple` is False, this must be a state Tensor,
         `2-D, [batch, state_size]`.  If `state_is_tuple` is True, this must be a
         tuple of state Tensors, both `2-D`, with column sizes `c_state` and
         `m_state`.
-
     Returns:
       A tuple containing:
-
       - A `2-D, [batch, output_dim]`, Tensor representing the output of the
         LSTM after reading `inputs` when previous state was `state`.
         Here output_dim is:
@@ -842,19 +786,17 @@ class LSTMCell(LayerRNNCell):
            num_units otherwise.
       - Tensor(s) representing the new state of LSTM after reading `inputs` when
         the previous state was `state`.  Same type and shape(s) as `state`.
-
     Raises:
       ValueError: If input size cannot be inferred from inputs via
         static shape inference.
     """
 
-    #forget_gate_mask, inputs = tf.split(inputs, [40,24],1)
-
-    forget_gate_mask = array_ops.slice(inputs, [0,0], [-1, 40])
-    inputs_temp = array_ops.slice(inputs, [0,40], [-1, -1])
-    inputs = inputs_temp
-    #forget_gate: [batch_size, 40].     inputs: [batch_size, 24]
-
+    ################################################################
+    if (inputs.shape[1] != self._num_units): # first layer
+        forget_gate_input = array_ops.slice(inputs, [0,0], [-1, 40])
+        inputs_temp = array_ops.slice(inputs, [0,40], [-1, -1])
+        inputs = inputs_temp
+    ################################################################
 
     num_proj = self._num_units if self._num_proj is None else self._num_proj
     sigmoid = math_ops.sigmoid
@@ -866,29 +808,29 @@ class LSTMCell(LayerRNNCell):
       m_prev = array_ops.slice(state, [0, self._num_units], [-1, num_proj])
 
     input_size = inputs.get_shape().with_rank(2)[1]
-    #print ("inputs.shape in source code: ",inputs.shape) # shape = [batch_size, 24]
-    #print ("inputs.type: ", type(inputs))
     if input_size.value is None:
       raise ValueError("Could not infer input size from inputs.get_shape()[-1]")
-
 
     # i = input_gate, j = new_input, f = forget_gate, o = output_gate
     lstm_matrix = math_ops.matmul(
         array_ops.concat([inputs, m_prev], 1), self._kernel)
-    lstm_matrix = nn_ops.bias_add(lstm_matrix, self._bias)
 
+    ##### new forget_gate #####
+    '''
+    if (inputs.shape[1] != self._num_units): # first layer
+        lstm_matrix_f = math_ops.matmul(
+            array_ops.concat([inputs, forget_gate_input * m_prev], 1), self._kernel[:, self._num_units*2:self._num_units*3])
+        lstm_matrix = array_ops.concat([lstm_matrix[:,:2*self._num_units], lstm_matrix_f, lstm_matrix[:,3*self._num_units:]], axis=1)
+    '''
+    ###########################
+
+    lstm_matrix = nn_ops.bias_add(lstm_matrix, self._bias)
     i, j, f, o = array_ops.split(
         value=lstm_matrix, num_or_size_splits=4, axis=1)
-    #forget_gate_mask = 0
-    #f = f * forget_gate_mask
-
-    self.forget_gate = forget_gate_mask #f.shape = [batch, hidden_unit]
-
-
-
-
-    #print ("forget_gate.shape: ", f.shape)
-    #print ("forget_gate: ", f)
+    ###### Directly reset forget_gate #####
+    if (inputs.shape[1] != self._num_units): # first layer
+        f  = sigmoid(forget_gate_input)
+    #######################################
     # Diagonal connections
     if self._use_peepholes:
       c = (sigmoid(f + self._forget_bias + self._w_f_diag * c_prev) * c_prev +
@@ -913,10 +855,6 @@ class LSTMCell(LayerRNNCell):
         # pylint: disable=invalid-unary-operand-type
         m = clip_ops.clip_by_value(m, -self._proj_clip, self._proj_clip)
         # pylint: enable=invalid-unary-operand-type
-
-
-    c = c * forget_gate_mask
-    m = m * forget_gate_mask
 
     new_state = (LSTMStateTuple(c, m) if self._state_is_tuple else
                  array_ops.concat([c, m], 1))
@@ -951,20 +889,15 @@ class DropoutWrapper(RNNCell):
                input_size=None, dtype=None, seed=None,
                dropout_state_filter_visitor=None):
     """Create a cell with added input, state, and/or output dropout.
-
     If `variational_recurrent` is set to `True` (**NOT** the default behavior),
     then the same dropout mask is applied at every step, as described in:
-
     Y. Gal, Z Ghahramani.  "A Theoretically Grounded Application of Dropout in
     Recurrent Neural Networks".  https://arxiv.org/abs/1512.05287
-
     Otherwise a different dropout mask is applied at every time step.
-
     Note, by default (unless a custom `dropout_state_filter` is provided),
     the memory state (`c` component of any `LSTMStateTuple`) passing through
     a `DropoutWrapper` is never modified.  This behavior is described in the
     above article.
-
     Args:
       cell: an RNNCell, a projection to output_size is added to it.
       input_keep_prob: unit Tensor or float between 0 and 1, input keep
@@ -1007,7 +940,6 @@ class DropoutWrapper(RNNCell):
             return False
           return True
         ```
-
     Raises:
       TypeError: if `cell` is not an `RNNCell`, or `keep_state_fn` is provided
         but not `callable`.
@@ -1180,7 +1112,6 @@ class ResidualWrapper(RNNCell):
 
   def __init__(self, cell, residual_fn=None):
     """Constructs a `ResidualWrapper` for `cell`.
-
     Args:
       cell: An instance of `RNNCell`.
       residual_fn: (Optional) The function to map raw cell inputs and raw cell
@@ -1208,15 +1139,12 @@ class ResidualWrapper(RNNCell):
 
   def __call__(self, inputs, state, scope=None):
     """Run the cell and then apply the residual_fn on its inputs to its outputs.
-
     Args:
       inputs: cell inputs.
       state: cell state.
       scope: optional cell scope.
-
     Returns:
       Tuple of cell outputs and new state.
-
     Raises:
       TypeError: If cell inputs and outputs have different structure (type).
       ValueError: If cell inputs and outputs have different structure (value).
@@ -1239,9 +1167,7 @@ class DeviceWrapper(RNNCell):
 
   def __init__(self, cell, device):
     """Construct a `DeviceWrapper` for `cell` with device `device`.
-
     Ensures the wrapped `cell` is called with `tf.device(device)`.
-
     Args:
       cell: An instance of `RNNCell`.
       device: A device string or function, for passing to `tf.device`.
@@ -1274,9 +1200,7 @@ class DeviceWrapper(RNNCell):
 @tf_export("nn.rnn_cell.MultiRNNCell")
 class MultiRNNCell(RNNCell):
   """RNN cell composed sequentially of multiple simple cells.
-
   Example:
-
   ```python
   num_units = [128, 64]
   cells = [BasicLSTMCell(num_units=n) for n in num_units]
@@ -1286,14 +1210,12 @@ class MultiRNNCell(RNNCell):
 
   def __init__(self, cells, state_is_tuple=True):
     """Create a RNN cell composed sequentially of a number of RNNCells.
-
     Args:
       cells: list of RNNCells that will be composed in this order.
       state_is_tuple: If True, accepted and returned states are n-tuples, where
         `n = len(cells)`.  If False, the states are all
         concatenated along the column axis.  This latter behavior will soon be
         deprecated.
-
     Raises:
       ValueError: if cells is empty (not allowed), or at least one of the cells
         returns a state tuple but the flag `state_is_tuple` is `False`.
@@ -1339,7 +1261,7 @@ class MultiRNNCell(RNNCell):
         # presumably does not contain TensorArrays or anything else fancy
         return super(MultiRNNCell, self).zero_state(batch_size, dtype)
 
-  def call(self, inputs, state, ):
+  def call(self, inputs, state):
     """Run this multi-layer cell on inputs, starting from state."""
     cur_state_pos = 0
     cur_inp = inputs
@@ -1356,55 +1278,10 @@ class MultiRNNCell(RNNCell):
           cur_state = array_ops.slice(state, [0, cur_state_pos],
                                       [-1, cell.state_size])
           cur_state_pos += cell.state_size
-        cur_inp, new_state = cell(cur_inp, cur_state, )
+        cur_inp, new_state = cell(cur_inp, cur_state)
         new_states.append(new_state)
 
     new_states = (tuple(new_states) if self._state_is_tuple else
                   array_ops.concat(new_states, 1))
 
     return cur_inp, new_states
-
-
-class _SlimRNNCell(RNNCell, checkpointable.NotCheckpointable):
-  """A simple wrapper for slim.rnn_cells."""
-
-  def __init__(self, cell_fn):
-    """Create a SlimRNNCell from a cell_fn.
-
-    Args:
-      cell_fn: a function which takes (inputs, state, scope) and produces the
-        outputs and the new_state. Additionally when called with inputs=None and
-        state=None it should return (initial_outputs, initial_state).
-
-    Raises:
-      TypeError: if cell_fn is not callable
-      ValueError: if cell_fn cannot produce a valid initial state.
-    """
-    if not callable(cell_fn):
-      raise TypeError("cell_fn %s needs to be callable", cell_fn)
-    self._cell_fn = cell_fn
-    self._cell_name = cell_fn.func.__name__
-    init_output, init_state = self._cell_fn(None, None)
-    output_shape = init_output.get_shape()
-    state_shape = init_state.get_shape()
-    self._output_size = output_shape.with_rank(2)[1].value
-    self._state_size = state_shape.with_rank(2)[1].value
-    if self._output_size is None:
-      raise ValueError("Initial output created by %s has invalid shape %s" %
-                       (self._cell_name, output_shape))
-    if self._state_size is None:
-      raise ValueError("Initial state created by %s has invalid shape %s" %
-                       (self._cell_name, state_shape))
-
-  @property
-  def state_size(self):
-    return self._state_size
-
-  @property
-  def output_size(self):
-    return self._output_size
-
-  def __call__(self, inputs, state, scope=None):
-    scope = scope or self._cell_name
-    output, state = self._cell_fn(inputs, state, scope=scope)
-    return output, state

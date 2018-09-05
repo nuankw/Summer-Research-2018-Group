@@ -1,9 +1,9 @@
 import tensorflow as tf
-import data_helper_chen
 import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 #####
+
 
 
 class DeepAR (object):
@@ -11,11 +11,10 @@ class DeepAR (object):
 				 input_x_all, #shape:[num_window*num_series(1453*370),  window_size,4]
 				 input_y_all, #shape: [num_window*num_series(1453*370), window_size]
 				 input_x_onehot_all, #shape: [num_window*num_series(1453*370), num_series]
-				 num_covar, #3
+				 num_covar,
 				 encode_length,
 				 decode_length,
 				 num_series, #370
-
 				 embedding_output_size, #20
 				 hidden_unit, #40
 				 num_layer,
@@ -38,7 +37,6 @@ class DeepAR (object):
 		self.index_list=index_list
 		self.indexs_pred = indexs_pred
 
-		
 		self.input_x = tf.placeholder(
 			tf.float32, [None,window_size, num_covar+1], name = 'input_x') # [None, 192, 4]
 		self.input_x_onehot = tf.placeholder(
@@ -49,15 +47,12 @@ class DeepAR (object):
 			tf.float32, [None, 1], name = 'input_v') # [None, 1]
 		self.batch_size = tf.placeholder(
 			tf.int32, [], name='input_batch')
-		#### NEW ####
-		self.cnn_input = tf.placeholder(
-			tf.float32, [None,window_size, num_covar+1, 1], name = 'input_x') # [None, 192, 4, 1]
-		
+		self.keep_prob = tf.placeholder(
+			tf.float32, name='keep_prob')
 		self.forget_gate_mask = tf.placeholder(
 			tf.float32, [None, window_size, hidden_unit], name = "forget_gate_mask")
 
 		self.forget_gate_mask_one = tf.fill(tf.shape(self.forget_gate_mask), 1.0) # mask with all elements=1.0
-		#############
 
 		embedding_shape = [num_series, embedding_output_size]
 		self.W = tf.Variable(tf.truncated_normal(embedding_shape, stddev=0.1),name = 'W' )
@@ -66,34 +61,28 @@ class DeepAR (object):
 		self.embedded_input = tf.nn.relu(self.embedded_input)
 		embedded_input_expand = tf.expand_dims(self.embedded_input, axis = 1) # [None, 1, 20]
 		self.embedded_input_all = tf.concat([embedded_input_expand for i in range(window_size)], axis=1) # [None, 192, 20]
-
 		#concat embedded_input_all and input_x
 		self.lstm_input = tf.concat([self.input_x, self.embedded_input_all], axis=2) # [None, 192, 24]
-		
-		# cnn output ==> mask
-		len_cnn = 24
-		filter_shape = [len_cnn,4,1,40]
-		self.filter = tf.Variable(tf.truncated_normal(filter_shape, stddev=0.1), name = 'filter')
-		self.bias_conv = tf.Variable(tf.constant(0.1, shape = [40]), name='b')
-		steps = 1
-		self.conv = tf.nn.conv2d(input=self.cnn_input, filter=self.filter, strides=[1,steps,4,1], padding='SAME')
-
-		# conv.get_shape()
-		# TensorShape([Dimension(None), Dimension(192), Dimension(1), Dimension(40)])
-		
-
-		self.lstm_input_with_mask = tf.concat([self.forget_gate_mask, self.lstm_input], axis = 2) #[batch_size, 192, 40+24]
-		#self.lstm_input_with_mask = tf.concat([self.conv, self.lstm_input], axis = 2) #[batch_size, 192, 40+24]
+		self.lstm_input_with_mask = tf.concat([self.forget_gate_mask, self.lstm_input], axis = 2) #[batch_size, 192, 40+8]
 
 		### ??? ###
 		#self.embedded_input = tf.nn.relu(self.embedded_input)
+
 		def lstm_cell(hidden_unit):
 			cell = tf.contrib.rnn.LSTMCell(num_units = hidden_unit, forget_bias = 1.0,state_is_tuple=True)
 			#cell = tf.nn.rnn_cell.DropoutWrapper(cell, output_keep_prob=0.7)
 			return cell
 
+		def lstm_cell_drop_out(hidden_unit, keep_prob):
+			cell = tf.contrib.rnn.LSTMCell(num_units = hidden_unit, forget_bias = 1.0,state_is_tuple=True)
+			cell = tf.nn.rnn_cell.DropoutWrapper(cell, output_keep_prob=keep_prob)
+			return cell
+
 		#堆叠多层lstm，返回state=(c,h)
-		cell = lstm_cell(hidden_unit)
+		cell_list_without_drop = [lstm_cell(hidden_unit)]
+		cell_list_with_drop = [lstm_cell_drop_out(hidden_unit, self.keep_prob) for i in range(num_layer-1)]
+		cell_list = cell_list_without_drop + cell_list_with_drop
+		cell = tf.nn.rnn_cell.MultiRNNCell(cell_list, state_is_tuple=True)
 		#cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell(hidden_unit) for _ in range(num_layer)] , state_is_tuple=True)
 		self.cell = cell
 		self.initial_state = cell.zero_state(self.batch_size, dtype = tf.float32)
@@ -155,13 +144,7 @@ class DeepAR (object):
 
 		def log_likelihood(mu, sigma, z):
 			dist = tf.contrib.distributions.NormalWithSoftplusScale(loc=mu, scale=sigma)
-			#prob = dist.prob(z)
 
-			#sum up all likelihood in this single timestep
-			#prob_log = tf.log(prob)
-			#prob_sum = tf.reduce_mean(prob_log)
-
-			#prob_log = dist.log_prob(value = z)
 			prob_log = dist.log_prob(value = z)
 
 			neg_log_likelihood = -1.0 * tf.reduce_mean(prob_log)
@@ -289,7 +272,7 @@ class DeepAR (object):
 
 	def train(self):
 
-		def plot(label, prediction,train,num_plot):
+		def plot(label, prediction,train,num_plot, step):
 			x = np.arange(192)
 			f = plt.figure()
 			base = num_plot*100+10
@@ -308,13 +291,11 @@ class DeepAR (object):
 				#参考线
 
 			#plt.pause(5)
-			f.savefig('1.png')
+			f.savefig(str(step)+'.png')
 			plt.close()
 
 
 		#plot(self.input_y_all[self.indexs_pred] ,self.input_y_all[self.indexs_pred],self.input_y_all[self.indexs_pred], 5 )
-
-
 
 
 		self.global_step = tf.Variable(0, name='global_step', trainable = False)
@@ -351,7 +332,7 @@ class DeepAR (object):
 
 
 
-		def train_step(x_batch,onehot_batch, y_batch,v_batch, batch_size,forget_gate_mask):
+		def train_step(x_batch,onehot_batch, y_batch,v_batch, batch_size,forget_gate_mask,keep_prob=0.7):
 			#x_batch = np.concatenate((forget_gate_mask, x_batch), axis = 1) #[batch_size, 40+24]
 
 			feed_dict = {
@@ -361,24 +342,25 @@ class DeepAR (object):
 			self.v :v_batch,
 			self.batch_size: batch_size,
 			self.forget_gate_mask: forget_gate_mask,
+			self.keep_prob: keep_prob,
 			}
 
-			_, step, neg_log_likelihood, prob_log, RMSE_train, ND_train, miu_train, forget_gate_mask_train = sess.run([self.train_op,
+			_, step, neg_log_likelihood, prob_log, RMSE_train, ND_train, miu_train = sess.run([self.train_op,
 														 self.global_step,
 														 self.neg_log_likelihood,
 														 self.prob_log,
 														 self.RMSE_train,
 														 self.ND_train,
 														 self.miu_concat,
-														 self.cell.forget_gate,
+
 														 ],feed_dict = feed_dict)
 			#print ("likelihood: ", likelihood)
 
-			return (step, neg_log_likelihood, prob_log,RMSE_train, ND_train, miu_train, forget_gate_mask_train)
+			return (step, neg_log_likelihood, prob_log,RMSE_train, ND_train, miu_train)
 
 		######
 
-		def pred_step(x_batch, onehot_batch, y_batch, v_batch, batch_size,forget_gate_mask):
+		def pred_step(x_batch, onehot_batch, y_batch, v_batch, batch_size,forget_gate_mask, keep_prob=1.0):
 			#x_batch = np.concatenate((forget_gate_mask, x_batch), axis = 1) #[batch_size, 40+24]
 
 			feed_dict ={
@@ -388,6 +370,7 @@ class DeepAR (object):
 			self.v :v_batch,
 			self.batch_size: batch_size,
 			self.forget_gate_mask: forget_gate_mask,
+			self.keep_prob: keep_prob,
 			}
 			neg_log_likelihood_pred, prob_log_pred,RMSE_pred, ND_pred, miu_pred = sess.run([
 			 			 										self.neg_log_likelihood_pred,
@@ -403,47 +386,19 @@ class DeepAR (object):
 
 
 
-		with tf.Session() as sess:
+		gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
+		with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
 			init = tf.global_variables_initializer()
 			sess.run(init)
 			#创建saver对象
 			saver = tf.train.Saver()
-
-
-
-
-
-			#plot before training
-			'''
-			neg_log_likelihood_pred, RMSE_pred, ND_pred, miu_pred = pred_step(input_x_batch_pred,
-																			 input_onehot_batch_pred,
-																			 input_y_batch_pred,
-																			 input_v_batch_pred,
-																			 batch_size_pred,)
-			feed_dict ={
-			self.input_x: input_x_batch_pred,
-			self.input_x_onehot: input_onehot_batch_pred,
-			self.input_y: input_y_batch_pred,
-			self.v :input_v_batch_pred,
-			self.batch_size: batch_size_pred
-			}
-			neg_log_likelihood, prob_log, RMSE_train, miu_train = sess.run([
-														 self.neg_log_likelihood,
-														 self.prob_log,
-														 self.RMSE_train,
-														 self.miu_concat
-														 ],feed_dict = feed_dict)
-
-			plot(input_y_batch_pred, miu_pred, miu_train, 5)
-			'''
-
 			forget_gate_mask_sample = np.full((64, 192, 40), 1, dtype = np.float32)
 
 			print ("###########     TIME     ##########")
 			print (datetime.datetime.now())
 			print ("###########  TRAIN START ############")
 
-			for j in range(20): #epochs
+			for j in range(15): #epochs
 				for index in self.index_list:
 					#index = index.reshape([self.batch_size, 1])
 					input_x_batch = self.input_x_all[index]
@@ -454,24 +409,18 @@ class DeepAR (object):
 					forget_gate_mask_batch = forget_gate_mask_sample #[batch_size, 40]
 
 
-
-					'''
-					print ("input_x_batch.shape: ", input_x_batch.shape)
-					print ("input_y_batch.shape: ", input_y_batch.shape)
-					print ("input_onehot_batch.shape: ", input_onehot_batch.shape)
-					print ("input_v_batch.shape: ", input_v_batch.shape)
-					print ("batch_size: ", batch_size)
-					'''
-
-					step, neg_log_likelihood, prob_log,RMSE_train, ND_train, miu_train, forget_gate_mask_train = train_step(input_x_batch,
+					step, neg_log_likelihood, prob_log,RMSE_train, ND_train, miu_train = train_step(input_x_batch,
 																	input_onehot_batch,
 																	input_y_batch,
 																	input_v_batch,
 																	batch_size,
-																	forget_gate_mask_batch,)
+																	forget_gate_mask_batch,
+																	keep_prob = 0.7,
+																	)
 					#print (forget_gate_mask_train) #should be all 1 with shape = [batch_size, hidden_units]
 					#print ("forget_gate_mask_train.shape: ", forget_gate_mask_train.shape)
-					if step%20==0:
+					if step%500==0:
+						print ("prediction")
 							### prediction ###
 						neg_log_likelihood_pred_sum=0.0
 						RMSE_pred_sum=0.0
@@ -491,7 +440,9 @@ class DeepAR (object):
 																			 input_y_batch_pred,
 																			 input_v_batch_pred,
 																			 batch_size_pred,
-																			 forget_gate_mask_batch_pred,)
+																			 forget_gate_mask_batch_pred,
+																			 keep_prob = 1.0,
+																			 )
 							neg_log_likelihood_pred_sum += neg_log_likelihood_pred
 							RMSE_pred_sum += RMSE_pred
 							ND_pred_sum += ND_pred
@@ -515,12 +466,10 @@ class DeepAR (object):
 						#print (input_y_batch_pred)
 						print ("miu_pred.shape",miu_pred.shape)
 						#print (miu_pred)
+						saver.save(sess, '../../checkpoint/checkpoint_forget/DeepAR_model',global_step = step)
 
 
-
-					if step%200 == 0:
-						saver.save(sess, './checkpoint/DeepAR_model',global_step = step)
-
+					if step%2000 == 0:
 						index_pred = self.indexs_pred[0]
 						input_x_batch_pred = self.input_x_all[index_pred]
 						input_y_batch_pred = self.input_y_all[index_pred]
@@ -534,10 +483,12 @@ class DeepAR (object):
 																			 input_y_batch_pred,
 																			 input_v_batch_pred,
 																			 batch_size_pred,
-																			 forget_gate_mask_sample)
+																			 forget_gate_mask_sample,
+																			 keep_prob = 1.0,
+																			 )
 
 						#plot(input_y_batch_pred, miu_pred, 5)
-						plot(input_y_batch_pred, miu_pred, miu_pred, 8)
+						plot(input_y_batch_pred, miu_pred, miu_pred, 8, step)
 						print ("Update 1.png")
 
 				print ("###########  TIME  ##########")
@@ -551,36 +502,44 @@ class DeepAR (object):
 ########################################################################################################################
 ########################################################################################################################
 
-(shift_train_data,
- shift_train_onehot,
- v_all,
- shift_train_label,
- param,
- index_list,
- indexs_pred_list) = data_helper.prepare()
+#Electricity
+shift_train_data = np.load("../../data/Electricity/elect_pre_train_data.npy")
+shift_train_onehot = np.load("../../data/Electricity/elect_train_onehot.npy")
+v_all = np.load("../../data/Electricity/elect_train_v.npy")
+shift_train_label = np.load("../../data/Electricity/elect_train_label.npy")
+param = np.load("../../data/Electricity/elect_train_param.npy")
+index_list = np.load("../../data/Electricity/elect_train_index.npy")
+
+indexs_pred_list = np.load("../../data/Electricity/elect_train_pred_index.npy")
+'''
+#Huawei
+shift_train_data = np.load("../../data/huawei/shift_train_data.npy")
+shift_train_onehot = np.load("../../data/huawei/shift_train_onehot.npy")
+v_all = np.load("../../data/huawei/v.npy")
+shift_train_label = np.load("../../data/huawei/shift_train_label.npy")
+param = np.load("../../data/huawei/param.npy")
+index_list = np.load("../../data/huawei/indexs_list.npy")
+indexs_pred_list = np.load("../../data/huawei/indexs_pred_list.npy")
+'''
 
 (num_covar,
 encode_length,
 decode_length ,
 num_series, #370
-
 embedding_output_size, #20
 hidden_unit, #40
 num_layer,
 window_size,
-)=param
+)=param.tolist()
 
 Model = DeepAR(
 				input_x_all=shift_train_data, #shape:[num_window*num_series(1453*370), window_size,4]
 				 input_y_all=shift_train_label, #shape: [num_window*num_series(1453*370),window_size]
-
 				 input_x_onehot_all = shift_train_onehot,#shape: [num_window*num_series(1453*370), num_series]
 				 num_covar= num_covar,
-
 				 encode_length=encode_length,
 				 decode_length=decode_length,
 				 num_series=num_series, #370
-
 				 embedding_output_size=embedding_output_size, #20
 				 hidden_unit=hidden_unit, #40
 				 num_layer=num_layer,
