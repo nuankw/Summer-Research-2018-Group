@@ -127,17 +127,9 @@ class Pattern_generator:
             self.ramp(position_tuple_list, magnitude_list)
 
 # TODO
-    def ramp(self):
+    def ramp(self, position_tuple_list, magnitude_list):
         pass
 
-''' comment this line for test
-# simple test
-PG1 = Pattern_generator(stop_time=10000+1, period=24, amplitude=1, std=0.1, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
-ptl = [(2000,4000)]
-ml = [3]
-PG1.set_smooth_values(bump(PG1, position_tuple_list = ptl, magnitude_list = ml, bump_the_smoother_line = True))
-PG1.plot()
-# '''
 
 def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list, mix_the_smoother_lines = True ):
     #### CAUTION: ONLY DO MIXER AT THE END OF PATTERN GENERATION ####
