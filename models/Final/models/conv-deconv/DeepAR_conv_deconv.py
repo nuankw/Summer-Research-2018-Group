@@ -76,51 +76,119 @@ class DeepAR (object):
 		self.cnn_input = tf.expand_dims(self.cnn_input, axis=3) #[batch_size, encode_length, width=1, input_channel=1]
 		print ("cnn_input.shape: ", self.cnn_input.shape)
 
-		### Conv ###
-		def CNN(self, filter_size_list, dialations_size, input_channel_list, output_channel_list, keep_prob, cnn_input, is_pred, ):
-			#cnn_input.shape = [batch_size, height, width, input_channel]
-			#num_filter is for every kernal
-			cnn_input_list = [] # input for each layer
-			cnn_input_list.append(cnn_input) # take raw value as input for the first layer
-			for i, filter_size in enumerate(filter_size_list):
-				with tf.variable_scope("CNN-"+str(filter_size), reuse=is_pred):
-					filter_shape = [filter_size, 1, input_channel_list[i], output_channel_list[i]]
-					# parameter for conv
-					if not is_pred:
-						# Weights
-						W = tf.get_variable(name='W', shape=filter_shape, dtype=tf.float32,initializer=tf.random_normal_initializer(mean=0, stddev=0.1))
-						b = tf.get_variable(name='b', shape=[output_channel_list[i]], dtype = tf.float32, initializer = tf.constant_initializer(value=0.1))
-						# inputs
-						batch_input_conv = cnn_input_list[i]
-					else:
-						# Weights
-						W = tf.get_variable(name='W')
-						b = tf.get_variable(name='b')
-						# inputs
-						batch_input_conv = cnn_input_list[i]
-					conv = tf.nn.conv2d(
-						batch_input_conv,  ### shape = [batch_size, encode_length]
-						W,
-						strides=[1,1,1,1],
-						padding = 'VALID',
-						name='conv',
-						dilations = [1,dialations_size[i],1,1])
-					h = tf.nn.relu(tf.nn.bias_add(conv,b), name = 'relu') # [batch_size, encode_length, width=1, ouput_channel]
-					if i!= (len(filter_size_list)-1):
-						h = tf.nn.dropout(h, keep_prob)
-					cnn_input_list.append(h)
-			return tf.squeeze(h, axis=2) #[batch_size, input_length - 23, ouput_channel=40]
-		filter_size_list = [4, 2, 3]
-		dialations_size = [1, 4, 8]
-		input_channel_list = [1,40,20]
-		output_channel_list = [40,20,10]
+		### Conv-Deconv ###
+
+		def CNN(self, batch_size,
+		        filter_size_list, dialations_size, input_channel_list, output_channel_list,
+		        de_filter_size_list, de_output_height, de_input_channel_list, de_output_channel_list,
+		        keep_prob, cnn_input, is_pred, ):
+		    #cnn_input.shape = [batch_size, height, width, input_channel]
+		    #num_filter is for every kernal
+		    cnn_input_list = [] # input for each layer
+		    cnn_input_list.append(cnn_input) # take raw value as input for the first layer
+		    for i, filter_size in enumerate(filter_size_list):
+		        with tf.variable_scope("CNN-"+str(i), reuse=is_pred):
+		            filter_shape = [filter_size, 1, input_channel_list[i], output_channel_list[i]]
+		            # parameter for conv
+		            if not is_pred:
+		                # Weights
+		                W = tf.get_variable(name='W', shape=filter_shape, dtype=tf.float32,initializer=tf.random_normal_initializer(mean=0, stddev=0.1))
+		                b = tf.get_variable(name='b', shape=[output_channel_list[i]], dtype = tf.float32, initializer = tf.constant_initializer(value=0.1))
+		                # inputs
+		                batch_input_conv = cnn_input_list[i]
+		            else:
+		                # Weights
+		                W = tf.get_variable(name='W')
+		                b = tf.get_variable(name='b')
+		                # inputs
+		                batch_input_conv = cnn_input_list[i]
+		            #print ("batch_input_conv_pad.shape: ", batch_input_conv_pad.shape)
+		            conv = tf.nn.conv2d(
+		                batch_input_conv,  ### shape = [batch_size, encode_length]
+		                W,
+		                strides=[1,2,1,1],
+		                padding = 'VALID', #不进行padding，多余部分丢弃
+		                name='conv',
+		                dilations = [1,dialations_size[i],1,1])
+		            print (conv.shape)
+		            h = tf.nn.relu(tf.nn.bias_add(conv,b), name = 'relu') # [batch_size, encode_length, width=1, ouput_channel]
+		            if i!= (len(filter_size_list)-1):
+		                h = tf.nn.dropout(h, keep_prob)
+		            cnn_input_list.append(h)
+		    cnn_onput_temp = tf.squeeze(h, axis = 2)#[batch_size, num_feature, num_feature_maps] = [64, 21, 40]
+
+
+		    full_connect_output = []
+		    for i in range(cnn_onput_temp.shape[2]):
+		        with tf.variable_scope("fully_connect"+str(i), reuse=is_pred): #input shape: [batch_size, ]
+		            if not is_pred:
+		                W = tf.get_variable(name='W', shape= [cnn_onput_temp.shape[1],cnn_onput_temp.shape[1]],
+		                                    dtype = tf.float32, initializer=tf.random_normal_initializer(mean=0, stddev=0.1))
+		                b = tf.get_variable(name='b', shape=[cnn_onput_temp.shape[1]] , dtype = tf.float32, initializer = tf.constant_initializer(value=0.1))
+		            else:
+		                W = tf.get_variable(name='W')
+		                b = tf.get_variable(name='b')
+		            full_connect_output_temp = tf.nn.xw_plus_b(cnn_onput_temp[:, :, i], W, b, name='full_connect_output_temp')#[batch_size, 21]
+		            #print ("full_connect_output_temp.shape: ", full_connect_output_temp.shape)
+		            full_connect_output.append(tf.expand_dims(full_connect_output_temp, axis=2))
+		    full_connect_output = tf.concat(full_connect_output, axis = 2) #[batch_size, 21, 40]
+		    print ("full_connect_output.shape: ", full_connect_output.shape)
+
+		    #deconv
+		    de_cnn_input_list = []
+		    de_cnn_input_list.append(tf.expand_dims(full_connect_output, axis=2)) #take the last output from cnn as first input for decnn
+		    for i, de_filter_size in enumerate(de_filter_size_list):
+		        with tf.variable_scope("De_CNN-"+str(i), reuse=is_pred):
+		            de_filter_shape = [de_filter_size, 1, de_output_channel_list[i],  de_input_channel_list[i]]
+		            de_output_shape = [batch_size, de_output_height[i], 1, de_output_channel_list[i]]
+		            if not is_pred:
+		                # Weights
+		                W = tf.get_variable(name='W', shape=de_filter_shape, dtype=tf.float32,initializer=tf.random_normal_initializer(mean=0, stddev=0.1))
+		                b = tf.get_variable(name='b', shape=[de_output_channel_list[i]], dtype = tf.float32, initializer = tf.constant_initializer(value=0.1))
+		                # inputs
+
+		                batch_input_de_conv = de_cnn_input_list[i]
+		            else:
+		                # Weights
+		                W = tf.get_variable(name='W')
+		                b = tf.get_variable(name='b')
+		                # inputs
+		                batch_input_de_conv = de_cnn_input_list[i]
+		            de_conv = tf.nn.conv2d_transpose(
+		                batch_input_de_conv,  ### shape = [batch_size, encode_length]
+		                W,
+		                de_output_shape,
+		                strides=[1,2,1,1],
+		                padding = 'VALID', #不进行padding，多余部分丢弃
+		                name='de_conv',
+		                )
+		            print (de_conv.shape)
+		            de_h = tf.nn.relu(tf.nn.bias_add(de_conv,b), name = 'relu') # [batch_size, encode_length, width=1, ouput_channel]
+		            if i!= (len(filter_size_list)-1):
+		                de_h = tf.nn.dropout(de_h, keep_prob)
+		            de_cnn_input_list.append(de_h)
+		    return tf.squeeze(de_h, axis=2) #[batch_size, input_length - 23, ouput_channel=40]
+
+		filter_size_list = [2, 2, 2]
+		dialations_size = [1, 1, 1]
+		input_channel_list = [1,10,20]
+		output_channel_list = [10,20,40]
+
+		de_filter_size_list = [2, 2, 2]
+		de_output_height = [42, 84, 168]
+		de_input_channel_list = [40, 20, 10]
+		de_output_channel_list = [20, 10, 10]
 
 		with tf.variable_scope("RNN"):
-			cnn_output = CNN(self, filter_size_list, dialations_size, input_channel_list, output_channel_list, self.keep_prob, cnn_input=self.cnn_input, is_pred=False,)
-		print ("cnn_output.shape: ", cnn_output.shape)
-		cnn_output_padding = tf.ones(shape = [self.batch_size, 23, hidden_unit], dtype= tf.float32) #padding for first 23 cnn_output
-		self.cnn_output = tf.concat([cnn_output_padding,cnn_output], axis=1)
-		print ("cnn_output.shape after padding: ", self.cnn_output.shape)
+			#cnn_output = CNN(self, filter_size_list, dialations_size, input_channel_list, output_channel_list, self.keep_prob, cnn_input=self.cnn_input, is_pred=False,)
+			self.cnn_output = CNN(self, self.batch_size, 
+		        filter_size_list, dialations_size, input_channel_list, output_channel_list,
+		        de_filter_size_list, de_output_height, de_input_channel_list, de_output_channel_list,
+		        keep_prob=self.keep_prob, cnn_input=self.cnn_input, is_pred=False, )
+		print ("conv_deconv_output.shape: ", self.cnn_output.shape)
+		#cnn_output_padding = tf.ones(shape = [self.batch_size, 23, hidden_unit], dtype= tf.float32) #padding for first 23 cnn_output
+		#self.cnn_output = tf.concat([cnn_output_padding,cnn_output], axis=1)
+		#print ("cnn_output.shape after padding: ", self.cnn_output.shape)
 		self.lstm_input_with_cnn = tf.concat([self.cnn_output, self.lstm_input], axis = 2) #[batch_size, 192, 40+8]
 		#calculate cnn output for predction part
 		cnn_output_average = tf.reduce_mean(self.cnn_output, axis=1) #[batch_size, 10]
@@ -261,11 +329,17 @@ class DeepAR (object):
 
 		def decode_input(self, decode_input_value,time_step, keep_prob):
 			#update lstm_input
-			filter_size_list = [4, 2, 3]
-			dialations_size = [1, 4, 8]
-			input_channel_list = [1,40,20]
-			output_channel_list = [40,20,10]
-			cnn_input = tf.expand_dims(tf.expand_dims(self.lstm_input_with_cnn[:,time_step-24:time_step, self.hidden_unit], axis=2), axis=3) #[batch_size, 24, 1, 1]
+			filter_size_list = [2, 2, 2]
+			dialations_size = [1, 1, 1]
+			input_channel_list = [1,10,20]
+			output_channel_list = [10,20,40]
+
+			de_filter_size_list = [2, 2, 2]
+			de_output_height = [42, 84, 168]
+			de_input_channel_list = [40, 20, 10]
+			de_output_channel_list = [20, 10, 10]
+
+			cnn_input = tf.expand_dims(tf.expand_dims(self.lstm_input_with_cnn[:,time_step-168:time_step, self.hidden_unit], axis=2), axis=3) #[batch_size, 24, 1, 1]
 			cnn_output_latest = CNN(self, filter_size_list, dialations_size, input_channel_list, output_channel_list, self.keep_prob, cnn_input=cnn_input, is_pred=True, ) #[batch_size, length=1, hidden_unit=40]
 			cnn_output_latest = tf.squeeze(cnn_output_latest, axis=1) #[batch_size, hidden_unit=10]
 			decode_input_data = tf.concat([cnn_output_latest,

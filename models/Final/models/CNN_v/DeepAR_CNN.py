@@ -23,7 +23,7 @@ class DeepAR (object):
 				 v_all, #shape: [num_window*num_series(1453*370) , 1]
 				 index_list,
 				 indexs_pred,
-				 mean_all,
+				 #mean_all,
 				):
 
 		self.input_x_all = input_x_all
@@ -38,7 +38,7 @@ class DeepAR (object):
 		self.num_layer = num_layer
 		self.window_size = window_size
 		self.v_all = v_all
-		self.mean_all = mean_all
+		#self.mean_all = mean_all
 		self.index_list=index_list
 		self.indexs_pred = indexs_pred
 
@@ -50,8 +50,8 @@ class DeepAR (object):
 			tf.float32, [None,window_size], name = 'input_y') # [None, 192]
 		self.v = tf.placeholder(
 			tf.float32, [None, 1], name = 'input_v') # [None, 1]
-		self.mean = tf.placeholder(
-			tf.float32, [None, 1], name = 'input_mean') # [None, 1]
+		#self.mean = tf.placeholder(
+		#	tf.float32, [None, 1], name = 'input_mean') # [None, 1]
 		self.batch_size = tf.placeholder(
 			tf.int32, [], name='input_batch')
 		self.keep_prob = tf.placeholder(
@@ -171,7 +171,7 @@ class DeepAR (object):
 								initializer = tf.constant_initializer(value=0.1))
 			for output in outputs:
 				miu_temp = (tf.nn.xw_plus_b(output, W, b, name='miu')) #[None, 1]
-				miu_temp = tf.multiply(miu_temp, self.v)+self.mean #还原scale
+				miu_temp = tf.multiply(miu_temp, self.v) #还原scale
 				miu.append(miu_temp)
 
 			#concate miu in all timesteps
@@ -284,7 +284,7 @@ class DeepAR (object):
 				self.hidden_states_all.append(tf.expand_dims(state_pred, axis = -1))
 				cell_output = tf.nn.relu(cell_output)
 				outputs_pred.append(cell_output) #outputs's length=168, each element's shape: [None, hidden_unit]
-				miu_pred_list.append((tf.multiply(miu_pred(cell_output, self.v, W_pred, b_pred),self.v)+self.mean)) ##update list of miu
+				miu_pred_list.append((tf.multiply(miu_pred(cell_output, self.v, W_pred, b_pred),self.v))) ##update list of miu
 			decode_input_value = miu_pred(cell_output, self.v, W_pred, b_pred) # output => not scaled back miu => next input value
 			decode_input_data = decode_input(self, decode_input_value, self.encode_length, self.keep_prob) #更新decode第一个input的数值
 			for time_step_decode in range(self.encode_length, self.window_size):
@@ -293,7 +293,7 @@ class DeepAR (object):
 				cell_output = tf.nn.relu(cell_output)
 				outputs_pred.append(cell_output)
 				decode_input_value = miu_pred(cell_output, self.v, W_pred, b_pred)
-				miu_pred_list.append((tf.multiply(decode_input_value,self.v)+self.mean)) #update list of miu
+				miu_pred_list.append((tf.multiply(decode_input_value,self.v))) #update list of miu
 				if time_step_decode < (self.window_size-1):
 					decode_input_data = decode_input(self, decode_input_value, time_step_decode+1, self.keep_prob) #更新time_step_decode+1 的 input的数值
 
@@ -385,7 +385,7 @@ class DeepAR (object):
 
 
 
-		def train_step(x_batch,onehot_batch, y_batch,v_batch, mean_batch, batch_size,forget_gate_mask,keep_prob=0.7):
+		def train_step(x_batch,onehot_batch, y_batch,v_batch, batch_size,forget_gate_mask,keep_prob=0.7):
 			#x_batch = np.concatenate((forget_gate_mask, x_batch), axis = 1) #[batch_size, 40+24]
 
 			feed_dict = {
@@ -393,7 +393,7 @@ class DeepAR (object):
 			self.input_x_onehot: onehot_batch,
 			self.input_y: y_batch,
 			self.v :v_batch,
-			self.mean: mean_batch,
+			#self.mean: mean_batch,
 			self.batch_size: batch_size,
 			self.forget_gate_mask: forget_gate_mask,
 			self.keep_prob: keep_prob,
@@ -414,7 +414,7 @@ class DeepAR (object):
 
 		######
 
-		def pred_step(x_batch, onehot_batch, y_batch, v_batch,mean_batch, batch_size,forget_gate_mask, keep_prob=1.0):
+		def pred_step(x_batch, onehot_batch, y_batch, v_batch, batch_size,forget_gate_mask, keep_prob=1.0):
 			#x_batch = np.concatenate((forget_gate_mask, x_batch), axis = 1) #[batch_size, 40+24]
 
 			feed_dict ={
@@ -422,7 +422,7 @@ class DeepAR (object):
 			self.input_x_onehot: onehot_batch,
 			self.input_y: y_batch,
 			self.v :v_batch,
-			self.mean: mean_batch,
+			#self.mean: mean_batch,
 			self.batch_size: batch_size,
 			self.forget_gate_mask: forget_gate_mask,
 			self.keep_prob: keep_prob,
@@ -465,7 +465,7 @@ class DeepAR (object):
 					input_y_batch = self.input_y_all[index]
 					input_onehot_batch = self.input_x_onehot_all[index]
 					input_v_batch = self.v_all[index]
-					input_mean_batch = self.mean_all[index]
+					#input_mean_batch = self.mean_all[index]
 					batch_size = len(index)
 					forget_gate_mask_batch = forget_gate_mask_sample #[batch_size, 40]
 
@@ -483,7 +483,7 @@ class DeepAR (object):
 																	input_onehot_batch,
 																	input_y_batch,
 																	input_v_batch,
-																	input_mean_batch,
+																	#input_mean_batch,
 																	batch_size,
 																	forget_gate_mask_batch,
 																	keep_prob = 0.7,
@@ -504,7 +504,7 @@ class DeepAR (object):
 							input_y_batch_pred = self.input_y_all[index_pred]
 							input_onehot_batch_pred = self.input_x_onehot_all[index_pred]
 							input_v_batch_pred = self.v_all[index_pred]
-							input_mean_batch_pred = self.mean_all[index_pred]
+							#input_mean_batch_pred = self.mean_all[index_pred]
 							batch_size_pred = len(index_pred)
 							forget_gate_mask_batch_pred =  forget_gate_mask_sample
 
@@ -512,7 +512,7 @@ class DeepAR (object):
 																			 input_onehot_batch_pred,
 																			 input_y_batch_pred,
 																			 input_v_batch_pred,
-																			 input_mean_batch_pred,
+																			 #input_mean_batch_pred,
 																			 batch_size_pred,
 																			 forget_gate_mask_batch_pred,
 																			 keep_prob = 1.0)
@@ -540,7 +540,7 @@ class DeepAR (object):
 						#print (input_y_batch_pred)
 						print ("miu_pred.shape",miu_pred.shape)
 						#print (miu_pred)
-						saver.save(sess, '../../checkpoint/checkpoint_CNN_Fuahui/DeepAR_model',global_step = step)
+						saver.save(sess, '../../checkpoint/checkpoint_CNN_Fuahui_v/DeepAR_model',global_step = step)
 						plot(input_y_batch_pred, miu_pred, miu_pred, 8, step)
 						print ("Update 1.png")
 
@@ -597,7 +597,7 @@ shift_train_label = np.load("../../data/huawei/shift_train_label.npy")
 param = np.load("../../data/huawei/param.npy")
 index_list = np.load("../../data/huawei/indexs_list.npy")
 indexs_pred_list = np.load("../../data/huawei/indexs_pred_list.npy")
-mean_all = np.load("../../data/huawei/mean.npy")
+#mean_all = np.load("../../data/huawei/mean.npy")
 '''
 
 #Fake data
@@ -617,7 +617,7 @@ print ("shift_train_label.shape: ", shift_train_label.shape )
 print ("param.shape: ", param.shape )
 print ("index_list.shape: ", index_list.shape )
 print ("indexs_pred_list.shape: ", indexs_pred_list.shape )
-print ("mean_all.shape: ", mean_all.shape )
+#print ("mean_all.shape: ", mean_all.shape )
 
 
 (num_covar,
@@ -629,15 +629,7 @@ hidden_unit, #40
 num_layer,
 window_size,
 )=param.tolist()
-print (num_covar,
-encode_length,
-decode_length ,
-num_series, #370
-embedding_output_size, #20
-hidden_unit, #40
-num_layer,
-window_size)
-print ("************************************************")
+
 Model = DeepAR(
 				input_x_all=shift_train_data, #shape:[num_window*num_series(1453*370), window_size,4]
 				 input_y_all=shift_train_label, #shape: [num_window*num_series(1453*370),window_size]
@@ -654,6 +646,6 @@ Model = DeepAR(
 				 index_list = index_list,
 				 indexs_pred = indexs_pred_list,
 
-				 mean_all = mean_all,
+				 #mean_all = mean_all,
 				)
 Model.train()

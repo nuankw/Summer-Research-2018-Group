@@ -138,7 +138,7 @@ def prepare():
 	shift_train_data = [] #data + 3 covariates for each window
 	shift_train_onehot = [] #onehot vectors indicating which serie
 	v = []	# vi for each window
-	means = []
+	#means = []
 	shift_train_label = [] #label for each window
 
 	#file_list = ["./data/processed/0201_"+str(i)+".csv" for i in range(100)]
@@ -156,17 +156,17 @@ def prepare():
 		for serie in range(num_series):	 # loop through all time series
 			for i in range(num_window):
 				#computing Vi for each window
-				#vi = np.sum(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis = 0)  #data[i:i+window_size,serie] is a single window
-				#vi = np.true_divide(vi, window_size)+1
-				vi = np.std(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis=0)
-				mean = np.mean(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis=0)
+				vi = np.sum(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis = 0)  #data[i:i+window_size,serie] is a single window
+				vi = np.true_divide(vi, window_size)+1
+				#vi = np.std(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis=0)
+				#mean = np.mean(np.array(data[i*24:i*24+window_size,serie], dtype = np.float64), axis=0)
 				#if vi ==0 and mean==0:
-				#	break
+				if vi ==1 :
+					break
 
-				if vi!=0:
-					temp_shift_train_data = np.true_divide((np.array(data[i*24:i*24+window_size,serie], dtype = np.float64)-mean),vi ).reshape([1,window_size])
-				else:
-					temp_shift_train_data = (np.array(data[i*24:i*24+window_size,serie], dtype = np.float64)-mean).reshape([1,window_size])
+
+				temp_shift_train_data = np.true_divide((np.array(data[i*24:i*24+window_size,serie], dtype = np.float64)),vi ).reshape([1,window_size])
+
 				#print ("temp_shift_train_data.shape: ",temp_shift_train_data.shape)
 				temp_hour = hour_of_the_day[i*24:i*24+window_size,serie].reshape([1,window_size])
 				temp_day = day_of_the_week[i*24:i*24+window_size,serie].reshape([1,window_size])
@@ -175,7 +175,7 @@ def prepare():
 				shift_train_data.append(temp_train) #
 				shift_train_onehot.append(num_2_onehot(serie, num_series))
 				v.append(vi)
-				means.append(mean)
+				#means.append(mean)
 				#No scaling for label
 				shift_train_label.append((data[i*24+1:i*24+window_size+1,serie]))
 
@@ -185,14 +185,14 @@ def prepare():
 	shift_train_onehot = np.array(shift_train_onehot)
 	#shape:[, 1]
 	v = np.expand_dims(np.array(v), axis=1)
-	means = np.expand_dims(np.array(means), axis=1)
+	#means = np.expand_dims(np.array(means), axis=1)
 	#shape: [, window_size]
 	shift_train_label = np.array(shift_train_label)
 
 	print ("shift_train_data.shape:", shift_train_data.shape)
 	print ("shift_train_onehot.shape: ",shift_train_onehot.shape)
 	print ("v.shape: ",v.shape)
-	print ("means.shape: ",means.shape)
+	#print ("means.shape: ",means.shape)
 	print ("shift_train_label.shape:", shift_train_label.shape)
 	##### permutation ####
 	num_window_all = shift_train_data.shape[0]
@@ -225,7 +225,7 @@ def prepare():
 	return (shift_train_data,
 			shift_train_onehot,
 			v,
-			means,
+			#means,
 			shift_train_label,
 			param,
 			indexs_list,
@@ -235,7 +235,7 @@ def prepare():
 (shift_train_data,
 shift_train_onehot,
 v,
-means,
+#means,
 shift_train_label,
 param,
 indexs_list,
@@ -244,7 +244,7 @@ indexs_pred_list)=prepare()
 np.save("../data/huawei/shift_train_data.npy",shift_train_data)
 np.save("../data/huawei/shift_train_onehot.npy",shift_train_onehot)
 np.save("../data/huawei/v.npy",v)
-np.save("../data/huawei/mean.npy", means)
+#np.save("../data/huawei/mean.npy", means)
 np.save("../data/huawei/shift_train_label.npy",shift_train_label)
 np.save("../data/huawei/param.npy", param)
 np.save("../data/huawei/indexs_list.npy", indexs_list)
