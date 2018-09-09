@@ -6,7 +6,7 @@ checkpoint/
 data/
 .DS_Store
 .npy
-
+nohup.out
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -117,6 +117,3 @@ __pycache__
 .ipynb_checkpoints/
 *.npy
 nohup.out
-
-
-
