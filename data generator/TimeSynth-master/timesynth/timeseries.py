@@ -23,24 +23,25 @@ class TimeSeries:
 
     def sample(self, time_vector):
         """Samples from the specified TimeSeries.
-        
+
         Parameters
         ----------
         time_vector : numpy array
             Times at which to generate a sample
-            
+
         Returns
         -------
         samples, signals, errors, : tuple (array, array, array)
             Returns samples, and the signals and errors they were constructed from
         """
-        
+
         # Vectorize if possible
         if self.signal_generator.vectorizable and not self.noise_generator is None and self.noise_generator.vectorizable:
             signals = self.signal_generator.sample_vectorized(time_vector)
             errors = self.noise_generator.sample_vectorized(time_vector)
             samples = signals + errors
         elif self.signal_generator.vectorizable and self.noise_generator is None:
+            # print("here!!")
             signals = self.signal_generator.sample_vectorized(time_vector)
             errors = np.zeros(len(time_vector))
             samples = signals

@@ -37,7 +37,8 @@ class Pattern_generator:
         self.series_length = self.stop_time # this is correct! since starting point range from zero to stop_time  e.g. 0__1__2
         # when plotting, stop_time will not be shown.
         self.time_sampler = ts.TimeSampler(stop_time=self.stop_time)
-        self.irregular_time_samples = self.time_sampler.sample_irregular_time(num_points=self.stop_time + 1,keep_percentage=100) # + 1 here to fix the bug
+        #self.time_samples = self.time_sampler.sample_irregular_time(num_points=self.stop_time + 1,keep_percentage=100) # + 1 here to fix the bug
+        self.time_samples = self.time_sampler.sample_regular_time(num_points=self.stop_time+1) # + 1 here to fix the bug
 
         # initialize time series pattern
         self.period = period
@@ -45,11 +46,16 @@ class Pattern_generator:
         self.std = std
         self.ftype = ftype
         self.signal_type = signal_type
-        self.signal_generator = self.signal_type(amplitude=self.amplitude, frequency=1/self.period, ftype=self.ftype)
-        self.white_noise_generator = ts.noise.GaussianNoise(std=self.std)
+        if signal_type == ts.signals.PseudoPeriodic:
+            self.signal_generator = self.signal_type(amplitude=self.amplitude, frequency=1/self.period, ftype=self.ftype, ampSD=0, freqSD=24,)
+        else:
+            self.signal_generator = self.signal_type(amplitude=self.amplitude, frequency=1/self.period, ftype=self.ftype)
+        self.white_noise_generator = None
+
         self.timeseries = ts.TimeSeries(signal_generator=self.signal_generator, noise_generator=self.white_noise_generator)
         # generate data
-        self.samples, self.signals, self.errors = self.timeseries.sample(self.irregular_time_samples)
+        self.samples, self.signals, self.errors = self.timeseries.sample(self.time_samples)
+
 
     def get_smooth_values(self): # less anomaly
         return self.signals
@@ -63,16 +69,25 @@ class Pattern_generator:
     def set_bumpy_values(self, new_samples):  # more like real-life data
         self.samples = new_samples
 
-    def plot(self,plot_the_smoother_line = True, plot_till=None):
+    def plot(self,plot_the_smoother_line = True, plot_start = None, plot_till=None, filename = None):
         if (plot_the_smoother_line):
             y = self.get_smooth_values()
         else:
             y = self.get_bumpy_values()
         f = plt.figure()
         if (plot_till==None):
-            plt.plot(np.arange(self.series_length+1), y) # to fix the same bug <-- no longer bug
+            if (plot_start == None):
+                plt.plot(np.arange(self.series_length+1), y) # to fix the same bug <-- no longer bug
+            else:
+                plt.plot(np.arange(self.series_length+1-plot_start), y[plot_start:])
         else:
-            plt.plot(np.arange(plot_till), y[:plot_till])
+            if (plot_start == None):
+                plt.plot(np.arange(plot_till), y[:plot_till])
+            else:
+                plt.plot(np.arange(plot_till-plot_start), y[plot_start:plot_till])
+
+        if (filename != None):
+            plt.savefig(filename+".jpg")
 
     def move_to_above_zero(self):
         smooth_value_min = min(self.get_smooth_values())
@@ -165,7 +180,7 @@ def pattern_mixer(pattern_generator_1, pattern_generator_2,  position_tuple_list
     set_values(orig_data)
     return orig_data
 
-def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False,):
+def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_the_smoother_line=False, fileName_start_with = None,):
     len_ndarray = np.random.normal(loc=length_mean, scale=length_std, size=num)
     len_ndarray = len_ndarray.astype(int)
     if verbose:
@@ -173,12 +188,13 @@ def get_pulse_list(num, length_mean, length_std, amplitude, verbose=True, plot_t
     pattern_list = []
     for i in range(num):
         len = len_ndarray[i]
-        scale = 0.8 # for amplitude, according to observations
-        pattern = Pattern_generator(stop_time=len, period=(len)*2, amplitude=amplitude*scale, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
+        pattern = Pattern_generator(stop_time=len, period=len, amplitude=amplitude, std=length_std, ftype = np.sin, signal_type = ts.signals.Sinusoidal)
         pattern.move_to_above_zero()
         pattern_list.append(pattern)
         if verbose:
             pattern_list[i].plot(plot_the_smoother_line)
+            if fileName_start_with != None:
+                plt.savefig(fileName_start_with+"_"+str(i+1)+".jpg")
     return pattern_list
 
 def day_list_2_end_start_tuple_list(day_list, morning_start_at = 0, night_end_at = 23 ):
