@@ -1,5 +1,5 @@
 # Summer Research Project on Time Series Prediction
-Contributors in alphabetical order: Chen Song, Nuan Wen, Yunkai Zhang
+Contributors in alphabetical order: Chen Song, Nuan Wen, Yunkai Zhang 
 Supervisors: Prof.Xifeng Yan, Mr.Xiaoyong Jin, UCSB
 
 # Summary of branches
